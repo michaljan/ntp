@@ -1,0 +1,4 @@
+ntp:
+    resource: "@NTPBundle/Controller/"
+    type:     annotation
+    prefix:   /
