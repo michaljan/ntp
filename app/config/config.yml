@@ -76,3 +76,9 @@ fos_user:
     user_class: NTPBundle\Entity\User
     group:
         group_class: NTPBundle\Entity\Group
+
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~
