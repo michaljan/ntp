@@ -12,7 +12,7 @@
         {% javascripts '@NTPBundle/Resources/public/js/*' %}
             <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
-        {% stylesheets '@NTPBundle/Resources/public/css/*' filter='cssrewrite' %}
+        {% stylesheets 'bundles/ntp/css/*' filter='cssrewrite' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
     </head>
