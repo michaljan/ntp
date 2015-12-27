@@ -1,8 +1,7 @@
 {% extends 'NTPBundle::base.html.twig' %}
 {% block body %}
-        {% block fos_user_content %}
-            {% if error %}
-         <div>{{ error|trans }}</div>
+        {% if error %}
+            <div>{{ error|trans }}</div>
         {% endif %}
 
         <form action="{{ path("fos_user_security_check") }}" method="post">
@@ -19,6 +18,5 @@
 
         <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
         </form>
-
-    {% endblock %}
+        
 {% endblock %}
