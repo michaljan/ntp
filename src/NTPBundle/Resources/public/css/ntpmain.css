@@ -1,4 +1,5 @@
 .body-login-background {
     background-image: url(../images/dhlbackground.jpg);
     background-repeat: no-repeat;
+    background-size: cover;
 }
