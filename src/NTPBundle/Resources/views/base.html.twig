@@ -14,18 +14,25 @@
         {% endjavascripts %}
         {% stylesheets 'bundles/ntp/css/*' filter='cssrewrite' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         {% endstylesheets %}
     </head>
     <body>
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-       
-       {% block body %}{% endblock %}
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                {{ knp_menu_render('NTPBundle:Builder:mainMenu') }}
+          </div><!-- /.container-fluid -->
+        </nav>
+    
+        {% block body %}{% endblock %}
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-
+        <script rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
