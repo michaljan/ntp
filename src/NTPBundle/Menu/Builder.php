@@ -12,8 +12,8 @@ class Builder implements ContainerAwareInterface
     public function mainMenu(FactoryInterface $factory, array $options)
     {
         $menu = $factory->createItem('root');
-        $menu->setChildrenAttribute('class', 'dropdown-menu');
-        $menu->addChild('Home', array())->setAttribute('class', '');
+        $menu->setChildrenAttribute('class', 'nav pull-right');
+        $menu->addChild('Home', array())->setAttribute('dropdown', true)->setAttribute('icon', 'icon-user');
         return $menu;
     }
 }
