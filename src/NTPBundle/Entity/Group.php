@@ -17,4 +17,33 @@ class Group extends BaseGroup
      * @ORM\GeneratedValue(strategy="AUTO")
      */
      protected $id;
+     
+     /**
+     * @ORM\ManyToMany(targetEntity="NTPBundle\Entity\Menu", inversedBy="groups")
+     * @ORM\JoinTable(name="groups_menus")
+     **/
+    private $menus;
+    
+    public function __construct() {
+        
+        $this->menus = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * 
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    
+    public function getMenus()
+    {
+        return $this->menus;
+    }
+    
+    
+    public function setMenus(NTPBundle\Entity\Menu $menus)
+    {
+        $this->menus = $menus;
+
+        return $this;
+    }
 }
