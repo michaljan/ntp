@@ -9,28 +9,29 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 class Builder implements ContainerAwareInterface {
 
     use ContainerAwareTrait;
-
+    public function __construct(EntityManager $em,  Container $container) {
+        $this->container = $container;
+        $this->em=$em;
+        $this->groups = $this->container->get('security.token_storage')->getToken()->getUser()->getGroups();
+    }
+    
+    
     public function mainMenu(FactoryInterface $factory, array $options) {
         $securityContext = $this->container->get('security.authorization_checker');
+        $menu = $factory->createItem('root');
+        $menu->setChildrenAttribute('class', 'nav navbar-nav');
         if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $username = $this->container->get('security.context')->getToken()->getUser()->getUsername();
-            
-            $menu = $factory->createItem('root');
-            $menu->setChildrenAttribute('class', 'nav navbar-nav');
-            /*
-              You probably want to show user specific information such as the username here. That's possible! Use any of the below methods to do this.
-
-              if($this->container->get('security.context')->isGranted(array('ROLE_ADMIN', 'ROLE_USER'))) {} // Check if the visitor has any authenticated roles
-              $username = $this->container->get('security.context')->getToken()->getUser()->getUsername(); // Get username of the current logged in user
-
-             */
-            $menu->addChild('User', array('label' => 'Hi visitor'))
-                    ->setAttribute('dropdown', true)
-                    ->setAttribute('icon', 'icon-user');
-
-            $menu['User']->addChild('Edit profile', array('route' => 'ntp_default_index'))
-                    ->setAttribute('icon', 'icon-edit');
-            return $menu;
+            foreach($this->groups as $group ){
+                if($menuItem->getSubLevel()==0){
+                     $menu->addChild($menuItem->getName(),array('uri' => '#', 'label' =>$menuItem->getName()))
+                      ->setAttribute('dropdown', true)
+                      ->setAttribute('icon', 'icon-user');
+                }else
+                    $rootLevel=$this->em->getRepository('JeleniaplastBundle:Menu')-> findOneByLevel($menuItem->getLevel());
+                    //\Doctrine\Common\Util\Debug::dump($rootLevel->getName);
+                    $menu[$rootLevel->getName()]->addChild($menuItem->getName(), array('route' => $menuItem->getRoute()));
+            }
+                return $menu;
         }
         return null;
     }
