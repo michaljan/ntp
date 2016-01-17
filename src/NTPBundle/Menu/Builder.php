@@ -5,6 +5,7 @@ namespace NTPBundle\Menu;
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use NTPBundle\Entity;
 
 class Builder implements ContainerAwareInterface {
 
