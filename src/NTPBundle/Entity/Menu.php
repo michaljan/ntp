@@ -58,7 +58,7 @@ class Menu
     
     /**
      * @ORM\ManyToMany(targetEntity="NTPBundle\Entity\Group", mappedBy="menus")
-     * 
+     * @ORM\JoinTable(name="groups_menus")
      **/
     private $groups;
 
