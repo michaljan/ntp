@@ -1,5 +1,5 @@
 services:
-    ntp.menu:
-        class: NTPBundle\Menu\Builder
-        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+#    ntp.menu:
+#        class: NTPBundle\Menu\Builder
+#        arguments: [ @doctrine.orm.entity_manager  ]
             

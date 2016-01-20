@@ -6,22 +6,17 @@ use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use NTPBundle\Entity\Group as Group;
+use NTPBundle\Entity\Menu as Menu;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class Builder implements ContainerAwareInterface {
 
     use ContainerAwareTrait;
-    public function __construct(EntityManager $em,  Container $container) {
-        $this->container = $container;
-        $this->em=$em;
-        $this->groups = $this->container->get('security.token_storage')->getToken()->getUser()->getGroups(); 
-        
-    }
-    
     
     public function mainMenu(FactoryInterface $factory, array $options) {
-        $menuItem = new Entity\Menu;
+        $menuItem = new Menu;
+        $this->groups = $this->container->get('security.token_storage')->getToken()->getUser()->getGroups();
         $securityContext = $this->container->get('security.authorization_checker');
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav');
