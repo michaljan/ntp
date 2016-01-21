@@ -26,4 +26,22 @@ class User extends BaseUser
      * )
      */
     protected $groups;
+    
+    public function __construct() {
+        
+        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+    
+    
+    public function setGroups(NTPBundle\Entity\Group $groups)
+    {
+        $this->groups = $groups;
+
+        return $this;
+    }
 }
