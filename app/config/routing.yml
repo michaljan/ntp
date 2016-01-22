@@ -12,3 +12,7 @@ fos_user_group:
 
 logout:
     path: /logout
+    
+paragon_upload:
+    path : /uploadparagon
+    defaults:  { _controller: NTPBundle:File:uploadParagon }
