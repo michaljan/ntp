@@ -41,10 +41,11 @@ class ParagonUpload {
      */
     public $uploadedAt;
 
-    /**
-     *
-     * @Assert\Date()
-     */
+/**
+ * @var date $planDate
+ *
+ * @ORM\Column(name="planDate", type="date", nullable=true)
+ */
     public $planDate;
 
     public function getUploadedAt() {
