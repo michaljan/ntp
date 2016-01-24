@@ -12,8 +12,12 @@ class UploadType extends AbstractType {
         $builder
                 ->add('file')
                 ->add('planDate','date',array('widget'=>'single_text',
-                                               'format'=>'dd-MM-yyyy',
-                                                'attr' => array('class' => 'date')));
+                                               'format'=>'dd/MM/yyyy',
+                                               'data'=> new \DateTime(),
+                                               'attr' => array('class' => 'form-control')
+                                               
+                      ))
+                ;
     
     }
      public function configureOptions(OptionsResolver $resolver)

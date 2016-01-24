@@ -1,0 +1,15 @@
+div.body-login-background {
+    background: url(../../bundles/ntp/images/dhlbackground.jpg) no-repeat center center;
+    background-size: 80%;  
+    height:520px;
+    width:auto;
+}
+
+div.body-login-container{
+    position: absolute;
+    top: 20%;
+    right: 10%;
+    width: 300px;
+    padding: 10px;
+    
+}

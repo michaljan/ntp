@@ -1,9 +1,18 @@
 {% extends 'NTPBundle::base.html.twig' %}
 {% block body %}
- {{ form_start(form) }}
-    {{ form_errors(form) }}
+    <div class="row">
+        <div class="col-md-5"></div>
+        <div class="col-md-2">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
 
-    {{ form_row(form.file) }}
-    {{ form_row(form.planDate) }}
-{{ form_end(form) }}
+            {{ form_row(form.file) }}
+            <br/>
+            {{ form_row(form.planDate) }}
+            <br/>
+            <input type="submit" value="Upload Document"/>
+            {{ form_end(form) }}
+        </div>
+        <div class="col-md-5"></div>
+    </div>
 {% endblock %}

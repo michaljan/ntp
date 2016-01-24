@@ -14,6 +14,7 @@ class FileController extends Controller
     $paragonUpload = new Entity\ParagonUpload;
     $form=$this->get('form.factory')->create(new UploadType($paragonUpload));
     $form->handleRequest($request);
+    
     if ($form->isValid()) {
         $em = $this->getDoctrine()->getManager();
         $em->persist($document);
