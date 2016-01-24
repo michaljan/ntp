@@ -5,14 +5,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use NTPBundle\Entity as Entity;
 use NTPBundle\Form\UploadType;
+use Symfony\Component\HttpFoundation\Request;
 
 class FileController extends Controller
 {
-    public function uploadParagonAction()
+    public function uploadParagonAction(Request $request)
     {
     $paragonUpload = new Entity\ParagonUpload;
-    $form = new UploadType();
-    $form->buildForm($paragonUpload, $options);
+    $form=$this->get('form.factory')->create(new UploadType($paragonUpload));
     $form->handleRequest($request);
     if ($form->isValid()) {
         $em = $this->getDoctrine()->getManager();

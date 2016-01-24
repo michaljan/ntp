@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="{{ asset_url }}" />
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/i18n/jquery-ui-i18n.min.js">
         {% endstylesheets %}
     </head>
     <body>
@@ -52,7 +53,11 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
+<script type=”text/javascript”>
+    $(document).ready(function() {
+            $('.date').datepicker({ dateFormat: 'dd-mm-yy' })
+    });
+ </script>
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>
     (function (b, o, i, l, e, r) {

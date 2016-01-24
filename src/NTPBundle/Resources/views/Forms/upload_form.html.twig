@@ -1,4 +1,9 @@
 {% extends 'NTPBundle::base.html.twig' %}
 {% block body %}
-    <p>Upload</p>
+ {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.file) }}
+    {{ form_row(form.planDate) }}
+{{ form_end(form) }}
 {% endblock %}
