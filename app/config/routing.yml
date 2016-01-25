@@ -15,4 +15,4 @@ logout:
     
 paragon_upload:
     path : /uploadparagon
-    defaults:  { _controller: NTPBundle:File:uploadParagon }
+    defaults:  { _controller: NTPBundle:File:uploadFile }

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
-class ParagonUpload {
+class FileUpload {
 
     /**
      * @ORM\Id
@@ -59,7 +59,7 @@ class ParagonUpload {
      *
      * @param \DateTime $uploadedAt
      * @ORM\PrePersist
-     * @return ParagonUpload
+     * @return FileUpload
      */
     public function setUploadedAt() {
 

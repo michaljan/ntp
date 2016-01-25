@@ -2,7 +2,7 @@
 namespace NTPBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use NTPBundle\Entity\ParagonUpload;
+use NTPBundle\Entity\FileUpload;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -12,9 +12,9 @@ class FileController extends Controller
     /**
  * @Template()
  */
-    public function uploadParagonAction(Request $request)
+    public function uploadFileAction(Request $request)
     {
-    $paragonUpload = new ParagonUpload;
+    $fileUpload = new FileUpload();
     $form = $this->createFormBuilder($paragonUpload)
                 ->add('name')
                 ->add('file')
@@ -31,7 +31,7 @@ class FileController extends Controller
     
     if ($form->isValid()) {
         $em = $this->getDoctrine()->getManager();
-        $em->persist($paragonUpload);
+        $em->persist($fileUpload);
         $em->flush();
         return $this->render('NTPBundle:Default:index.html.twig');
     }
