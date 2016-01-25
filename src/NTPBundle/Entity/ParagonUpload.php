@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  */
 class ParagonUpload {
 
@@ -35,22 +36,36 @@ class ParagonUpload {
     public $file;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(name="uploaded_at", type="datetime")
      *
      * @var \DateTime
      */
     public $uploadedAt;
 
-/**
- * @var date $planDate
- *
- * @ORM\Column(name="planDate", type="date", nullable=true)
- */
+    /**
+     * @var date $planDate
+     *
+     * @ORM\Column(name="planDate", type="date", nullable=true)
+     */
     public $planDate;
 
     public function getUploadedAt() {
 
-        return $this->uploadedAt = new \DateTime('now');
+        return $this->uploadedAt;
+    }
+
+    /**
+     * Set uploadedAt
+     *
+     * @param \DateTime $uploadedAt
+     * @ORM\PrePersist
+     * @return ParagonUpload
+     */
+    public function setUploadedAt() {
+
+        if (!$this->uploadedAt) {
+            $this->uploadedAt = new \DateTime();
+        }
     }
 
     public function getAbsolutePath() {
@@ -61,14 +76,15 @@ class ParagonUpload {
         return null === $this->path ? null : $this->getUploadDir() . '/' . $this->path;
     }
 
-    protected function getUploadRootDir() {
+    public function getUploadRootDir() {
         // the absolute directory path where uploaded documents should be saved
-        return __DIR__ . '/../../../../data/' . $this->getUploadDir();
+        //return __DIR__ . '/' . $this->getUploadDir();
+        return 'C:\wamp\www\data' . $this->getUploadDir() ;
     }
 
     protected function getUploadDir() {
         // get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view.
-        return 'uploads';
+        return '\uploads';
     }
 
     /**
@@ -85,18 +101,16 @@ class ParagonUpload {
         } else {
             $this->path = 'initial';
         }
-
     }
-    
-     /**
+
+    /**
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
-    public function preUpload()
-    {
+    public function preUpload() {
         if (null !== $this->getFile()) {
-            $filename =  $this->getFile()->getClientOriginalName();
-            $this->path = $filename.'.'.$this->getFile()->guessExtension();
+            $filename = $this->getFile()->getClientOriginalName();
+            $this->path = $filename; // . '.' . $this->getFile()->guessExtension();
         }
     }
 
@@ -104,8 +118,7 @@ class ParagonUpload {
      * @ORM\PostPersist()
      * @ORM\PostUpdate()
      */
-    public function upload()
-    {
+    public function upload() {
         if (null === $this->getFile()) {
             return;
         }
@@ -118,7 +131,7 @@ class ParagonUpload {
         // check if we have an old image
         if (isset($this->temp)) {
             // delete the old image
-            unlink($this->getUploadRootDir().'/'.$this->temp);
+            unlink($this->getUploadRootDir() . '/' . $this->temp);
             // clear the temp image path
             $this->temp = null;
         }
@@ -128,13 +141,13 @@ class ParagonUpload {
     /**
      * @ORM\PostRemove()
      */
-    public function removeUpload()
-    {
+    public function removeUpload() {
         $file = $this->getAbsolutePath();
         if ($file) {
             unlink($file);
         }
     }
+
     /**
      * Get file.
      *

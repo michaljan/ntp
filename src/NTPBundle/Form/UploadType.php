@@ -10,6 +10,7 @@ class UploadType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
+                ->add('name')
                 ->add('file')
                 ->add('planDate','date',array('widget'=>'single_text',
                                                'format'=>'dd/MM/yyyy',
@@ -17,6 +18,7 @@ class UploadType extends AbstractType {
                                                'attr' => array('class' => 'form-control')
                                                
                       ))
+                
                 ;
     
     }
