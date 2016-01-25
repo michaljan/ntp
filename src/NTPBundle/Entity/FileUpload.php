@@ -48,7 +48,14 @@ class FileUpload {
      * @ORM\Column(name="planDate", type="date", nullable=true)
      */
     public $planDate;
-
+    
+    /**
+     * @var date $dataset
+     *
+     * @ORM\Column(name="dataset", type="string", length=255, nullable=true)
+     */
+    public $dataset;
+    
     public function getUploadedAt() {
 
         return $this->uploadedAt;
@@ -175,4 +182,23 @@ class FileUpload {
         return $this->planDate;
     }
 
-}
+
+    /**
+     * Set dataset
+     *
+     * @param string $dataset
+     */
+    public function setDataset($dataset) {
+        $this->dataset = $dataset;
+    }
+
+    /**
+     * Get dataset
+     *
+     * @return string
+     */
+    public function getDataset() {
+        return $this->dataset;
+    }
+
+    }

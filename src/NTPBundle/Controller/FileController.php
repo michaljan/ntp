@@ -12,10 +12,10 @@ class FileController extends Controller
     /**
  * @Template()
  */
-    public function uploadFileAction(Request $request)
+    public function uploadFileAction(Request $request,$dataset)
     {
     $fileUpload = new FileUpload();
-    $form = $this->createFormBuilder($paragonUpload)
+    $form = $this->createFormBuilder($fileUpload)
                 ->add('name')
                 ->add('file')
                 ->add('planDate','date',array('widget'=>'single_text',
@@ -30,6 +30,7 @@ class FileController extends Controller
     $form->handleRequest($request);
     
     if ($form->isValid()) {
+        $fileUpload->setDataset($dataset);
         $em = $this->getDoctrine()->getManager();
         $em->persist($fileUpload);
         $em->flush();
