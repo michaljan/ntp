@@ -18,8 +18,3 @@ paragon_upload:
     defaults:
         _controller: NTPBundle:File:uploadFile
         dataset: "Paragon"
-
-process_CSV:
-    path : /processcsv
-    defaults:
-        _controller: NTPBundle:ProcessFile:importCSV

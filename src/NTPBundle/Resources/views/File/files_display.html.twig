@@ -1,0 +1,9 @@
+{% extends 'NTPBundle::base.html.twig' %}
+{% block body %}
+<table class="table table-condensed">
+    {% for item in fileProcessed %}
+        {{ item }}
+    {% endfor %}
+        
+</table>
+{% endblock %}

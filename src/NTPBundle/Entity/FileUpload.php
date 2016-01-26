@@ -56,6 +56,17 @@ class FileUpload {
      */
     public $dataset;
     
+    /**
+     * @var boolean $processed
+     *
+     * @ORM\Column(name="processed", type="boolean", length=255)
+     */
+    public $processed;
+    
+    public function __construct() {
+        $this->processed=false;
+    }
+    
     public function getUploadedAt() {
 
         return $this->uploadedAt;
@@ -199,6 +210,24 @@ class FileUpload {
      */
     public function getDataset() {
         return $this->dataset;
+    }
+    
+        /**
+     * Set processed
+     *
+     * @param boolean $processed
+     */
+    public function setProcessed($processed) {
+        $this->processed = $processed;
+    }
+
+    /**
+     * Get processed
+     *
+     * @return boolean
+     */
+    public function getProcessed() {
+        return $this->processed;
     }
 
     }
