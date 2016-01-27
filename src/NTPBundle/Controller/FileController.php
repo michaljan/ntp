@@ -34,33 +34,22 @@ class FileController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($fileUpload);
             $em->flush();
-            $processed=false;
-            $this->displayFilesAction($processed);
+            $this->displayFilesAction();
         }
 
         return $this->render('NTPBundle:Forms:upload_form.html.twig', array('form' => $form->createView()));
     }
 
-    public function displayFilesAction($processed) {
- //       $this->processed=$processed;
+    public function displayFilesAction() {
         $fileUpload = new FileUpload();
         $em = $this->getDoctrine()->getManager();
-        //if($this->processed === true || $this->processed === false){
-//        $fileProcessed = $em->getRepository($fileUpload)
-//                ->findByProcessed('1');
-//        }
-//        else{
-//        $fileProcessed = $em->getRepository($fileUpload)
-//                ->findBy(array(),array('id'=>'DESC'),10,0);
-//        }
-//
-//        if (!$fileProcessed) {
-//            throw $this->createNotFoundException(
-//                    'No files to process'
-//            );
-//        
-//        }
-        return $this->render('NTPBundle:File:files_display.html.twig');//, array('fileProcessed' => $fileProcessed));
+        $fileProcessed = $em->getRepository('NTPBundle:FileUpload')
+                ->findByProcessed( 0 ,array('id'=>'DESC'),10,0);
+        return $this->render('NTPBundle:File:files_display.html.twig', array('fileProcessed' => $fileProcessed));
+    }
+    
+    public function processCsvAction(){
+        return $this->render('NTPBundle:File:file_processed.html.twig');
     }
 
 }

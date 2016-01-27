@@ -48,25 +48,25 @@ class FileUpload {
      * @ORM\Column(name="planDate", type="date", nullable=true)
      */
     public $planDate;
-    
+
     /**
      * @var date $dataset
      *
      * @ORM\Column(name="dataset", type="string", length=255, nullable=true)
      */
     public $dataset;
-    
+
     /**
      * @var boolean $processed
      *
      * @ORM\Column(name="processed", type="boolean", length=255)
      */
     public $processed;
-    
+
     public function __construct() {
-        $this->processed=false;
+        $this->processed = false;
     }
-    
+
     public function getUploadedAt() {
 
         return $this->uploadedAt;
@@ -97,7 +97,7 @@ class FileUpload {
     public function getUploadRootDir() {
         // the absolute directory path where uploaded documents should be saved
         //return __DIR__ . '/' . $this->getUploadDir();
-        return 'C:\wamp\www\data' . $this->getUploadDir() ;
+        return 'C:\wamp\www\data' . $this->getUploadDir();
     }
 
     protected function getUploadDir() {
@@ -193,7 +193,6 @@ class FileUpload {
         return $this->planDate;
     }
 
-
     /**
      * Set dataset
      *
@@ -211,8 +210,8 @@ class FileUpload {
     public function getDataset() {
         return $this->dataset;
     }
-    
-        /**
+
+    /**
      * Set processed
      *
      * @param boolean $processed
@@ -230,4 +229,58 @@ class FileUpload {
         return $this->processed;
     }
 
+    /**
+     * Set name
+     *
+     * @param string $name
+     */
+    public function setName($name) {
+        $this->name = $name;
     }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName() {
+        return $this->name;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     */
+    public function setPath($path) {
+        $this->path = $path;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath() {
+        return $this->path;
+    }
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     */
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+}

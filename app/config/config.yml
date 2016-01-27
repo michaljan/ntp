@@ -41,7 +41,7 @@ twig:
     strict_variables: "%kernel.debug%"
     form_themes:
         # other form themes
-        - 'VichUploaderBundle:Form:fields.html.twig'
+        # - 'VichUploaderBundle:Form:fields.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -85,10 +85,9 @@ assetic:
     use_controller: '%kernel.debug%'
     filters:
         cssrewrite: ~
-
-vich_uploader:
-    db_driver: orm
-    mappings:
-        product_image:
-            uri_prefix:         /data/uploads
-            upload_destination: %kernel.root_dir%/../app/data/uploads
+#vich_uploader:
+#    db_driver: orm
+#    mappings:
+#        product_image:
+#            uri_prefix:         /data/uploads
+#            upload_destination: %kernel.root_dir%/../app/data/uploads
