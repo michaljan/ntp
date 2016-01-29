@@ -7,7 +7,7 @@ use NTPBundle\Entity\FileUpload;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use NTPBundle\FileProcessor\FileImport;
+use NTPBundle\FileProcessor\CsvWriter;
 
 class FileController extends Controller {
     
@@ -50,10 +50,15 @@ class FileController extends Controller {
     }
     
     public function processCsvAction($id){
-        //$test=$request->request->get('form');
-        //$fileImport = new FileImport;
+        $fileImport = new FileImport;
+        $em = $this->getDoctrine()->getManager();
+        $fileRecord = $em->getRepository('NTPBundle:FileUpload')
+                ->findById($id);
+        if(!is_null($fileRecord)){
+            $webPath=$this->container->getParameter('web_path').'/uploads/';
+            \Doctrine\Common\Util\Debug::dump($fileRecord->getPath());
+        }
         //$fileImport->csvImport($csvFile, $entity);
-        \Doctrine\Common\Util\Debug::dump($id);
         return $this->render('NTPBundle:File:file_processed.html.twig');
     }
 
