@@ -25,7 +25,7 @@ file_display:
         _controller: NTPBundle:File:displayFiles
         
 process_csv:
-    path : /processcsv
+    path : /processcsv/{id}
     defaults:
         _controller: NTPBundle:File:processCsv
         

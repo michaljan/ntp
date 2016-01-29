@@ -1,5 +1,5 @@
 services:
-#    ntp.menu:
-#        class: NTPBundle\Menu\Builder
-#        arguments: [ @doctrine.orm.entity_manager  ]
+    ntp.csvwriter:
+        class: NTPBundle\FileProcessor\csvWriter
+        arguments: [ @doctrine.orm.entity_manager  ]
             

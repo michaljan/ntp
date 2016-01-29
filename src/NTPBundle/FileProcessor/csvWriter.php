@@ -9,8 +9,15 @@ use Ddeboer\DataImport\ValueConverter\StringToDateTimeValueConverter;
 
 class FileImport {
 
-
-    public function csvImport(EntityManager $entityManager, $csvFile) {
+    protected $entityManager;
+    
+    public function __construct(EntityManager $entityManager){
+        $this->entityManager=$entityManager;
+        
+    }
+    
+    
+    public function csvImport($csvFile, $entity) {
         // Create and configure the reader
         $file = new \SplFileObject($csvFile);
         $csvReader = new CsvReader($file);
@@ -22,7 +29,7 @@ class FileImport {
         $workflow = new Workflow($csvReader);
 
 // Create a writer: you need Doctrine’s EntityManager.
-        $doctrineWriter = new DoctrineWriter($entityManager, 'MyApp:Event');
+        $doctrineWriter = new DoctrineWriter($this->entityManager, $entity);
         $workflow->addWriter($doctrineWriter);
 
 // Add a converter to the workflow that will convert `beginDate` and `endDate`
@@ -34,6 +41,8 @@ class FileImport {
 
 // Process the workflow
         $workflow->process();
+    
+        return true;
     }
 
 }

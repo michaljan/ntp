@@ -7,10 +7,7 @@
         <td>{{ item.getPath }}</td>
         <td>{{ item.getUploadedAt|date('d-m-Y H:i') }}</td>
         <td>
-        <form class="form-inline" method="post" action="{{path('books_search')}}">
-                <input type="hidden" value="{{ item.id }}" id="fileId"/>
-                <button type="button" class="btn btn-success">Process file</button>
-            </form>
+            <a href="{{ path('process_csv',{ id: item.id }) }}" class="btn btn-success">Process</a>    
         </td>
         </tr>
     {% endfor %}
