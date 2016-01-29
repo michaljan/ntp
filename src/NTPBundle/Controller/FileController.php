@@ -50,7 +50,7 @@ class FileController extends Controller {
     }
     
     public function processCsvAction($id){
-        $fileImport = new FileImport;
+        $csvWriter = new CsvWriter;
         $em = $this->getDoctrine()->getManager();
         $fileRecord = $em->getRepository('NTPBundle:FileUpload')
                 ->findById($id);
