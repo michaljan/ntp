@@ -7,7 +7,7 @@ use NTPBundle\Entity\FileUpload;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use NTPBundle\FileProcessor\CsvWriter;
+use NTPBundle\FileProcessor\CsvFileWriter;
 
 class FileController extends Controller {
     
@@ -50,7 +50,7 @@ class FileController extends Controller {
     }
     
     public function processCsvAction($id){
-        $csvWriter = new CsvWriter;
+        $csvFileWriter = new CsvFileWriter;
         $em = $this->getDoctrine()->getManager();
         $fileRecord = $em->getRepository('NTPBundle:FileUpload')
                 ->findById($id);

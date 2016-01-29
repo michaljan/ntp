@@ -7,7 +7,7 @@ use Ddeboer\DataImport\Reader\CsvReader;
 use Ddeboer\DataImport\Writer\DoctrineWriter;
 use Ddeboer\DataImport\ValueConverter\StringToDateTimeValueConverter;
 
-class FileImport {
+class CsvFileWriter {
 
     protected $entityManager;
     
