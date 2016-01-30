@@ -55,7 +55,7 @@ class FileController extends Controller {
         $fileRecord = $em->getRepository('NTPBundle:FileUpload')
                 ->findById($id);
         if(!is_null($fileRecord)){
-            $webPath=$this->container->getParameter('web_path').'/uploads/';
+            //$webPath=$this->container->getParameter('web_path').'/uploads/';
             \Doctrine\Common\Util\Debug::dump($fileRecord->getPath());
         }
         //$fileImport->csvImport($csvFile, $entity);

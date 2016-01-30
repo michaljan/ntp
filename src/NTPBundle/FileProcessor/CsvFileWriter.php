@@ -2,6 +2,8 @@
 
 namespace NTPBundle\FileProcessor;
 
+use Symfony\Component\DependencyInjection\ContainerInterface as Container;
+use Doctrine\ORM\EntityManager;
 use Ddeboer\DataImport\Workflow;
 use Ddeboer\DataImport\Reader\CsvReader;
 use Ddeboer\DataImport\Writer\DoctrineWriter;
@@ -9,11 +11,10 @@ use Ddeboer\DataImport\ValueConverter\StringToDateTimeValueConverter;
 
 class CsvFileWriter {
 
-    protected $entityManager;
+    private $container;
     
-    public function __construct(EntityManager $entityManager){
-        $this->entityManager=$entityManager;
-        
+    public function __construct(Container $container){
+        $this->container=$container;
     }
     
     

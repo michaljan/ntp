@@ -1,5 +1,4 @@
 services:
-    ntp.csvwriter:
-        class: NTPBundle\FileProcessor\csvWriter
-        arguments: [ @doctrine.orm.entity_manager  ]
-            
+#    ntp.csvwriter:
+#        class: NTPBundle\FileProcessor\csvWriter
+#        arguments: [ @doctrine.orm.entity_manager  ]
