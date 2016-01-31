@@ -8,13 +8,12 @@ use Ddeboer\DataImport\Workflow;
 use Ddeboer\DataImport\Reader\CsvReader;
 use Ddeboer\DataImport\Writer\DoctrineWriter;
 use Ddeboer\DataImport\ValueConverter\StringToDateTimeValueConverter;
-
 class CsvFileWriter {
 
-    private $container;
+    private $entityMananger;
     
-    public function __construct(Container $container){
-        $this->container=$container;
+    public function __construct(EntityManager $entityManager){
+        $this->entityMananger = $entityManager;
     }
     
     
