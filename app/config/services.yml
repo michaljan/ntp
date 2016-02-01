@@ -7,7 +7,7 @@ parameters:
 services:
     fileprocessor.csvfilewriter:
         class: NTPBundle\FileProcessor\CsvFileWriter
-        arguments: ['@request_stack']
+        arguments: ['@doctrine.orm.entity_manager']
 
     fos_user.doctrine_registry:
         alias: doctrine

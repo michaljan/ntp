@@ -2,12 +2,13 @@
 
 namespace NTPBundle\FileProcessor;
 
-use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Doctrine\ORM\EntityManager;
 use Ddeboer\DataImport\Workflow;
 use Ddeboer\DataImport\Reader\CsvReader;
 use Ddeboer\DataImport\Writer\DoctrineWriter;
 use Ddeboer\DataImport\ValueConverter\StringToDateTimeValueConverter;
+use Ddeboer\DataImport\Result as Result;
+
 class CsvFileWriter {
 
     private $entityMananger;
@@ -40,9 +41,10 @@ class CsvFileWriter {
                 ->addValueConverter('endDate', $dateTimeConverter);
 
 // Process the workflow
+        $result=new Result;
         $workflow->process();
     
-        return true;
+        return $result;
     }
 
 }
