@@ -1065,9 +1065,12 @@ class ParagonData
      *
      * @return ParagonData
      */
-    public function setUploadDate($uploadDate)
+    public function setUploadDate()
     {
-        $this->uploadDate = $uploadDate;
+        
+        if (!$this->uploadDate) {
+            $this->uploadDate = new \DateTime();
+        }
 
         return $this;
     }
