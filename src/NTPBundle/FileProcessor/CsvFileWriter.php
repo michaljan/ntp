@@ -8,17 +8,14 @@ use Ddeboer\DataImport\Reader\CsvReader;
 use Ddeboer\DataImport\Writer\DoctrineWriter;
 use Ddeboer\DataImport\ValueConverter\StringToDateTimeValueConverter;
 use Ddeboer\DataImport\Result as Result;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class CsvFileWriter {
 
-    private $entityMananger;
-    
-    public function __construct(EntityManager $entityManager){
-        $this->entityMananger = $entityManager;
-    }
-    
+class CsvFileWriter extends Controller {
+    private $entityManager;
     
     public function csvImport($csvFile, $entity) {
+        $this->entityManager=$this->getDoctrine()->getManager();
         // Create and configure the reader
         $file = new \SplFileObject($csvFile);
         $csvReader = new CsvReader($file);
