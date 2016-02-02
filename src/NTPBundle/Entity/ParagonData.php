@@ -16,254 +16,254 @@ class ParagonData
      *
      * @ORM\Column(name="customer_id", type="integer", nullable=true)
      */
-    private $customerId;
+    public $customerId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="customer_name", type="string", length=64, nullable=true)
      */
-    private $customerName;
+    public $customerName;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="arrival_time", type="datetime", nullable=true)
      */
-    private $arrivalTime;
+    public $arrivalTime;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="depart_time", type="datetime", nullable=true)
      */
-    private $departTime;
+    public $departTime;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="call_ref_number", type="integer", nullable=true)
      */
-    private $callRefNumber;
+    public $callRefNumber;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="cages", type="integer", nullable=true)
      */
-    private $cages;
+    public $cages;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="chep_pallets", type="integer", nullable=true)
      */
-    private $chepPallets;
+    public $chepPallets;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="ps_pallets", type="integer", nullable=true)
      */
-    private $psPallets;
+    public $psPallets;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="container", type="integer", nullable=true)
      */
-    private $container;
+    public $container;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="cage_equivalent", type="integer", nullable=true)
      */
-    private $cageEquivalent;
+    public $cageEquivalent;
 
     /**
      * @var string
      *
      * @ORM\Column(name="order_details_1", type="string", length=30, nullable=true)
      */
-    private $orderDetails1;
+    public $orderDetails1;
 
     /**
      * @var string
      *
      * @ORM\Column(name="order_details_2", type="string", length=30, nullable=true)
      */
-    private $orderDetails2;
+    public $orderDetails2;
 
     /**
      * @var string
      *
      * @ORM\Column(name="order_details_3", type="string", length=30, nullable=true)
      */
-    private $orderDetails3;
+    public $orderDetails3;
 
     /**
      * @var string
      *
      * @ORM\Column(name="order_details_4", type="string", length=30, nullable=true)
      */
-    private $orderDetails4;
+    public $orderDetails4;
 
     /**
      * @var string
      *
      * @ORM\Column(name="postcode", type="string", length=8, nullable=true)
      */
-    private $postcode;
+    public $postcode;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="prod_code", type="integer", nullable=true)
      */
-    private $prodCode;
+    public $prodCode;
 
     /**
      * @var string
      *
      * @ORM\Column(name="product_name", type="string", length=30, nullable=true)
      */
-    private $productName;
+    public $productName;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="route_no", type="integer", nullable=true)
      */
-    private $routeNo;
+    public $routeNo;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="trip_no", type="integer", nullable=true)
      */
-    private $tripNo;
+    public $tripNo;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="travel_distance_to_next_call", type="integer", nullable=true)
      */
-    private $travelDistanceToNextCall;
+    public $travelDistanceToNextCall;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="travel_distance_from_prev_call", type="integer", nullable=true)
      */
-    private $travelDistanceFromPrevCall;
+    public $travelDistanceFromPrevCall;
 
     /**
      * @var string
      *
      * @ORM\Column(name="call_type", type="string", length=2, nullable=true)
      */
-    private $callType;
+    public $callType;
 
     /**
      * @var string
      *
      * @ORM\Column(name="time_window_start", type="string", length=9, nullable=true)
      */
-    private $timeWindowStart;
+    public $timeWindowStart;
 
     /**
      * @var string
      *
      * @ORM\Column(name="time_window_end", type="string", length=9, nullable=true)
      */
-    private $timeWindowEnd;
+    public $timeWindowEnd;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="trips_start_depot", type="integer", nullable=true)
      */
-    private $tripsStartDepot;
+    public $tripsStartDepot;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="trips_end_depot", type="integer", nullable=true)
      */
-    private $tripsEndDepot;
+    public $tripsEndDepot;
 
     /**
      * @var string
      *
      * @ORM\Column(name="source_depot_departure_time", type="string", length=9, nullable=true)
      */
-    private $sourceDepotDepartureTime;
+    public $sourceDepotDepartureTime;
 
     /**
      * @var string
      *
      * @ORM\Column(name="end_depot_arrival_time", type="string", length=9, nullable=true)
      */
-    private $endDepotArrivalTime;
+    public $endDepotArrivalTime;
 
     /**
      * @var string
      *
      * @ORM\Column(name="waiting_time", type="string", length=9, nullable=true)
      */
-    private $waitingTime;
+    public $waitingTime;
 
     /**
      * @var string
      *
      * @ORM\Column(name="transfer_id", type="string", length=10, nullable=true)
      */
-    private $transferId;
+    public $transferId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="trailer_type_name", type="string", length=16, nullable=true)
      */
-    private $trailerTypeName;
+    public $trailerTypeName;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="call_trip_position", type="integer", nullable=true)
      */
-    private $callTripPosition;
+    public $callTripPosition;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="route_drop_no", type="integer", nullable=true)
      */
-    private $routeDropNo;
+    public $routeDropNo;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="upload_date", type="datetime", nullable=true)
      */
-    private $uploadDate;
+    public $uploadDate;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="uploaded_by", type="integer", nullable=true)
      */
-    private $uploadedBy;
+    public $uploadedBy;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    public $id;
 
 
     /**
@@ -1067,10 +1067,7 @@ class ParagonData
      */
     public function setUploadDate()
     {
-        
-        if (!$this->uploadDate) {
             $this->uploadDate = new \DateTime();
-        }
 
         return $this;
     }

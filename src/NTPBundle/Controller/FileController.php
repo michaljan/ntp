@@ -51,14 +51,15 @@ class FileController extends Controller {
     }
     
     public function processCsvAction($id){
-        $paragonData=new ParagonData;
-        $csvFileWriter=new CsvFileWriter;
         $em = $this->getDoctrine()->getManager();
+        $paragonData='NTPBundle:ParagonData';
+        $csvFileWriter=new CsvFileWriter($em);
         $fileRecord = $em->getRepository('NTPBundle:FileUpload')
                 ->findOneById($id);
         if(!is_null($fileRecord)){
             $webPath=$this->container->getParameter('web_path').'\uploads\\'.$fileRecord->getPath();
-            \Doctrine\Common\Util\Debug::dump($webPath);
+            $csvFileWriter->csvImport($webPath, $paragonData);
+            //\Doctrine\Common\Util\Debug::dump($webPath);
         }
         //$fileImport->csvImport($csvFile, $entity);
         return $this->render('NTPBundle:File:file_processed.html.twig');
