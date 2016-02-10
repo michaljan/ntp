@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Ddeboer\DataImport\Workflow;
 use Ddeboer\DataImport\Reader\CsvReader;
 use Ddeboer\DataImport\Writer\DoctrineWriter;
-use NTPBundle\ValueConverter\DateConventer as DateConventer;
+use NTPBundle\ValueConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NTPBundle\Entity\ParagonData;
 
