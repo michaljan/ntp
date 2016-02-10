@@ -1,6 +1,6 @@
 <?php
 
-namespace NTPBundle\ValueConverter;
+namespace NTPBundle\ValueConventer;
 
 use Ddeboer\DataImport\ValueConverter\ValueConverterInterface;
 

@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Ddeboer\DataImport\Workflow;
 use Ddeboer\DataImport\Reader\CsvReader;
 use Ddeboer\DataImport\Writer\DoctrineWriter;
-use NTPBundle\ValueConverter;
+use NTPBundle\ValueConventer\DateConventer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NTPBundle\Entity\ParagonData;
 
@@ -27,7 +27,7 @@ class CsvFileWriter extends Controller {
         $workflow = new Workflow($csvReader);
         $doctrineWriter = new DoctrineWriter($this->em, $entity);
         $workflow->addWriter($doctrineWriter);
-        $dateConverter = new DateConventer($planDate);
+        $dateConverter = new DateConventer;
         $workflow->addValueConverter('arrivalTime', $dateConverter);
         $workflow->addValueConverter('departTime', $dateConverter);
 // Add a converter to the workflow that will convert `beginDate` and `endDate`
