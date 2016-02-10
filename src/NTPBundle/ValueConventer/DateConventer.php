@@ -3,74 +3,34 @@
 namespace NTPBundle\ValueConverter;
 
 use Ddeboer\DataImport\ValueConverter\ValueConverterInterface;
-/**
- * Convert an date string into another date string
- * Eg. You want to change the format of a string OR
- * If no output specified, return DateTime instance
- */
-class DateConverter implements ValueConverterInterface
-{
-    /**
-     * Date time format
-     *
-     * @var string
-     * @see http://php.net/manual/en/datetime.createfromformat.php
-     */
-    protected $inputFormat;
 
-    /**
-     * Date time format
-     *
-     * @var string
-     * @see http://php.net/manual/en/datetime.createfromformat.php
-     */
-    protected $outputFormat;
-
-    /**
-     * @param string $inputFormat
-     * @param datetime $outputFormat
-     */
-    public function __construct($inputFormat = null, $outputFormat = null)
-    {
-        $this->inputFormat  = $inputFormat;
-        $this->outputFormat = $outputFormat;
+class DateConventer implements ValueConverterInterface {
+    
+    public function __construct($planDate){
+        $this->planDate=$planDate;
     }
+    
+    public function convert($input) { 
+            if (!$input) {
+                return;
+            }
+            $timeDay = \explode(" ", $input); //day name of the input file
 
-    /**
-     * Convert string to date time object
-     * + then convert back to a string
-     * using specified format
-     *
-     * If no output format specified then return
-     * the \DateTime instance
-     *
-     * @param mixed $input
-     * @return \DateTime|string
-     * @throws UnexpectedValueException
-     */
-    public function convert($input)
-    {
-        if (!$input) {
-            return;
-        }
-
-        if ($this->inputFormat) {
-            $timeDay=\explode(" ", $input);
-            
+            if($timeDay[1]==date("D", strtotime($this->planDate))){
+                $date = date("Y-m-d", strtotime($this->planDate)) . " " . $timeDay[0];
+            }
+            if($timeDay[1]==date("D", strtotime($this->planDate . " + 1 days"))){
+                    $date = date("Y-m-d", strtotime($this->planDate . " + 1 days")) . " " . $timeDay[0];
+            }
+            if($timeDay[1]==date("D", strtotime($this->planDate . " + 2 days"))){
+                    $date = date("Y-m-d", strtotime($this->planDate . " + 2 days")) . " " . $timeDay[0];
+            }
             if (false === $date) {
                 throw new \UnexpectedValueException(
-                    $input . ' is not a valid date/time according to format ' . $this->inputFormat
+                'Incorrect plan date'
                 );
             }
-        } else {
-            $date = new \DateTime($input);
-        }
-
-        if ($this->outputFormat) {
-            return $date->format($this->outputFormat);
-        }
-
-        //if no output format specified we just return the \DateTime instance
         return $date;
     }
+
 }
