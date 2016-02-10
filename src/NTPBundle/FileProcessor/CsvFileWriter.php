@@ -23,9 +23,7 @@ class CsvFileWriter extends Controller {
         $file = new \SplFileObject($csvFile);
         $csvReader = new CsvReader($file);
         $csvReader->setHeaderRowNumber(0);
-        $csvReader->setColumnHeaders(['customer_id','customer_name','arrival_time','depart_time','call_ref_number','cages','chep_pallets','ps_pallets','container','cage_equivalent','order_details_1','order_details_2','order_details_3','order_details_4','postcode','prod_code','product_name','route_no','trip_no','travel_distance__to_next_call','travel_distance__from_prev_call_','call_type','time_window_start','time_window_end','trips_start_depot','trips_end_depot','source_depot_departure_time','end_depot_arrival_time','waiting_time','transfer_id','trailer_type_name','call_trip_position','route_drop_no']);
-        \Doctrine\Common\Util\Debug::dump($csvReader->getColumnHeaders);
-        die;
+        $csvReader->setColumnHeaders(['customerid','customername','arrivaltime','departtime','callrefnumber','cages','cheppallets','pspallets','container','cageequivalent','orderdetails1','orderdetails2','orderdetails3','orderdetails4','postcode','prodcode','productname','routeno','tripno','traveldistancetonextcall','traveldistancefromprevcall','calltype','timewindowstart','timewindowend','tripsstartdepot','tripsenddepot','sourcedepotdeparturetime','enddepotarrivaltime','waitingtime','transferid','trailertypename','calltripposition','routedropno']);
         $workflow = new Workflow($csvReader);
         $doctrineWriter = new DoctrineWriter($this->em, $entity);
         $workflow->addWriter($doctrineWriter);
