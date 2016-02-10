@@ -27,7 +27,7 @@ class CsvFileWriter extends Controller {
         $workflow = new Workflow($csvReader);
         $doctrineWriter = new DoctrineWriter($this->em, $entity);
         $workflow->addWriter($doctrineWriter);
-        $dateConverter = new DateConventer;
+        $dateConverter = new DateConventer($planDate);
         $workflow->addValueConverter('arrivalTime', $dateConverter);
         $workflow->addValueConverter('departTime', $dateConverter);
 // Add a converter to the workflow that will convert `beginDate` and `endDate`
