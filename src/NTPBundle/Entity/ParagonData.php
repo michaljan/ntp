@@ -2,6 +2,7 @@
 namespace NTPBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * ParagonData
@@ -207,6 +208,7 @@ class ParagonData
      */
     public $endDepotArrivalTime;
 
+   
     /**
      * @var string
      *
@@ -244,7 +246,7 @@ class ParagonData
 
     /**
      * @var \DateTime
-     *
+     * 
      * @ORM\Column(name="upload_date", type="datetime", nullable=true)
      */
     public $uploadDate;
@@ -1065,9 +1067,9 @@ class ParagonData
      *
      * @return ParagonData
      */
-    public function setUploadDate()
+    public function setUploadDate($uploadDate)
     {
-            $this->uploadDate = new \DateTime();
+            $this->uploadDate=$uploadDate;
 
         return $this;
     }

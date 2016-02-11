@@ -9,6 +9,9 @@ use Ddeboer\DataImport\Writer\DoctrineWriter;
 use NTPBundle\ValueConventer\DateConventer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NTPBundle\Entity\ParagonData;
+use NTPBundle\ValueConventer\DateTimeNow;
+use NTPBundle\ValueConventer\UploadedBy;
+
 
 class CsvFileWriter extends Controller {
 
@@ -18,19 +21,26 @@ class CsvFileWriter extends Controller {
         $this->em = $em;
     }
 
-    public function csvImport($csvFile, $entity, $planDate) {
+    public function csvImport($csvFile, $entity, $planDate,$user) {
         // Create and configure the reader
         $file = new \SplFileObject($csvFile);
         $csvReader = new CsvReader($file);
         $csvReader->setHeaderRowNumber(0);
-        $csvReader->setColumnHeaders(['customerId', 'customerName', 'arrivalTime', 'departTime', 'callRefNumber', 'cages', 'chepPallets', 'psPallets', 'container', 'cageEquivalent', 'orderDetails1', 'orderDetails2', 'orderDetails3', 'orderDetails4', 'postcode', 'prodCode', 'productName', 'routeNo', 'tripNo', 'travelDistanceToNextCall', 'travelDistanceFromPrevCall ', 'callType', 'timeWindowStart', 'timeWindowEnd', 'tripsStartDepot', 'tripsEndDepot', 'sourceDepotDepartureTime', 'endDepotArrivalTime', 'waitingTime', 'transferId', 'trailerTypeName', 'callTripPosition', 'routeDropNo']);
+        $csvReader->setStrict(false);
+        $csvReader->setColumnHeaders(['customerId', 'customerName', 'arrivalTime', 'departTime', 'callRefNumber', 'cages', 'chepPallets', 'psPallets', 'container', 'cageEquivalent', 'orderDetails1', 'orderDetails2', 'orderDetails3', 'orderDetails4', 'postcode', 'prodCode', 'productName', 'routeNo', 'tripNo', 'travelDistanceToNextCall', 'travelDistanceFromPrevCall ', 'callType', 'timeWindowStart', 'timeWindowEnd', 'tripsStartDepot', 'tripsEndDepot', 'sourceDepotDepartureTime', 'endDepotArrivalTime', 'waitingTime', 'transferId', 'trailerTypeName', 'callTripPosition', 'routeDropNo', 'uploadDate', 'uploadedBy']);
         $workflow = new Workflow($csvReader);
+//        \Doctrine\Common\Util\Debug::dump($csvReader);
+//        die;
         $doctrineWriter = new DoctrineWriter($this->em, $entity);
         $doctrineWriter->disableTruncate();
         $workflow->addWriter($doctrineWriter);
         $dateConverter = new DateConventer($planDate);
+        $dateTimeNow = new DateTimeNow;
+        $uploadedBy = new UploadedBy($user);
         $workflow->addValueConverter('arrivalTime', $dateConverter);
         $workflow->addValueConverter('departTime', $dateConverter);
+        $workflow->addValueConverter('uploadDate', $dateTimeNow);
+        $workflow->addValueConverter('uploadedBy', $uploadedBy);
         $result = $workflow->process();
         return $result;
     }

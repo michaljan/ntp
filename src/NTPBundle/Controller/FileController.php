@@ -51,6 +51,7 @@ class FileController extends Controller {
     }
     
     public function processCsvAction($id){
+        $user = $this->container->get('security.token_storage')->getToken()->getUser()->getId();
         $em = $this->getDoctrine()->getManager();
         $paragonData='NTPBundle:ParagonData';
         $csvFileWriter=new CsvFileWriter($em);
@@ -59,7 +60,7 @@ class FileController extends Controller {
         if(!is_null($fileRecord)){
             $webPath=$this->container->getParameter('web_path').'\uploads\\'.$fileRecord->getPath();
             $planDate=$fileRecord ->getPlanDate();
-            $csvFileWriter->csvImport($webPath, $paragonData,$planDate);
+            $csvFileWriter->csvImport($webPath, $paragonData,$planDate,$user);
             //\Doctrine\Common\Util\Debug::dump($webPath);
         }
         //$fileImport->csvImport($csvFile, $entity);
