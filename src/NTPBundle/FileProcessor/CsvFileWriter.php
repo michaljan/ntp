@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NTPBundle\Entity\ParagonData;
 use NTPBundle\ValueConventer\DateTimeNow;
 use NTPBundle\ValueConventer\UploadedBy;
+use NTPBundle\ValueConventer\PlanDateConvert;
 
 
 class CsvFileWriter extends Controller {
@@ -27,7 +28,7 @@ class CsvFileWriter extends Controller {
         $csvReader = new CsvReader($file);
         $csvReader->setHeaderRowNumber(0);
         $csvReader->setStrict(false);
-        $csvReader->setColumnHeaders(['customerId', 'customerName', 'arrivalTime', 'departTime', 'callRefNumber', 'cages', 'chepPallets', 'psPallets', 'container', 'cageEquivalent', 'orderDetails1', 'orderDetails2', 'orderDetails3', 'orderDetails4', 'postcode', 'prodCode', 'productName', 'routeNo', 'tripNo', 'travelDistanceToNextCall', 'travelDistanceFromPrevCall ', 'callType', 'timeWindowStart', 'timeWindowEnd', 'tripsStartDepot', 'tripsEndDepot', 'sourceDepotDepartureTime', 'endDepotArrivalTime', 'waitingTime', 'transferId', 'trailerTypeName', 'callTripPosition', 'routeDropNo', 'uploadDate', 'uploadedBy']);
+        $csvReader->setColumnHeaders(['customerId', 'customerName', 'arrivalTime', 'departTime', 'callRefNumber', 'cages', 'chepPallets', 'psPallets', 'container', 'cageEquivalent', 'orderDetails1', 'orderDetails2', 'orderDetails3', 'orderDetails4', 'postcode', 'prodCode', 'productName', 'routeNo', 'tripNo', 'travelDistanceToNextCall', 'travelDistanceFromPrevCall ', 'callType', 'timeWindowStart', 'timeWindowEnd', 'tripsStartDepot', 'tripsEndDepot', 'sourceDepotDepartureTime', 'endDepotArrivalTime', 'waitingTime', 'transferId', 'trailerTypeName', 'callTripPosition', 'routeDropNo', 'uploadDate', 'uploadedBy','planDate']);
         $workflow = new Workflow($csvReader);
 //        \Doctrine\Common\Util\Debug::dump($csvReader);
 //        die;
@@ -37,10 +38,12 @@ class CsvFileWriter extends Controller {
         $dateConverter = new DateConventer($planDate);
         $dateTimeNow = new DateTimeNow;
         $uploadedBy = new UploadedBy($user);
-        $workflow->addValueConverter('arrivalTime', $dateConverter);
-        $workflow->addValueConverter('departTime', $dateConverter);
-        $workflow->addValueConverter('uploadDate', $dateTimeNow);
-        $workflow->addValueConverter('uploadedBy', $uploadedBy);
+        $planDateConvert = new PlanDateConvert($planDate);
+        $workflow->addValueConverter('arrivalTime', $dateConverter)
+                 ->addValueConverter('departTime', $dateConverter)
+                 ->addValueConverter('uploadDate', $dateTimeNow)
+                 ->addValueConverter('uploadedBy', $uploadedBy)
+                 ->addValueConverter('planDate', $planDate);
         $result = $workflow->process();
         return $result;
     }

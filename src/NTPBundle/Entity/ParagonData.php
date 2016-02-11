@@ -266,7 +266,14 @@ class ParagonData
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     public $id;
-
+    
+    
+    /**
+     * @var \DateTime
+     * 
+     * @ORM\Column(name="plan_date", type="date", nullable=true)
+     */
+    public $planDate;
 
     /**
      * Set customerId
@@ -1116,6 +1123,30 @@ class ParagonData
     public function getId()
     {
         return $this->id;
+    }
+    
+    /**
+     * Set planDate
+     *
+     * @param \DateTime $planDate
+     *
+     * @return ParagonData
+     */
+    public function setPlanDate($planDate)
+    {
+            $this->planDate=$planDate;
+
+        return $this;
+    }
+
+    /**
+     * Get planDate
+     *
+     * @return \DateTime
+     */
+    public function getPlanDate()
+    {
+        return $this->planDate;
     }
 }
 
