@@ -43,7 +43,7 @@ class CsvFileWriter extends Controller {
                  ->addValueConverter('departTime', $dateConverter)
                  ->addValueConverter('uploadDate', $dateTimeNow)
                  ->addValueConverter('uploadedBy', $uploadedBy)
-                 ->addValueConverter('planDate', $planDate);
+                 ->addValueConverter('planDate', $planDateConvert);
         $result = $workflow->process();
         return $result;
     }

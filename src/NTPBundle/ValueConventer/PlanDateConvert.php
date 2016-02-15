@@ -4,7 +4,7 @@ namespace NTPBundle\ValueConventer;
 
 use Ddeboer\DataImport\ValueConverter\ValueConverterInterface;
 
-class PlanDareConvert implements ValueConverterInterface {
+class PlanDateConvert implements ValueConverterInterface {
     
     public $planDate;
     
