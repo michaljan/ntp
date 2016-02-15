@@ -1,8 +1,8 @@
 <?php
+
 namespace NTPBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * ParagonData
@@ -15,248 +15,394 @@ class ParagonData
     /**
      * @var integer
      *
-     * @ORM\Column(name="customer_id", type="integer", nullable=true)
-     */
-    public $customerId;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="customer_name", type="string", length=64, nullable=true)
-     */
-    public $customerName;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="arrival_time", type="datetime", nullable=true)
-     */
-    public $arrivalTime;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="depart_time", type="datetime", nullable=true)
-     */
-    public $departTime;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="call_ref_number", type="integer", nullable=true)
-     */
-    public $callRefNumber;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="cages", type="integer", nullable=true)
-     */
-    public $cages;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chep_pallets", type="integer", nullable=true)
-     */
-    public $chepPallets;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="ps_pallets", type="integer", nullable=true)
-     */
-    public $psPallets;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="container", type="integer", nullable=true)
-     */
-    public $container;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="cage_equivalent", type="integer", nullable=true)
-     */
-    public $cageEquivalent;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="order_details_1", type="string", length=30, nullable=true)
-     */
-    public $orderDetails1;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="order_details_2", type="string", length=30, nullable=true)
-     */
-    public $orderDetails2;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="order_details_3", type="string", length=30, nullable=true)
-     */
-    public $orderDetails3;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="order_details_4", type="string", length=30, nullable=true)
-     */
-    public $orderDetails4;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="postcode", type="string", length=8, nullable=true)
-     */
-    public $postcode;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="prod_code", type="integer", nullable=true)
-     */
-    public $prodCode;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="product_name", type="string", length=30, nullable=true)
-     */
-    public $productName;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="route_no", type="integer", nullable=true)
      */
-    public $routeNo;
+    private $routeNo;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="trip_no", type="integer", nullable=true)
      */
-    public $tripNo;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="travel_distance_to_next_call", type="integer", nullable=true)
-     */
-    public $travelDistanceToNextCall;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="travel_distance_from_prev_call", type="integer", nullable=true)
-     */
-    public $travelDistanceFromPrevCall;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="call_type", type="string", length=2, nullable=true)
-     */
-    public $callType;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="time_window_start", type="string", length=9, nullable=true)
-     */
-    public $timeWindowStart;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="time_window_end", type="string", length=9, nullable=true)
-     */
-    public $timeWindowEnd;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="trips_start_depot", type="integer", nullable=true)
-     */
-    public $tripsStartDepot;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="trips_end_depot", type="integer", nullable=true)
-     */
-    public $tripsEndDepot;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="source_depot_departure_time", type="string", length=9, nullable=true)
-     */
-    public $sourceDepotDepartureTime;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="end_depot_arrival_time", type="string", length=9, nullable=true)
-     */
-    public $endDepotArrivalTime;
-
-   
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="waiting_time", type="string", length=9, nullable=true)
-     */
-    public $waitingTime;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="transfer_id", type="string", length=10, nullable=true)
-     */
-    public $transferId;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="trailer_type_name", type="string", length=16, nullable=true)
-     */
-    public $trailerTypeName;
+    private $tripNo;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="call_trip_position", type="integer", nullable=true)
      */
-    public $callTripPosition;
+    private $callTripPosition;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="depot_id", type="integer", nullable=true)
+     */
+    private $depotId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="start_time", type="string", length=10, nullable=true)
+     */
+    private $startTime;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="source_depot_departure_time", type="string", length=10, nullable=true)
+     */
+    private $sourceDepotDepartureTime;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="customer_id", type="string", length=10, nullable=true)
+     */
+    private $customerId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="arrival_time", type="string", length=10, nullable=true)
+     */
+    private $arrivalTime;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="depart_time", type="string", length=10, nullable=true)
+     */
+    private $departTime;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="call_duration", type="string", length=10, nullable=true)
+     */
+    private $callDuration;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="call_type", type="string", length=10, nullable=true)
+     */
+    private $callType;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="order_details_1", type="string", length=50, nullable=true)
+     */
+    private $orderDetails1;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="cages", type="integer", nullable=true)
+     */
+    private $cages;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="chep_pallets", type="integer", nullable=true)
+     */
+    private $chepPallets;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ps_pallets", type="integer", nullable=true)
+     */
+    private $psPallets;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="container", type="integer", nullable=true)
+     */
+    private $container;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="cage_equivalent", type="integer", nullable=true)
+     */
+    private $cageEquivalent;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="prod_code", type="integer", nullable=true)
+     */
+    private $prodCode;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="product_name", type="string", length=50, nullable=true)
+     */
+    private $productName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="trailer_group_name", type="string", length=50, nullable=true)
+     */
+    private $trailerGroupName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="order_details_2", type="string", length=50, nullable=true)
+     */
+    private $orderDetails2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="order_details_3", type="string", length=50, nullable=true)
+     */
+    private $orderDetails3;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="order_details_4", type="string", length=50, nullable=true)
+     */
+    private $orderDetails4;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="end_depot_arrival_time", type="string", length=10, nullable=true)
+     */
+    private $endDepotArrivalTime;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="depotofroute", type="integer", nullable=true)
+     */
+    private $depotofroute;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="duty_time", type="string", length=10, nullable=true)
+     */
+    private $dutyTime;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="drive_time", type="string", length=10, nullable=true)
+     */
+    private $driveTime;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="distance_kms", type="integer", nullable=true)
+     */
+    private $distanceKms;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="empty_dist_kms", type="integer", nullable=true)
+     */
+    private $emptyDistKms;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="empty_time", type="string", length=10, nullable=true)
+     */
+    private $emptyTime;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="time_util_", type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $timeUtil;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="waiting_time", type="string", length=5, nullable=true)
+     */
+    private $waitingTime;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="no_of_trips", type="integer", nullable=true)
+     */
+    private $noOfTrips;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="route_drop_no", type="integer", nullable=true)
      */
-    public $routeDropNo;
+    private $routeDropNo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="call_no", type="integer", nullable=true)
+     */
+    private $callNo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="trip_drop_no", type="integer", nullable=true)
+     */
+    private $tripDropNo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="trip_start", type="string", length=10, nullable=true)
+     */
+    private $tripStart;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="dest_depot_arrival_time", type="string", length=10, nullable=true)
+     */
+    private $destDepotArrivalTime;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="dest_depot_departure_time", type="string", length=10, nullable=true)
+     */
+    private $destDepotDepartureTime;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="trips_end_depot", type="integer", nullable=true)
+     */
+    private $tripsEndDepot;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="trips_source_depot", type="integer", nullable=true)
+     */
+    private $tripsSourceDepot;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="source_depot_arrival_time_2", type="string", length=10, nullable=true)
+     */
+    private $sourceDepotArrivalTime2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="source_depot_departure_time_2", type="string", length=10, nullable=true)
+     */
+    private $sourceDepotDepartureTime2;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="trips_start_depot", type="integer", nullable=true)
+     */
+    private $tripsStartDepot;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="start_depot_departure_time", type="string", length=10, nullable=true)
+     */
+    private $startDepotDepartureTime;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="trailer_type_name", type="string", length=50, nullable=true)
+     */
+    private $trailerTypeName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="end_time", type="string", length=10, nullable=true)
+     */
+    private $endTime;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="transfer_id", type="integer", nullable=true)
+     */
+    private $transferId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="driver_group_name", type="string", length=50, nullable=true)
+     */
+    private $driverGroupName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tractor_group_name", type="string", length=50, nullable=true)
+     */
+    private $tractorGroupName;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="call_ref_number", type="integer", nullable=true)
+     */
+    private $callRefNumber;
 
     /**
      * @var \DateTime
-     * 
+     *
      * @ORM\Column(name="upload_date", type="datetime", nullable=true)
      */
-    public $uploadDate;
+    private $uploadDate;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="uploaded_by", type="integer", nullable=true)
      */
-    public $uploadedBy;
+    private $uploadedBy;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="plan_date", type="date", nullable=true)
+     */
+    private $planDate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="plan_name", type="string", length=20, nullable=true)
+     */
+    private $planName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="route_name", type="string", length=30, nullable=false)
+     */
+    private $routeName;
 
     /**
      * @var integer
@@ -265,20 +411,157 @@ class ParagonData
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    public $id;
-    
-    
+    private $id;
+
+
     /**
-     * @var \DateTime
-     * 
-     * @ORM\Column(name="plan_date", type="date", nullable=true)
+     * Set routeNo
+     *
+     * @param integer $routeNo
+     *
+     * @return ParagonData
      */
-    public $planDate;
+    public function setRouteNo($routeNo)
+    {
+        $this->routeNo = $routeNo;
+
+        return $this;
+    }
+
+    /**
+     * Get routeNo
+     *
+     * @return integer
+     */
+    public function getRouteNo()
+    {
+        return $this->routeNo;
+    }
+
+    /**
+     * Set tripNo
+     *
+     * @param integer $tripNo
+     *
+     * @return ParagonData
+     */
+    public function setTripNo($tripNo)
+    {
+        $this->tripNo = $tripNo;
+
+        return $this;
+    }
+
+    /**
+     * Get tripNo
+     *
+     * @return integer
+     */
+    public function getTripNo()
+    {
+        return $this->tripNo;
+    }
+
+    /**
+     * Set callTripPosition
+     *
+     * @param integer $callTripPosition
+     *
+     * @return ParagonData
+     */
+    public function setCallTripPosition($callTripPosition)
+    {
+        $this->callTripPosition = $callTripPosition;
+
+        return $this;
+    }
+
+    /**
+     * Get callTripPosition
+     *
+     * @return integer
+     */
+    public function getCallTripPosition()
+    {
+        return $this->callTripPosition;
+    }
+
+    /**
+     * Set depotId
+     *
+     * @param integer $depotId
+     *
+     * @return ParagonData
+     */
+    public function setDepotId($depotId)
+    {
+        $this->depotId = $depotId;
+
+        return $this;
+    }
+
+    /**
+     * Get depotId
+     *
+     * @return integer
+     */
+    public function getDepotId()
+    {
+        return $this->depotId;
+    }
+
+    /**
+     * Set startTime
+     *
+     * @param string $startTime
+     *
+     * @return ParagonData
+     */
+    public function setStartTime($startTime)
+    {
+        $this->startTime = $startTime;
+
+        return $this;
+    }
+
+    /**
+     * Get startTime
+     *
+     * @return string
+     */
+    public function getStartTime()
+    {
+        return $this->startTime;
+    }
+
+    /**
+     * Set sourceDepotDepartureTime
+     *
+     * @param string $sourceDepotDepartureTime
+     *
+     * @return ParagonData
+     */
+    public function setSourceDepotDepartureTime($sourceDepotDepartureTime)
+    {
+        $this->sourceDepotDepartureTime = $sourceDepotDepartureTime;
+
+        return $this;
+    }
+
+    /**
+     * Get sourceDepotDepartureTime
+     *
+     * @return string
+     */
+    public function getSourceDepotDepartureTime()
+    {
+        return $this->sourceDepotDepartureTime;
+    }
 
     /**
      * Set customerId
      *
-     * @param integer $customerId
+     * @param string $customerId
      *
      * @return ParagonData
      */
@@ -292,7 +575,7 @@ class ParagonData
     /**
      * Get customerId
      *
-     * @return integer
+     * @return string
      */
     public function getCustomerId()
     {
@@ -300,33 +583,9 @@ class ParagonData
     }
 
     /**
-     * Set customerName
-     *
-     * @param string $customerName
-     *
-     * @return ParagonData
-     */
-    public function setCustomerName($customerName)
-    {
-        $this->customerName = $customerName;
-
-        return $this;
-    }
-
-    /**
-     * Get customerName
-     *
-     * @return string
-     */
-    public function getCustomerName()
-    {
-        return $this->customerName;
-    }
-
-    /**
      * Set arrivalTime
      *
-     * @param \DateTime $arrivalTime
+     * @param string $arrivalTime
      *
      * @return ParagonData
      */
@@ -340,7 +599,7 @@ class ParagonData
     /**
      * Get arrivalTime
      *
-     * @return \DateTime
+     * @return string
      */
     public function getArrivalTime()
     {
@@ -350,7 +609,7 @@ class ParagonData
     /**
      * Set departTime
      *
-     * @param \DateTime $departTime
+     * @param string $departTime
      *
      * @return ParagonData
      */
@@ -364,7 +623,7 @@ class ParagonData
     /**
      * Get departTime
      *
-     * @return \DateTime
+     * @return string
      */
     public function getDepartTime()
     {
@@ -372,27 +631,75 @@ class ParagonData
     }
 
     /**
-     * Set callRefNumber
+     * Set callDuration
      *
-     * @param integer $callRefNumber
+     * @param string $callDuration
      *
      * @return ParagonData
      */
-    public function setCallRefNumber($callRefNumber)
+    public function setCallDuration($callDuration)
     {
-        $this->callRefNumber = $callRefNumber;
+        $this->callDuration = $callDuration;
 
         return $this;
     }
 
     /**
-     * Get callRefNumber
+     * Get callDuration
      *
-     * @return integer
+     * @return string
      */
-    public function getCallRefNumber()
+    public function getCallDuration()
     {
-        return $this->callRefNumber;
+        return $this->callDuration;
+    }
+
+    /**
+     * Set callType
+     *
+     * @param string $callType
+     *
+     * @return ParagonData
+     */
+    public function setCallType($callType)
+    {
+        $this->callType = $callType;
+
+        return $this;
+    }
+
+    /**
+     * Get callType
+     *
+     * @return string
+     */
+    public function getCallType()
+    {
+        return $this->callType;
+    }
+
+    /**
+     * Set orderDetails1
+     *
+     * @param string $orderDetails1
+     *
+     * @return ParagonData
+     */
+    public function setOrderDetails1($orderDetails1)
+    {
+        $this->orderDetails1 = $orderDetails1;
+
+        return $this;
+    }
+
+    /**
+     * Get orderDetails1
+     *
+     * @return string
+     */
+    public function getOrderDetails1()
+    {
+        return $this->orderDetails1;
     }
 
     /**
@@ -516,27 +823,75 @@ class ParagonData
     }
 
     /**
-     * Set orderDetails1
+     * Set prodCode
      *
-     * @param string $orderDetails1
+     * @param integer $prodCode
      *
      * @return ParagonData
      */
-    public function setOrderDetails1($orderDetails1)
+    public function setProdCode($prodCode)
     {
-        $this->orderDetails1 = $orderDetails1;
+        $this->prodCode = $prodCode;
 
         return $this;
     }
 
     /**
-     * Get orderDetails1
+     * Get prodCode
+     *
+     * @return integer
+     */
+    public function getProdCode()
+    {
+        return $this->prodCode;
+    }
+
+    /**
+     * Set productName
+     *
+     * @param string $productName
+     *
+     * @return ParagonData
+     */
+    public function setProductName($productName)
+    {
+        $this->productName = $productName;
+
+        return $this;
+    }
+
+    /**
+     * Get productName
      *
      * @return string
      */
-    public function getOrderDetails1()
+    public function getProductName()
     {
-        return $this->orderDetails1;
+        return $this->productName;
+    }
+
+    /**
+     * Set trailerGroupName
+     *
+     * @param string $trailerGroupName
+     *
+     * @return ParagonData
+     */
+    public function setTrailerGroupName($trailerGroupName)
+    {
+        $this->trailerGroupName = $trailerGroupName;
+
+        return $this;
+    }
+
+    /**
+     * Get trailerGroupName
+     *
+     * @return string
+     */
+    public function getTrailerGroupName()
+    {
+        return $this->trailerGroupName;
     }
 
     /**
@@ -612,318 +967,6 @@ class ParagonData
     }
 
     /**
-     * Set postcode
-     *
-     * @param string $postcode
-     *
-     * @return ParagonData
-     */
-    public function setPostcode($postcode)
-    {
-        $this->postcode = $postcode;
-
-        return $this;
-    }
-
-    /**
-     * Get postcode
-     *
-     * @return string
-     */
-    public function getPostcode()
-    {
-        return $this->postcode;
-    }
-
-    /**
-     * Set prodCode
-     *
-     * @param integer $prodCode
-     *
-     * @return ParagonData
-     */
-    public function setProdCode($prodCode)
-    {
-        $this->prodCode = $prodCode;
-
-        return $this;
-    }
-
-    /**
-     * Get prodCode
-     *
-     * @return integer
-     */
-    public function getProdCode()
-    {
-        return $this->prodCode;
-    }
-
-    /**
-     * Set productName
-     *
-     * @param string $productName
-     *
-     * @return ParagonData
-     */
-    public function setProductName($productName)
-    {
-        $this->productName = $productName;
-
-        return $this;
-    }
-
-    /**
-     * Get productName
-     *
-     * @return string
-     */
-    public function getProductName()
-    {
-        return $this->productName;
-    }
-
-    /**
-     * Set routeNo
-     *
-     * @param integer $routeNo
-     *
-     * @return ParagonData
-     */
-    public function setRouteNo($routeNo)
-    {
-        $this->routeNo = $routeNo;
-
-        return $this;
-    }
-
-    /**
-     * Get routeNo
-     *
-     * @return integer
-     */
-    public function getRouteNo()
-    {
-        return $this->routeNo;
-    }
-
-    /**
-     * Set tripNo
-     *
-     * @param integer $tripNo
-     *
-     * @return ParagonData
-     */
-    public function setTripNo($tripNo)
-    {
-        $this->tripNo = $tripNo;
-
-        return $this;
-    }
-
-    /**
-     * Get tripNo
-     *
-     * @return integer
-     */
-    public function getTripNo()
-    {
-        return $this->tripNo;
-    }
-
-    /**
-     * Set travelDistanceToNextCall
-     *
-     * @param integer $travelDistanceToNextCall
-     *
-     * @return ParagonData
-     */
-    public function setTravelDistanceToNextCall($travelDistanceToNextCall)
-    {
-        $this->travelDistanceToNextCall = $travelDistanceToNextCall;
-
-        return $this;
-    }
-
-    /**
-     * Get travelDistanceToNextCall
-     *
-     * @return integer
-     */
-    public function getTravelDistanceToNextCall()
-    {
-        return $this->travelDistanceToNextCall;
-    }
-
-    /**
-     * Set travelDistanceFromPrevCall
-     *
-     * @param integer $travelDistanceFromPrevCall
-     *
-     * @return ParagonData
-     */
-    public function setTravelDistanceFromPrevCall($travelDistanceFromPrevCall)
-    {
-        $this->travelDistanceFromPrevCall = $travelDistanceFromPrevCall;
-
-        return $this;
-    }
-
-    /**
-     * Get travelDistanceFromPrevCall
-     *
-     * @return integer
-     */
-    public function getTravelDistanceFromPrevCall()
-    {
-        return $this->travelDistanceFromPrevCall;
-    }
-
-    /**
-     * Set callType
-     *
-     * @param string $callType
-     *
-     * @return ParagonData
-     */
-    public function setCallType($callType)
-    {
-        $this->callType = $callType;
-
-        return $this;
-    }
-
-    /**
-     * Get callType
-     *
-     * @return string
-     */
-    public function getCallType()
-    {
-        return $this->callType;
-    }
-
-    /**
-     * Set timeWindowStart
-     *
-     * @param string $timeWindowStart
-     *
-     * @return ParagonData
-     */
-    public function setTimeWindowStart($timeWindowStart)
-    {
-        $this->timeWindowStart = $timeWindowStart;
-
-        return $this;
-    }
-
-    /**
-     * Get timeWindowStart
-     *
-     * @return string
-     */
-    public function getTimeWindowStart()
-    {
-        return $this->timeWindowStart;
-    }
-
-    /**
-     * Set timeWindowEnd
-     *
-     * @param string $timeWindowEnd
-     *
-     * @return ParagonData
-     */
-    public function setTimeWindowEnd($timeWindowEnd)
-    {
-        $this->timeWindowEnd = $timeWindowEnd;
-
-        return $this;
-    }
-
-    /**
-     * Get timeWindowEnd
-     *
-     * @return string
-     */
-    public function getTimeWindowEnd()
-    {
-        return $this->timeWindowEnd;
-    }
-
-    /**
-     * Set tripsStartDepot
-     *
-     * @param integer $tripsStartDepot
-     *
-     * @return ParagonData
-     */
-    public function setTripsStartDepot($tripsStartDepot)
-    {
-        $this->tripsStartDepot = $tripsStartDepot;
-
-        return $this;
-    }
-
-    /**
-     * Get tripsStartDepot
-     *
-     * @return integer
-     */
-    public function getTripsStartDepot()
-    {
-        return $this->tripsStartDepot;
-    }
-
-    /**
-     * Set tripsEndDepot
-     *
-     * @param integer $tripsEndDepot
-     *
-     * @return ParagonData
-     */
-    public function setTripsEndDepot($tripsEndDepot)
-    {
-        $this->tripsEndDepot = $tripsEndDepot;
-
-        return $this;
-    }
-
-    /**
-     * Get tripsEndDepot
-     *
-     * @return integer
-     */
-    public function getTripsEndDepot()
-    {
-        return $this->tripsEndDepot;
-    }
-
-    /**
-     * Set sourceDepotDepartureTime
-     *
-     * @param string $sourceDepotDepartureTime
-     *
-     * @return ParagonData
-     */
-    public function setSourceDepotDepartureTime($sourceDepotDepartureTime)
-    {
-        $this->sourceDepotDepartureTime = $sourceDepotDepartureTime;
-
-        return $this;
-    }
-
-    /**
-     * Get sourceDepotDepartureTime
-     *
-     * @return string
-     */
-    public function getSourceDepotDepartureTime()
-    {
-        return $this->sourceDepotDepartureTime;
-    }
-
-    /**
      * Set endDepotArrivalTime
      *
      * @param string $endDepotArrivalTime
@@ -945,6 +988,174 @@ class ParagonData
     public function getEndDepotArrivalTime()
     {
         return $this->endDepotArrivalTime;
+    }
+
+    /**
+     * Set depotofroute
+     *
+     * @param integer $depotofroute
+     *
+     * @return ParagonData
+     */
+    public function setDepotofroute($depotofroute)
+    {
+        $this->depotofroute = $depotofroute;
+
+        return $this;
+    }
+
+    /**
+     * Get depotofroute
+     *
+     * @return integer
+     */
+    public function getDepotofroute()
+    {
+        return $this->depotofroute;
+    }
+
+    /**
+     * Set dutyTime
+     *
+     * @param string $dutyTime
+     *
+     * @return ParagonData
+     */
+    public function setDutyTime($dutyTime)
+    {
+        $this->dutyTime = $dutyTime;
+
+        return $this;
+    }
+
+    /**
+     * Get dutyTime
+     *
+     * @return string
+     */
+    public function getDutyTime()
+    {
+        return $this->dutyTime;
+    }
+
+    /**
+     * Set driveTime
+     *
+     * @param string $driveTime
+     *
+     * @return ParagonData
+     */
+    public function setDriveTime($driveTime)
+    {
+        $this->driveTime = $driveTime;
+
+        return $this;
+    }
+
+    /**
+     * Get driveTime
+     *
+     * @return string
+     */
+    public function getDriveTime()
+    {
+        return $this->driveTime;
+    }
+
+    /**
+     * Set distanceKms
+     *
+     * @param integer $distanceKms
+     *
+     * @return ParagonData
+     */
+    public function setDistanceKms($distanceKms)
+    {
+        $this->distanceKms = $distanceKms;
+
+        return $this;
+    }
+
+    /**
+     * Get distanceKms
+     *
+     * @return integer
+     */
+    public function getDistanceKms()
+    {
+        return $this->distanceKms;
+    }
+
+    /**
+     * Set emptyDistKms
+     *
+     * @param integer $emptyDistKms
+     *
+     * @return ParagonData
+     */
+    public function setEmptyDistKms($emptyDistKms)
+    {
+        $this->emptyDistKms = $emptyDistKms;
+
+        return $this;
+    }
+
+    /**
+     * Get emptyDistKms
+     *
+     * @return integer
+     */
+    public function getEmptyDistKms()
+    {
+        return $this->emptyDistKms;
+    }
+
+    /**
+     * Set emptyTime
+     *
+     * @param string $emptyTime
+     *
+     * @return ParagonData
+     */
+    public function setEmptyTime($emptyTime)
+    {
+        $this->emptyTime = $emptyTime;
+
+        return $this;
+    }
+
+    /**
+     * Get emptyTime
+     *
+     * @return string
+     */
+    public function getEmptyTime()
+    {
+        return $this->emptyTime;
+    }
+
+    /**
+     * Set timeUtil
+     *
+     * @param string $timeUtil
+     *
+     * @return ParagonData
+     */
+    public function setTimeUtil($timeUtil)
+    {
+        $this->timeUtil = $timeUtil;
+
+        return $this;
+    }
+
+    /**
+     * Get timeUtil
+     *
+     * @return string
+     */
+    public function getTimeUtil()
+    {
+        return $this->timeUtil;
     }
 
     /**
@@ -972,75 +1183,27 @@ class ParagonData
     }
 
     /**
-     * Set transferId
+     * Set noOfTrips
      *
-     * @param string $transferId
+     * @param integer $noOfTrips
      *
      * @return ParagonData
      */
-    public function setTransferId($transferId)
+    public function setNoOfTrips($noOfTrips)
     {
-        $this->transferId = $transferId;
+        $this->noOfTrips = $noOfTrips;
 
         return $this;
     }
 
     /**
-     * Get transferId
-     *
-     * @return string
-     */
-    public function getTransferId()
-    {
-        return $this->transferId;
-    }
-
-    /**
-     * Set trailerTypeName
-     *
-     * @param string $trailerTypeName
-     *
-     * @return ParagonData
-     */
-    public function setTrailerTypeName($trailerTypeName)
-    {
-        $this->trailerTypeName = $trailerTypeName;
-
-        return $this;
-    }
-
-    /**
-     * Get trailerTypeName
-     *
-     * @return string
-     */
-    public function getTrailerTypeName()
-    {
-        return $this->trailerTypeName;
-    }
-
-    /**
-     * Set callTripPosition
-     *
-     * @param integer $callTripPosition
-     *
-     * @return ParagonData
-     */
-    public function setCallTripPosition($callTripPosition)
-    {
-        $this->callTripPosition = $callTripPosition;
-
-        return $this;
-    }
-
-    /**
-     * Get callTripPosition
+     * Get noOfTrips
      *
      * @return integer
      */
-    public function getCallTripPosition()
+    public function getNoOfTrips()
     {
-        return $this->callTripPosition;
+        return $this->noOfTrips;
     }
 
     /**
@@ -1068,6 +1231,414 @@ class ParagonData
     }
 
     /**
+     * Set callNo
+     *
+     * @param integer $callNo
+     *
+     * @return ParagonData
+     */
+    public function setCallNo($callNo)
+    {
+        $this->callNo = $callNo;
+
+        return $this;
+    }
+
+    /**
+     * Get callNo
+     *
+     * @return integer
+     */
+    public function getCallNo()
+    {
+        return $this->callNo;
+    }
+
+    /**
+     * Set tripDropNo
+     *
+     * @param integer $tripDropNo
+     *
+     * @return ParagonData
+     */
+    public function setTripDropNo($tripDropNo)
+    {
+        $this->tripDropNo = $tripDropNo;
+
+        return $this;
+    }
+
+    /**
+     * Get tripDropNo
+     *
+     * @return integer
+     */
+    public function getTripDropNo()
+    {
+        return $this->tripDropNo;
+    }
+
+    /**
+     * Set tripStart
+     *
+     * @param string $tripStart
+     *
+     * @return ParagonData
+     */
+    public function setTripStart($tripStart)
+    {
+        $this->tripStart = $tripStart;
+
+        return $this;
+    }
+
+    /**
+     * Get tripStart
+     *
+     * @return string
+     */
+    public function getTripStart()
+    {
+        return $this->tripStart;
+    }
+
+    /**
+     * Set destDepotArrivalTime
+     *
+     * @param string $destDepotArrivalTime
+     *
+     * @return ParagonData
+     */
+    public function setDestDepotArrivalTime($destDepotArrivalTime)
+    {
+        $this->destDepotArrivalTime = $destDepotArrivalTime;
+
+        return $this;
+    }
+
+    /**
+     * Get destDepotArrivalTime
+     *
+     * @return string
+     */
+    public function getDestDepotArrivalTime()
+    {
+        return $this->destDepotArrivalTime;
+    }
+
+    /**
+     * Set destDepotDepartureTime
+     *
+     * @param string $destDepotDepartureTime
+     *
+     * @return ParagonData
+     */
+    public function setDestDepotDepartureTime($destDepotDepartureTime)
+    {
+        $this->destDepotDepartureTime = $destDepotDepartureTime;
+
+        return $this;
+    }
+
+    /**
+     * Get destDepotDepartureTime
+     *
+     * @return string
+     */
+    public function getDestDepotDepartureTime()
+    {
+        return $this->destDepotDepartureTime;
+    }
+
+    /**
+     * Set tripsEndDepot
+     *
+     * @param integer $tripsEndDepot
+     *
+     * @return ParagonData
+     */
+    public function setTripsEndDepot($tripsEndDepot)
+    {
+        $this->tripsEndDepot = $tripsEndDepot;
+
+        return $this;
+    }
+
+    /**
+     * Get tripsEndDepot
+     *
+     * @return integer
+     */
+    public function getTripsEndDepot()
+    {
+        return $this->tripsEndDepot;
+    }
+
+    /**
+     * Set tripsSourceDepot
+     *
+     * @param integer $tripsSourceDepot
+     *
+     * @return ParagonData
+     */
+    public function setTripsSourceDepot($tripsSourceDepot)
+    {
+        $this->tripsSourceDepot = $tripsSourceDepot;
+
+        return $this;
+    }
+
+    /**
+     * Get tripsSourceDepot
+     *
+     * @return integer
+     */
+    public function getTripsSourceDepot()
+    {
+        return $this->tripsSourceDepot;
+    }
+
+    /**
+     * Set sourceDepotArrivalTime2
+     *
+     * @param string $sourceDepotArrivalTime2
+     *
+     * @return ParagonData
+     */
+    public function setSourceDepotArrivalTime2($sourceDepotArrivalTime2)
+    {
+        $this->sourceDepotArrivalTime2 = $sourceDepotArrivalTime2;
+
+        return $this;
+    }
+
+    /**
+     * Get sourceDepotArrivalTime2
+     *
+     * @return string
+     */
+    public function getSourceDepotArrivalTime2()
+    {
+        return $this->sourceDepotArrivalTime2;
+    }
+
+    /**
+     * Set sourceDepotDepartureTime2
+     *
+     * @param string $sourceDepotDepartureTime2
+     *
+     * @return ParagonData
+     */
+    public function setSourceDepotDepartureTime2($sourceDepotDepartureTime2)
+    {
+        $this->sourceDepotDepartureTime2 = $sourceDepotDepartureTime2;
+
+        return $this;
+    }
+
+    /**
+     * Get sourceDepotDepartureTime2
+     *
+     * @return string
+     */
+    public function getSourceDepotDepartureTime2()
+    {
+        return $this->sourceDepotDepartureTime2;
+    }
+
+    /**
+     * Set tripsStartDepot
+     *
+     * @param integer $tripsStartDepot
+     *
+     * @return ParagonData
+     */
+    public function setTripsStartDepot($tripsStartDepot)
+    {
+        $this->tripsStartDepot = $tripsStartDepot;
+
+        return $this;
+    }
+
+    /**
+     * Get tripsStartDepot
+     *
+     * @return integer
+     */
+    public function getTripsStartDepot()
+    {
+        return $this->tripsStartDepot;
+    }
+
+    /**
+     * Set startDepotDepartureTime
+     *
+     * @param string $startDepotDepartureTime
+     *
+     * @return ParagonData
+     */
+    public function setStartDepotDepartureTime($startDepotDepartureTime)
+    {
+        $this->startDepotDepartureTime = $startDepotDepartureTime;
+
+        return $this;
+    }
+
+    /**
+     * Get startDepotDepartureTime
+     *
+     * @return string
+     */
+    public function getStartDepotDepartureTime()
+    {
+        return $this->startDepotDepartureTime;
+    }
+
+    /**
+     * Set trailerTypeName
+     *
+     * @param string $trailerTypeName
+     *
+     * @return ParagonData
+     */
+    public function setTrailerTypeName($trailerTypeName)
+    {
+        $this->trailerTypeName = $trailerTypeName;
+
+        return $this;
+    }
+
+    /**
+     * Get trailerTypeName
+     *
+     * @return string
+     */
+    public function getTrailerTypeName()
+    {
+        return $this->trailerTypeName;
+    }
+
+    /**
+     * Set endTime
+     *
+     * @param string $endTime
+     *
+     * @return ParagonData
+     */
+    public function setEndTime($endTime)
+    {
+        $this->endTime = $endTime;
+
+        return $this;
+    }
+
+    /**
+     * Get endTime
+     *
+     * @return string
+     */
+    public function getEndTime()
+    {
+        return $this->endTime;
+    }
+
+    /**
+     * Set transferId
+     *
+     * @param integer $transferId
+     *
+     * @return ParagonData
+     */
+    public function setTransferId($transferId)
+    {
+        $this->transferId = $transferId;
+
+        return $this;
+    }
+
+    /**
+     * Get transferId
+     *
+     * @return integer
+     */
+    public function getTransferId()
+    {
+        return $this->transferId;
+    }
+
+    /**
+     * Set driverGroupName
+     *
+     * @param string $driverGroupName
+     *
+     * @return ParagonData
+     */
+    public function setDriverGroupName($driverGroupName)
+    {
+        $this->driverGroupName = $driverGroupName;
+
+        return $this;
+    }
+
+    /**
+     * Get driverGroupName
+     *
+     * @return string
+     */
+    public function getDriverGroupName()
+    {
+        return $this->driverGroupName;
+    }
+
+    /**
+     * Set tractorGroupName
+     *
+     * @param string $tractorGroupName
+     *
+     * @return ParagonData
+     */
+    public function setTractorGroupName($tractorGroupName)
+    {
+        $this->tractorGroupName = $tractorGroupName;
+
+        return $this;
+    }
+
+    /**
+     * Get tractorGroupName
+     *
+     * @return string
+     */
+    public function getTractorGroupName()
+    {
+        return $this->tractorGroupName;
+    }
+
+    /**
+     * Set callRefNumber
+     *
+     * @param integer $callRefNumber
+     *
+     * @return ParagonData
+     */
+    public function setCallRefNumber($callRefNumber)
+    {
+        $this->callRefNumber = $callRefNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get callRefNumber
+     *
+     * @return integer
+     */
+    public function getCallRefNumber()
+    {
+        return $this->callRefNumber;
+    }
+
+    /**
      * Set uploadDate
      *
      * @param \DateTime $uploadDate
@@ -1076,7 +1647,7 @@ class ParagonData
      */
     public function setUploadDate($uploadDate)
     {
-            $this->uploadDate=$uploadDate;
+        $this->uploadDate = $uploadDate;
 
         return $this;
     }
@@ -1116,16 +1687,6 @@ class ParagonData
     }
 
     /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-    
-    /**
      * Set planDate
      *
      * @param \DateTime $planDate
@@ -1134,7 +1695,7 @@ class ParagonData
      */
     public function setPlanDate($planDate)
     {
-            $this->planDate=$planDate;
+        $this->planDate = $planDate;
 
         return $this;
     }
@@ -1147,6 +1708,64 @@ class ParagonData
     public function getPlanDate()
     {
         return $this->planDate;
+    }
+
+    /**
+     * Set planName
+     *
+     * @param string $planName
+     *
+     * @return ParagonData
+     */
+    public function setPlanName($planName)
+    {
+        $this->planName = $planName;
+
+        return $this;
+    }
+
+    /**
+     * Get planName
+     *
+     * @return string
+     */
+    public function getPlanName()
+    {
+        return $this->planName;
+    }
+
+    /**
+     * Set routeName
+     *
+     * @param string $routeName
+     *
+     * @return ParagonData
+     */
+    public function setRouteName($routeName)
+    {
+        $this->routeName = $routeName;
+
+        return $this;
+    }
+
+    /**
+     * Get routeName
+     *
+     * @return string
+     */
+    public function getRouteName()
+    {
+        return $this->routeName;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }
 
