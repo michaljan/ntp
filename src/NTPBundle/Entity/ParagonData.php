@@ -41,16 +41,16 @@ class ParagonData
     private $depotId;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="start_time", type="string", length=10, nullable=true)
+     * @ORM\Column(name="start_time", type="date", length=10, nullable=true)
      */
     private $startTime;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="source_depot_departure_time", type="string", length=10, nullable=true)
+     * @ORM\Column(name="source_depot_departure_time", type="date", length=10, nullable=true)
      */
     private $sourceDepotDepartureTime;
 
@@ -62,16 +62,16 @@ class ParagonData
     private $customerId;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="arrival_time", type="string", length=10, nullable=true)
+     * @ORM\Column(name="arrival_time", type="date", length=10, nullable=true)
      */
     private $arrivalTime;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="depart_time", type="string", length=10, nullable=true)
+     * @ORM\Column(name="depart_time", type="date", length=10, nullable=true)
      */
     private $departTime;
 
@@ -174,9 +174,9 @@ class ParagonData
     private $orderDetails4;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="end_depot_arrival_time", type="string", length=10, nullable=true)
+     * @ORM\Column(name="end_depot_arrival_time", type="date", length=10, nullable=true)
      */
     private $endDepotArrivalTime;
 
@@ -265,23 +265,23 @@ class ParagonData
     private $tripDropNo;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="trip_start", type="string", length=10, nullable=true)
+     * @ORM\Column(name="trip_start", type="date", length=10, nullable=true)
      */
     private $tripStart;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="dest_depot_arrival_time", type="string", length=10, nullable=true)
+     * @ORM\Column(name="dest_depot_arrival_time", type="date", length=10, nullable=true)
      */
     private $destDepotArrivalTime;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="dest_depot_departure_time", type="string", length=10, nullable=true)
+     * @ORM\Column(name="dest_depot_departure_time", type="date", length=10, nullable=true)
      */
     private $destDepotDepartureTime;
 
@@ -300,16 +300,16 @@ class ParagonData
     private $tripsSourceDepot;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="source_depot_arrival_time_2", type="string", length=10, nullable=true)
+     * @ORM\Column(name="source_depot_arrival_time_2", type="date", length=10, nullable=true)
      */
     private $sourceDepotArrivalTime2;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="source_depot_departure_time_2", type="string", length=10, nullable=true)
+     * @ORM\Column(name="source_depot_departure_time_2", type="date", length=10, nullable=true)
      */
     private $sourceDepotDepartureTime2;
 
@@ -321,9 +321,9 @@ class ParagonData
     private $tripsStartDepot;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="start_depot_departure_time", type="string", length=10, nullable=true)
+     * @ORM\Column(name="start_depot_departure_time", type="date", length=10, nullable=true)
      */
     private $startDepotDepartureTime;
 
@@ -335,9 +335,9 @@ class ParagonData
     private $trailerTypeName;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="end_time", type="string", length=10, nullable=true)
+     * @ORM\Column(name="end_time", type="date", length=10, nullable=true)
      */
     private $endTime;
 
@@ -400,7 +400,7 @@ class ParagonData
     /**
      * @var string
      *
-     * @ORM\Column(name="route_name", type="string", length=30, nullable=false)
+     * @ORM\Column(name="route_name", type="string", length=30, nullable=true)
      */
     private $routeName;
 
@@ -513,7 +513,7 @@ class ParagonData
     /**
      * Set startTime
      *
-     * @param string $startTime
+     * @param date $startTime
      *
      * @return ParagonData
      */
@@ -527,7 +527,7 @@ class ParagonData
     /**
      * Get startTime
      *
-     * @return string
+     * @return date
      */
     public function getStartTime()
     {
@@ -537,7 +537,7 @@ class ParagonData
     /**
      * Set sourceDepotDepartureTime
      *
-     * @param string $sourceDepotDepartureTime
+     * @param date $sourceDepotDepartureTime
      *
      * @return ParagonData
      */
@@ -551,7 +551,7 @@ class ParagonData
     /**
      * Get sourceDepotDepartureTime
      *
-     * @return string
+     * @return date
      */
     public function getSourceDepotDepartureTime()
     {
@@ -585,7 +585,7 @@ class ParagonData
     /**
      * Set arrivalTime
      *
-     * @param string $arrivalTime
+     * @param date $arrivalTime
      *
      * @return ParagonData
      */
@@ -599,7 +599,7 @@ class ParagonData
     /**
      * Get arrivalTime
      *
-     * @return string
+     * @return date
      */
     public function getArrivalTime()
     {
@@ -609,7 +609,7 @@ class ParagonData
     /**
      * Set departTime
      *
-     * @param string $departTime
+     * @param date $departTime
      *
      * @return ParagonData
      */
@@ -623,7 +623,7 @@ class ParagonData
     /**
      * Get departTime
      *
-     * @return string
+     * @return date
      */
     public function getDepartTime()
     {
@@ -969,7 +969,7 @@ class ParagonData
     /**
      * Set endDepotArrivalTime
      *
-     * @param string $endDepotArrivalTime
+     * @param date $endDepotArrivalTime
      *
      * @return ParagonData
      */
@@ -983,7 +983,7 @@ class ParagonData
     /**
      * Get endDepotArrivalTime
      *
-     * @return string
+     * @return date
      */
     public function getEndDepotArrivalTime()
     {
@@ -1281,7 +1281,7 @@ class ParagonData
     /**
      * Set tripStart
      *
-     * @param string $tripStart
+     * @param date $tripStart
      *
      * @return ParagonData
      */
@@ -1295,7 +1295,7 @@ class ParagonData
     /**
      * Get tripStart
      *
-     * @return string
+     * @return date
      */
     public function getTripStart()
     {
@@ -1305,7 +1305,7 @@ class ParagonData
     /**
      * Set destDepotArrivalTime
      *
-     * @param string $destDepotArrivalTime
+     * @param date $destDepotArrivalTime
      *
      * @return ParagonData
      */
@@ -1319,7 +1319,7 @@ class ParagonData
     /**
      * Get destDepotArrivalTime
      *
-     * @return string
+     * @return date
      */
     public function getDestDepotArrivalTime()
     {
@@ -1329,7 +1329,7 @@ class ParagonData
     /**
      * Set destDepotDepartureTime
      *
-     * @param string $destDepotDepartureTime
+     * @param date $destDepotDepartureTime
      *
      * @return ParagonData
      */
@@ -1343,7 +1343,7 @@ class ParagonData
     /**
      * Get destDepotDepartureTime
      *
-     * @return string
+     * @return date
      */
     public function getDestDepotDepartureTime()
     {
@@ -1401,7 +1401,7 @@ class ParagonData
     /**
      * Set sourceDepotArrivalTime2
      *
-     * @param string $sourceDepotArrivalTime2
+     * @param date $sourceDepotArrivalTime2
      *
      * @return ParagonData
      */
@@ -1415,7 +1415,7 @@ class ParagonData
     /**
      * Get sourceDepotArrivalTime2
      *
-     * @return string
+     * @return date
      */
     public function getSourceDepotArrivalTime2()
     {
@@ -1425,7 +1425,7 @@ class ParagonData
     /**
      * Set sourceDepotDepartureTime2
      *
-     * @param string $sourceDepotDepartureTime2
+     * @param date $sourceDepotDepartureTime2
      *
      * @return ParagonData
      */
@@ -1439,7 +1439,7 @@ class ParagonData
     /**
      * Get sourceDepotDepartureTime2
      *
-     * @return string
+     * @return date
      */
     public function getSourceDepotDepartureTime2()
     {
@@ -1473,7 +1473,7 @@ class ParagonData
     /**
      * Set startDepotDepartureTime
      *
-     * @param string $startDepotDepartureTime
+     * @param date $startDepotDepartureTime
      *
      * @return ParagonData
      */
@@ -1487,7 +1487,7 @@ class ParagonData
     /**
      * Get startDepotDepartureTime
      *
-     * @return string
+     * @return date
      */
     public function getStartDepotDepartureTime()
     {
@@ -1521,7 +1521,7 @@ class ParagonData
     /**
      * Set endTime
      *
-     * @param string $endTime
+     * @param date $endTime
      *
      * @return ParagonData
      */
@@ -1535,7 +1535,7 @@ class ParagonData
     /**
      * Get endTime
      *
-     * @return string
+     * @return date
      */
     public function getEndTime()
     {
