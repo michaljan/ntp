@@ -12,7 +12,7 @@ use NTPBundle\Entity\ParagonData;
 use NTPBundle\ValueConventer\DateTimeNow;
 use NTPBundle\ValueConventer\UploadedBy;
 use NTPBundle\ValueConventer\PlanDateConvert;
-
+use NTPBundle\Headers\ParagonArray;
 
 class CsvFileWriter extends Controller {
 
@@ -22,13 +22,14 @@ class CsvFileWriter extends Controller {
         $this->em = $em;
     }
 
-    public function csvImport($csvFile, $entity, $planDate,$user) {
+    public function csvImport($csvFile, $entity, $planDate, $user) {
         // Create and configure the reader
+        $headers = new ParagonArray();
         $file = new \SplFileObject($csvFile);
         $csvReader = new CsvReader($file);
         $csvReader->setHeaderRowNumber(0);
         $csvReader->setStrict(false);
-        $csvReader->setColumnHeaders(['customerId', 'customerName', 'arrivalTime', 'departTime', 'callRefNumber', 'cages', 'chepPallets', 'psPallets', 'container', 'cageEquivalent', 'orderDetails1', 'orderDetails2', 'orderDetails3', 'orderDetails4', 'postcode', 'prodCode', 'productName', 'routeNo', 'tripNo', 'travelDistanceToNextCall', 'travelDistanceFromPrevCall ', 'callType', 'timeWindowStart', 'timeWindowEnd', 'tripsStartDepot', 'tripsEndDepot', 'sourceDepotDepartureTime', 'endDepotArrivalTime', 'waitingTime', 'transferId', 'trailerTypeName', 'callTripPosition', 'routeDropNo', 'uploadDate', 'uploadedBy','planDate']);
+        $csvReader->setColumnHeaders($headers->csvReaderArray());
         $workflow = new Workflow($csvReader);
 //        \Doctrine\Common\Util\Debug::dump($csvReader);
 //        die;
@@ -39,11 +40,22 @@ class CsvFileWriter extends Controller {
         $dateTimeNow = new DateTimeNow;
         $uploadedBy = new UploadedBy($user);
         $planDateConvert = new PlanDateConvert($planDate);
-        $workflow->addValueConverter('arrivalTime', $dateConverter)
-                 ->addValueConverter('departTime', $dateConverter)
-                 ->addValueConverter('uploadDate', $dateTimeNow)
-                 ->addValueConverter('uploadedBy', $uploadedBy)
-                 ->addValueConverter('planDate', $planDateConvert);
+        $workflow->addValueConverter(`start_time`, $dateConverter)
+                ->addValueConverter(`source_depot_departure_time`, $dateConverter)
+                ->addValueConverter(`arrival_time`, $dateConverter)
+                ->addValueConverter(`depart_time`, $dateConverter)
+                ->addValueConverter(`end_depot_arrival_time`, $dateConverter)
+                ->addValueConverter(`trip_start`, $dateConverter)
+                ->addValueConverter(`dest_depot_arrival_time`, $dateConverter)
+                ->addValueConverter(`dest_depot_departure_time`, $dateConverter)
+                ->addValueConverter(`source_depot_arrival_time_2`, $dateConverter)
+                ->addValueConverter(`source_depot_departure_time_2`, $dateConverter)
+                ->addValueConverter(`start_depot_departure_time`, $dateConverter)
+                ->addValueConverter(`end_time`, $dateConverter)
+                ->addValueConverter(`plan_date`, $dateConverter)
+                ->addValueConverter('uploadDate', $dateTimeNow)
+                ->addValueConverter('uploadedBy', $uploadedBy)
+                ->addValueConverter('planDate', $planDateConvert);
         $result = $workflow->process();
         return $result;
     }
