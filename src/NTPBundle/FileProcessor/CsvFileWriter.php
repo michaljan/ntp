@@ -13,6 +13,7 @@ use NTPBundle\ValueConventer\DateTimeNow;
 use NTPBundle\ValueConventer\UploadedBy;
 use NTPBundle\ValueConventer\PlanDateConvert;
 use NTPBundle\Headers\ParagonArray;
+use Ddeboer\DataImport\ValueConverter\DateTimeValueConverter;
 
 class CsvFileWriter extends Controller {
 
@@ -31,33 +32,43 @@ class CsvFileWriter extends Controller {
         $csvReader->setStrict(false);
         $csvReader->setColumnHeaders($headers->csvReaderArray());
         $workflow = new Workflow($csvReader);
-//        \Doctrine\Common\Util\Debug::dump($csvReader);
-//        die;
         $doctrineWriter = new DoctrineWriter($this->em, $entity);
         $doctrineWriter->disableTruncate();
         $workflow->addWriter($doctrineWriter);
         $dateConverter = new DateConventer($planDate);
         $dateTimeNow = new DateTimeNow;
+        $timeConverter = new DateTimeValueConverter('H:i:s');
         $uploadedBy = new UploadedBy($user);
         $planDateConvert = new PlanDateConvert($planDate);
-        $workflow->addValueConverter(`start_time`, $dateConverter)
-                ->addValueConverter(`source_depot_departure_time`, $dateConverter)
-                ->addValueConverter(`arrival_time`, $dateConverter)
-                ->addValueConverter(`depart_time`, $dateConverter)
-                ->addValueConverter(`end_depot_arrival_time`, $dateConverter)
-                ->addValueConverter(`trip_start`, $dateConverter)
-                ->addValueConverter(`dest_depot_arrival_time`, $dateConverter)
-                ->addValueConverter(`dest_depot_departure_time`, $dateConverter)
-                ->addValueConverter(`source_depot_arrival_time_2`, $dateConverter)
-                ->addValueConverter(`source_depot_departure_time_2`, $dateConverter)
-                ->addValueConverter(`start_depot_departure_time`, $dateConverter)
-                ->addValueConverter(`end_time`, $dateConverter)
-                ->addValueConverter(`plan_date`, $dateConverter)
+        $workflow->addValueConverter('startTime', $dateConverter)
+                ->addValueConverter('sourceDepotDepartureTime', $dateConverter)
+                ->addValueConverter('arrivalTime', $dateConverter)
+                ->addValueConverter('departTime', $dateConverter)
+                ->addValueConverter('endDepotArrivalTime', $dateConverter)
+                ->addValueConverter('tripStart', $dateConverter)
+                ->addValueConverter('destDepotArrivalTime', $dateConverter)
+                ->addValueConverter('destDepotDepartureTime', $dateConverter)
+                ->addValueConverter('sourceDepotArrivalTime2', $dateConverter)
+                ->addValueConverter('sourceDepotDepartureTime2', $dateConverter)
+                ->addValueConverter('startDepotDepartureTime', $dateConverter)
+                ->addValueConverter('endTime', $dateConverter)
+                ->addValueConverter('callDuration', $timeConverter)
+                ->addValueConverter('dutyTime', $timeConverter)
+                ->addValueConverter('driveTime', $timeConverter)
+                ->addValueConverter('emptyTime', $timeConverter)
                 ->addValueConverter('uploadDate', $dateTimeNow)
                 ->addValueConverter('uploadedBy', $uploadedBy)
                 ->addValueConverter('planDate', $planDateConvert);
+//        \Doctrine\Common\Util\Debug::dump($doctrineWriter);
+//        die;
+//        foreach($csvReader as $row){
+//            print_r($row);
+//            
+//        }
+//        
+//        die;    
         $result = $workflow->process();
-        return $result;
+        return $this;
     }
 
 }

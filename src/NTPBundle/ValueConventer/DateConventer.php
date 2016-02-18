@@ -12,6 +12,9 @@ class DateConventer implements ValueConverterInterface {
     
     
     public function convert($input) { 
+//            \Doctrine\Common\Util\Debug::dump($this->planDate);
+//            die;
+            $date=false;
             if (!$input) {
                 return;
             }
@@ -33,8 +36,6 @@ class DateConventer implements ValueConverterInterface {
                 'Incorrect plan date'
                 );
             }
-            //\Doctrine\Common\Util\Debug::dump(new \DateTime($date));
-            //die;
         return new \DateTime($date);
     }
 
