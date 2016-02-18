@@ -12,6 +12,7 @@ use NTPBundle\Entity\ParagonData;
 use NTPBundle\ValueConventer\DateTimeNow;
 use NTPBundle\ValueConventer\UploadedBy;
 use NTPBundle\ValueConventer\PlanDateConvert;
+use NTPBundle\ValueConventer\PlanNameConventer;
 use NTPBundle\Headers\ParagonArray;
 use Ddeboer\DataImport\ValueConverter\DateTimeValueConverter;
 
@@ -36,11 +37,13 @@ class CsvFileWriter extends Controller {
         $doctrineWriter->disableTruncate();
         $workflow->addWriter($doctrineWriter);
         $dateConverter = new DateConventer($planDate);
+        $planNameConventer = new PlanNameConventer($planDate);
         $dateTimeNow = new DateTimeNow;
-        $timeConverter = new DateTimeValueConverter('H:i:s');
+        $timeConverter = new DateTimeValueConverter('H:i');
         $uploadedBy = new UploadedBy($user);
         $planDateConvert = new PlanDateConvert($planDate);
-        $workflow->addValueConverter('startTime', $dateConverter)
+        $workflow->addValueConverter('routeNo', $planNameConventer)
+                ->addValueConverter('startTime', $dateConverter)
                 ->addValueConverter('sourceDepotDepartureTime', $dateConverter)
                 ->addValueConverter('arrivalTime', $dateConverter)
                 ->addValueConverter('departTime', $dateConverter)

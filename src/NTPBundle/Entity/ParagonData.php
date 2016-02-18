@@ -13,9 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 class ParagonData
 {
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="route_no", type="integer", nullable=true)
+     * @ORM\Column(name="route_no", type="string", nullable=true)
      */
     private $routeNo;
 
@@ -418,7 +418,7 @@ class ParagonData
     /**
      * Set routeNo
      *
-     * @param integer $routeNo
+     * @param string $routeNo
      *
      * @return ParagonData
      */
