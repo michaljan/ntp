@@ -4,11 +4,13 @@
     <p>File processed succefuly</p>
     <br/>
     <p>Errors: {{ errors }}</p> <br/>
-    <p>Sucess: {{ sucess }}</p> <br/>
+    <p>Sucess: {{ success }}</p> <br/>
+    <table class="table table-striped">
     {% for item in exceptionsArray %}
         <tr>
-            <td>{{ item }}</td>
+            <td> {{ item }} </td><br/>
         </tr>
     {% endfor %}
+    </table>
     
 {% endblock %}

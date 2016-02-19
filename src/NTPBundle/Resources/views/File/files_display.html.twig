@@ -1,16 +1,28 @@
 {% extends 'NTPBundle::base.html.twig' %}
 {% block body %}
-<table class="table table-condensed">
-    {% for item in fileProcessed %}
-        <tr>
-        <td>{{ item.getName }}</td>
-        <td>{{ item.getPath }}</td>
-        <td>{{ item.getUploadedAt|date('d-m-Y H:i') }}</td>
-        <td>
-            <a href="{{ path('process_csv',{ id: item.id }) }}" class="btn btn-success">Process</a>    
-        </td>
-        </tr>
-    {% endfor %}
-        
-</table>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Plan name</th>
+                <th>File name</th>
+                <th>Plan date</th>
+                <th>Uploaded at</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        {% for item in fileProcessed %}
+            <tr>
+                <td>{{ item.getId }}</td>
+                <td>{{ item.getName }}</td>
+                <td>{{ item.getPath }}</td>
+                <td>{{ item.getPlanDate|date('d-m-Y') }}</td>
+                <td>{{ item.getUploadedAt|date('d-m-Y H:i') }}</td>
+                <td>
+                    <a href="{{ path('process_csv',{ id: item.id }) }}" class="btn btn-success">Process</a>    
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
 {% endblock %}

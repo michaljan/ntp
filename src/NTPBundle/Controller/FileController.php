@@ -36,7 +36,7 @@ class FileController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($fileUpload);
             $em->flush();
-            $this->displayFilesAction();
+            return $this->redirectToRoute('file_display');
         }
 
         return $this->render('NTPBundle:Forms:upload_form.html.twig', array('form' => $form->createView()));
@@ -60,12 +60,20 @@ class FileController extends Controller {
         if(!is_null($fileRecord)){
             $webPath=$this->container->getParameter('web_path').'\uploads\\'.$fileRecord->getPath();
             $result=$csvFileWriter->csvImport($webPath, $paragonData,$user,$fileRecord);
-            //\Doctrine\Common\Util\Debug::dump($webPath);
+            if(!empty($result->getExceptions())){
+               $exceptionsArray =$result->getExceptions();
+            }
+            else{
+                $exceptionsArray=array();
+            }
+            
+            //\Doctrine\Common\Util\Debug::dump($result);
+            //die;
         }
         //$fileImport->csvImport($csvFile, $entity);
         return $this->render('NTPBundle:File:file_processed.html.twig',array('errors'=>($result->getErrorCount()),
                                                                              'success'=>($result->getSuccessCount()),
-                                                                             array('exceptionsArray'=>($result->getExceptions()))
+                                                                             'exceptionsArray'=>$exceptionsArray
                                                                             ));
     }
 

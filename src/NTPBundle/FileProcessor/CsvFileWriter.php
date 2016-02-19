@@ -44,7 +44,8 @@ class CsvFileWriter extends Controller {
         $timeConverter = new DateTimeValueConverter('H:i');
         $uploadedBy = new UploadedBy($user);
         $planDateConvert = new PlanDateConvert($fileRecord ->getPlanDate());
-        $workflow->addValueConverter('routeNo', $routeNameConventer)
+        $workflow->setSkipItemOnFailure(true)
+                ->addValueConverter('routeNo', $routeNameConventer)
                 ->addValueConverter('startTime', $dateConverter)
                 ->addValueConverter('sourceDepotDepartureTime', $dateConverter)
                 ->addValueConverter('arrivalTime', $dateConverter)
@@ -66,8 +67,7 @@ class CsvFileWriter extends Controller {
                 ->addValueConverter('uploadDate', $dateTimeNow)
                 ->addValueConverter('uploadedBy', $uploadedBy)
                 ->addValueConverter('planDate', $planDateConvert)
-                ->addValueConverter('planName', $planNameConverter)
-                ->setSkipItemOnFailure(true);
+                ->addValueConverter('planName', $planNameConverter);
 //        \Doctrine\Common\Util\Debug::dump($doctrineWriter);
 //        die;
 //        foreach($csvReader as $row){
