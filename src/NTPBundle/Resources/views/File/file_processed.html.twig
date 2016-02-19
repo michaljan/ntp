@@ -2,4 +2,13 @@
 {% block body %}
     
     <p>File processed succefuly</p>
+    <br/>
+    <p>Errors: {{ errors }}</p> <br/>
+    <p>Sucess: {{ sucess }}</p> <br/>
+    {% for item in exceptionsArray %}
+        <tr>
+            <td>{{ item }}</td>
+        </tr>
+    {% endfor %}
+    
 {% endblock %}

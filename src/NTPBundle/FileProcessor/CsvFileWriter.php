@@ -66,7 +66,8 @@ class CsvFileWriter extends Controller {
                 ->addValueConverter('uploadDate', $dateTimeNow)
                 ->addValueConverter('uploadedBy', $uploadedBy)
                 ->addValueConverter('planDate', $planDateConvert)
-                ->addValueConverter('planName', $planNameConverter);
+                ->addValueConverter('planName', $planNameConverter)
+                ->setSkipItemOnFailure(true);
 //        \Doctrine\Common\Util\Debug::dump($doctrineWriter);
 //        die;
 //        foreach($csvReader as $row){

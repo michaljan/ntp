@@ -59,11 +59,14 @@ class FileController extends Controller {
                 ->findOneById($id);
         if(!is_null($fileRecord)){
             $webPath=$this->container->getParameter('web_path').'\uploads\\'.$fileRecord->getPath();
-            $csvFileWriter->csvImport($webPath, $paragonData,$user,$fileRecord);
+            $result=$csvFileWriter->csvImport($webPath, $paragonData,$user,$fileRecord);
             //\Doctrine\Common\Util\Debug::dump($webPath);
         }
         //$fileImport->csvImport($csvFile, $entity);
-        return $this->render('NTPBundle:File:file_processed.html.twig');
+        return $this->render('NTPBundle:File:file_processed.html.twig',array('errors'=>($result->getErrorCount()),
+                                                                             'success'=>($result->getSuccessCount()),
+                                                                             array('exceptionsArray'=>($result->getExceptions()))
+                                                                            ));
     }
 
 }
