@@ -59,8 +59,7 @@ class FileController extends Controller {
                 ->findOneById($id);
         if(!is_null($fileRecord)){
             $webPath=$this->container->getParameter('web_path').'\uploads\\'.$fileRecord->getPath();
-            $planDate=$fileRecord ->getPlanDate();
-            $csvFileWriter->csvImport($webPath, $paragonData,$planDate,$user);
+            $csvFileWriter->csvImport($webPath, $paragonData,$user,$fileRecord);
             //\Doctrine\Common\Util\Debug::dump($webPath);
         }
         //$fileImport->csvImport($csvFile, $entity);

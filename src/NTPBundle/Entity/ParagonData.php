@@ -60,17 +60,34 @@ class ParagonData
      * @ORM\Column(name="customer_id", type="string", length=10, nullable=true)
      */
     private $customerId;
-
+    
+     /**
+     * @var string
+     * @todo add to paragon
+     * @ORM\Column(name="customer_name", type="string", length=64, nullable=true)
+     */
+    public $customerName;
+    
     /**
      * @var DateTime
      *
      * @ORM\Column(name="arrival_time", type="datetime", length=10, nullable=true)
      */
+    
+    
     private $arrivalTime;
+    
+    /**
+     * @var string
+     * @todo add to paragon
+     * @ORM\Column(name="postcode", type="string", length=8, nullable=true)
+     */
+    public $postcode;
+
 
     /**
      * @var DateTime
-     *
+     * 
      * @ORM\Column(name="depart_time", type="datetime", length=10, nullable=true)
      */
     private $departTime;
@@ -368,7 +385,23 @@ class ParagonData
      * @ORM\Column(name="call_ref_number", type="integer", nullable=true)
      */
     private $callRefNumber;
+    
+    /**
+     * @var time
+     * @todo add to paragon
+     * @ORM\Column(name="time_window_start", type="time", length=9, nullable=true)
+     */
+    public $timeWindowStart;
 
+    /**
+     * @var time
+     * @todo add to paragon
+     * @ORM\Column(name="time_window_end", type="time", length=9, nullable=true)
+     */
+    public $timeWindowEnd;
+    
+    
+    
     /**
      * @var \DateTime
      *
@@ -413,8 +446,20 @@ class ParagonData
      */
     private $id;
 
-
-
+    /**
+     * @var Integer
+     *
+     * @ORM\Column(name="travel_dist_next", type="integer", length=10, nullable=true)
+     */
+    private $travelDistNext;
+    
+    /**
+     * @var Integer
+     *
+     * @ORM\Column(name="travel_dist_prev", type="integer", length=10, nullable=true)
+     */
+    private $travelDistPrev;
+    
     /**
      * Set routeNo
      *
@@ -1768,5 +1813,106 @@ class ParagonData
     {
         return $this->id;
     }
+    
+    
+    /**
+     * Set customerName
+     *
+     * @param string $customerName
+     *
+     * @return ParagonData
+     */
+    public function setCustomerName($customerName)
+    {
+        $this->customerName = $customerName;
+
+        return $this;
+    }
+
+    /**
+     * Get customerName
+     *
+     * @return string
+     */
+    public function getCustomerName()
+    {
+        return $this->customerName;
+    }
+    
+     /**
+     * Set postcode
+     *
+     * @param string $postcode
+     *
+     * @return ParagonData
+     */
+    public function setPostcode($postcode)
+    {
+        $this->postcode = $postcode;
+
+        return $this;
+    }
+
+    /**
+     * Get postcode
+     *
+     * @return string
+     */
+    public function getPostcode()
+    {
+        return $this->postcode;
+    }
+    
+    
+    /**
+     * Set travelDistNext
+     *
+     * @param integer $travelDistNext
+     *
+     * @return ParagonData
+     */
+    public function setTravelDistNext($travelDistNext)
+    {
+        $this->travelDistNext = $travelDistNext;
+
+        return $this;
+    }
+
+    /**
+     * Get travelDistNext
+     *
+     * @return integer
+     */
+    public function getTravelDistNext()
+    {
+        return $this->travelDistNext;
+    }
+    
+        
+    /**
+     * Set travelDistPrev
+     *
+     * @param integer $travelDistPrev
+     *
+     * @return ParagonData
+     */
+    public function setTravelDistPrev($travelDistPrev)
+    {
+        $this->travelDistPrev = $travelDistPrev;
+
+        return $this;
+    }
+
+    /**
+     * Get travelDistPrev
+     *
+     * @return integer
+     */
+    public function getTravelDistPrev()
+    {
+        return $this->travelDistPrev;
+    }
+    
+    
 }
 

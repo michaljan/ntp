@@ -24,7 +24,7 @@ class CsvFileWriter extends Controller {
         $this->em = $em;
     }
 
-    public function csvImport($csvFile, $entity, $planDate, $user) {
+    public function csvImport($csvFile, $entity, $user ,$fileRecord) {
         // Create and configure the reader
         $headers = new ParagonArray();
         $file = new \SplFileObject($csvFile);
@@ -36,13 +36,14 @@ class CsvFileWriter extends Controller {
         $doctrineWriter = new DoctrineWriter($this->em, $entity);
         $doctrineWriter->disableTruncate();
         $workflow->addWriter($doctrineWriter);
-        $dateConverter = new DateConventer($planDate);
-        $planNameConventer = new PlanNameConventer($planDate);
+        $dateConverter = new DateConventer($fileRecord ->getPlanDate());
+        $planNameConverter = new PlanNameConventer($fileRecord ->getName());
+        $routeNameConventer = new RouteNameConventer($fileRecord ->getPlanDate());
         $dateTimeNow = new DateTimeNow;
         $timeConverter = new DateTimeValueConverter('H:i');
         $uploadedBy = new UploadedBy($user);
-        $planDateConvert = new PlanDateConvert($planDate);
-        $workflow->addValueConverter('routeNo', $planNameConventer)
+        $planDateConvert = new PlanDateConvert($fileRecord ->getPlanDate());
+        $workflow->addValueConverter('routeNo', $routeNameConventer)
                 ->addValueConverter('startTime', $dateConverter)
                 ->addValueConverter('sourceDepotDepartureTime', $dateConverter)
                 ->addValueConverter('arrivalTime', $dateConverter)
@@ -59,9 +60,12 @@ class CsvFileWriter extends Controller {
                 ->addValueConverter('dutyTime', $timeConverter)
                 ->addValueConverter('driveTime', $timeConverter)
                 ->addValueConverter('emptyTime', $timeConverter)
+                ->addValueConverter('timeWindowStart', $timeConverter)
+                ->addValueConverter('timeWindowEnd', $timeConverter)
                 ->addValueConverter('uploadDate', $dateTimeNow)
                 ->addValueConverter('uploadedBy', $uploadedBy)
-                ->addValueConverter('planDate', $planDateConvert);
+                ->addValueConverter('planDate', $planDateConvert)
+                ->addValueConverter('planName', $planNameConverter);
 //        \Doctrine\Common\Util\Debug::dump($doctrineWriter);
 //        die;
 //        foreach($csvReader as $row){
