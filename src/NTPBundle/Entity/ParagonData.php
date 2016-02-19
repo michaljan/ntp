@@ -387,16 +387,16 @@ class ParagonData
     private $callRefNumber;
     
     /**
-     * @var time
-     * @todo add to paragon
-     * @ORM\Column(name="time_window_start", type="time", length=9, nullable=true)
+     * @var Datetime
+     * 
+     * @ORM\Column(name="time_window_start", type="datetime", length=9, nullable=true)
      */
     public $timeWindowStart;
 
     /**
-     * @var time
-     * @todo add to paragon
-     * @ORM\Column(name="time_window_end", type="time", length=9, nullable=true)
+     * @var Datetime
+     * 
+     * @ORM\Column(name="time_window_end", type="datetime", length=9, nullable=true)
      */
     public $timeWindowEnd;
     
@@ -1911,6 +1911,55 @@ class ParagonData
     public function getTravelDistPrev()
     {
         return $this->travelDistPrev;
+    }
+    
+        /**
+     * Set timeWindowStart
+     *
+     * @param DateTime $timeWindowStart
+     *
+     * @return ParagonData
+     */
+    public function setTimeWindowStart($timeWindowStart)
+    {
+        $this->timeWindowStart = $timeWindowStart;
+
+        return $this;
+    }
+
+    /**
+     * Get timeWindowEnd
+     *
+     * @return DateTime
+     */
+    public function getTimeWindowStart()
+    {
+        return $this->timeWindowStart;
+    }
+    
+        
+        /**
+     * Set timeWindowEnd
+     *
+     * @param DateTime $timeWindowEnd
+     *
+     * @return ParagonData
+     */
+    public function setTimeWindowEnd($timeWindowEnd)
+    {
+        $this->timeWindowEnd = $timeWindowEnd;
+
+        return $this;
+    }
+
+    /**
+     * Get timeWindowEnd
+     *
+     * @return DateTime
+     */
+    public function getTimeWindowEnd()
+    {
+        return $this->timeWindowEnd;
     }
     
     

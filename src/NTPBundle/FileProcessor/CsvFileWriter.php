@@ -13,6 +13,7 @@ use NTPBundle\ValueConventer\DateTimeNow;
 use NTPBundle\ValueConventer\UploadedBy;
 use NTPBundle\ValueConventer\PlanDateConvert;
 use NTPBundle\ValueConventer\PlanNameConventer;
+use NTPBundle\ValueConventer\RouteNameConventer;
 use NTPBundle\Headers\ParagonArray;
 use Ddeboer\DataImport\ValueConverter\DateTimeValueConverter;
 
@@ -60,8 +61,8 @@ class CsvFileWriter extends Controller {
                 ->addValueConverter('dutyTime', $timeConverter)
                 ->addValueConverter('driveTime', $timeConverter)
                 ->addValueConverter('emptyTime', $timeConverter)
-                ->addValueConverter('timeWindowStart', $timeConverter)
-                ->addValueConverter('timeWindowEnd', $timeConverter)
+                ->addValueConverter('timeWindowStart', $dateConverter)
+                ->addValueConverter('timeWindowEnd', $dateConverter)
                 ->addValueConverter('uploadDate', $dateTimeNow)
                 ->addValueConverter('uploadedBy', $uploadedBy)
                 ->addValueConverter('planDate', $planDateConvert)
@@ -75,7 +76,7 @@ class CsvFileWriter extends Controller {
 //        
 //        die;    
         $result = $workflow->process();
-        return $this;
+        return $result;
     }
 
 }
