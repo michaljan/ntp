@@ -9,9 +9,7 @@
 namespace NTPBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use NTPBundle\Form\ReportType;
-use Symfony\Component\HttpFoundation\Request;
-
+use NTPBundle\Entity\ParagonData;
 /**
  * Description of ReportController
  *
@@ -19,13 +17,10 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ReportController extends Controller {
 
-    public function dashboardAction(Request $request) {
-        $form = new ReportType;
-        $form->buildForm();
+    public function dashboardAction() {
+        $report = new ParagonData;
+        $form->createForm(Report::class, $report);
         $form->handleRequest($request);
-        if ($form->isValid()) {
-
-        }
         return $this->render('NTPBundle:Reports:dashboard.html.twig',array('form' => $form->createView()));
     }
 

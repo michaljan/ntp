@@ -4,7 +4,7 @@ namespace NTPBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ReportType extends AbstractType {
 
@@ -14,10 +14,14 @@ class ReportType extends AbstractType {
                     'format' => 'dd/MM/yyyy',
                     'data' => new \DateTime(),
                     'attr' => array('class' => 'form-control')))
-                
-                ->getForm();
-
-        return $builder;
+                ->add('Display', SubmitType::class)
+                ;
     }
+    public function configureOptions(OptionsResolver $resolver)
+{
+    $resolver->setDefaults(array(
+        'data_class' => 'NTPBundle\Entity\ParagonData',
+    ));
+}
 
 }
