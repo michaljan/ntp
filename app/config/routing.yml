@@ -28,4 +28,10 @@ process_csv:
     path : /processcsv/{id}
     defaults:
         _controller: NTPBundle:File:processCsv
-        
+
+dashboard_report:
+    path : /report/dashboard
+    defaults:
+        _controller: NTPBundle:Report:dashboard
+     
+    

@@ -4,7 +4,6 @@ namespace NTPBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use NTPBundle\Form;
 
 class DefaultController extends Controller
 {

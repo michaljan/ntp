@@ -66,11 +66,11 @@ class FileController extends Controller {
             else{
                 $exceptionsArray=array();
             }
-            
+        $fileRecord->setProcessed(true);
+        $em->flush();
             //\Doctrine\Common\Util\Debug::dump($result);
             //die;
         }
-        //$fileImport->csvImport($csvFile, $entity);
         return $this->render('NTPBundle:File:file_processed.html.twig',array('errors'=>($result->getErrorCount()),
                                                                              'success'=>($result->getSuccessCount()),
                                                                              'exceptionsArray'=>$exceptionsArray
