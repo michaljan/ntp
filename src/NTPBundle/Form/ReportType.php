@@ -11,17 +11,12 @@ class ReportType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('planDate', 'date', array('widget' => 'single_text',
-                    'format' => 'dd/MM/yyyy',
+                    'format' => 'dd-MM-yyyy',
                     'data' => new \DateTime(),
                     'attr' => array('class' => 'form-control')))
-                ->add('Display', SubmitType::class)
-                ;
+                ->add('submit', SubmitType::class,array('attr' => array('class' => 'btn btn-default')))
+        ;
     }
-    public function configureOptions(OptionsResolver $resolver)
-{
-    $resolver->setDefaults(array(
-        'data_class' => 'NTPBundle\Entity\ParagonData',
-    ));
-}
+
 
 }

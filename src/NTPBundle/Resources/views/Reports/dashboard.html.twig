@@ -1,4 +1,12 @@
 {% extends 'NTPBundle::base.html.twig' %}
 {% block body %}
-    Dashboard
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_start(form) }}
+                {{ form_errors(form) }}
+                {{ form_row(form.planDate) }}
+                {{ form_row(form.submit) }}
+            {{ form_end(form) }}</div>
+        <div class="col-md-10"></div>
+    </div>
 {% endblock %}

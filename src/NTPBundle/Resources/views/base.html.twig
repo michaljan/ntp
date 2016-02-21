@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         {% endstylesheets %}
-        </head>
+    </head>
     <body>
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -54,11 +54,14 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script>
-  $(function() {
-        $( "#form_planDate" ).datepicker({
-  dateFormat: "dd-mm-yy"
-});
-  });
+    $(function () {
+        $("#form_planDate").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+        $("#report_planDate").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+    });
 </script>
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
