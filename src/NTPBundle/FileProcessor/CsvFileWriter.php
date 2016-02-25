@@ -13,6 +13,7 @@ use NTPBundle\ValueConventer\DateTimeNow;
 use NTPBundle\ValueConventer\UploadedBy;
 use NTPBundle\ValueConventer\PlanDateConvert;
 use NTPBundle\ValueConventer\PlanNameConventer;
+use NTPBundle\ValueConventer\DateToMicroConventer;
 use NTPBundle\ValueConventer\RouteNameConventer;
 use NTPBundle\Headers\ParagonArray;
 use Ddeboer\DataImport\ValueConverter\DateTimeValueConverter;
@@ -41,6 +42,7 @@ class CsvFileWriter extends Controller {
         $planNameConverter = new PlanNameConventer($fileRecord ->getName());
         $routeNameConventer = new RouteNameConventer($fileRecord ->getPlanDate());
         $dateTimeNow = new DateTimeNow;
+        $dateToMicroConventer =     new DateToMicroConventer;
         $timeConverter = new DateTimeValueConverter('H:i');
         $uploadedBy = new UploadedBy($user);
         $planDateConvert = new PlanDateConvert($fileRecord ->getPlanDate());
@@ -58,10 +60,10 @@ class CsvFileWriter extends Controller {
                 ->addValueConverter('sourceDepotDepartureTime2', $dateConverter)
                 ->addValueConverter('startDepotDepartureTime', $dateConverter)
                 ->addValueConverter('endTime', $dateConverter)
-                ->addValueConverter('callDuration', $timeConverter)
-                ->addValueConverter('dutyTime', $timeConverter)
-                ->addValueConverter('driveTime', $timeConverter)
-                ->addValueConverter('emptyTime', $timeConverter)
+                ->addValueConverter('callDuration', $dateToMicroConventer)
+                ->addValueConverter('dutyTime', $dateToMicroConventer)
+                ->addValueConverter('driveTime', $dateToMicroConventer)
+                ->addValueConverter('emptyTime', $dateToMicroConventer)
                 ->addValueConverter('timeWindowStart', $dateConverter)
                 ->addValueConverter('timeWindowEnd', $dateConverter)
                 ->addValueConverter('uploadDate', $dateTimeNow)

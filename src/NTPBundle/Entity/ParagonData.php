@@ -93,9 +93,9 @@ class ParagonData
     private $departTime;
 
     /**
-     * @var Time
+     * @var integer
      *
-     * @ORM\Column(name="call_duration", type="time", length=10, nullable=true)
+     * @ORM\Column(name="call_duration", type="integer", length=10, nullable=true)
      */
     private $callDuration;
 
@@ -205,16 +205,16 @@ class ParagonData
     private $depotofroute;
 
     /**
-     * @var Time
+     * @var integer
      *
-     * @ORM\Column(name="duty_time", type="time", length=10, nullable=true)
+     * @ORM\Column(name="duty_time", type="integer", length=10, nullable=true)
      */
     private $dutyTime;
 
     /**
-     * @var Time
+     * @var integer
      *
-     * @ORM\Column(name="drive_time", type="time", length=10, nullable=true)
+     * @ORM\Column(name="drive_time", type="integer", length=10, nullable=true)
      */
     private $driveTime;
 
@@ -233,9 +233,9 @@ class ParagonData
     private $emptyDistKms;
 
     /**
-     * @var Time
+     * @var integer
      *
-     * @ORM\Column(name="empty_time", type="time", length=10, nullable=true)
+     * @ORM\Column(name="empty_time", type="integer", length=10, nullable=true)
      */
     private $emptyTime;
 
@@ -447,14 +447,14 @@ class ParagonData
     private $id;
 
     /**
-     * @var Integer
+     * @var integer
      *
      * @ORM\Column(name="travel_dist_next", type="integer", length=10, nullable=true)
      */
     private $travelDistNext;
     
     /**
-     * @var Integer
+     * @var integer
      *
      * @ORM\Column(name="travel_dist_prev", type="integer", length=10, nullable=true)
      */
@@ -679,7 +679,7 @@ class ParagonData
     /**
      * Set callDuration
      *
-     * @param time $callDuration
+     * @param integer $callDuration
      *
      * @return ParagonData
      */
@@ -1063,7 +1063,7 @@ class ParagonData
     /**
      * Set dutyTime
      *
-     * @param time $dutyTime
+     * @param integer $dutyTime
      *
      * @return ParagonData
      */
@@ -1159,7 +1159,7 @@ class ParagonData
     /**
      * Set emptyTime
      *
-     * @param time $emptyTime
+     * @param integer $emptyTime
      *
      * @return ParagonData
      */
