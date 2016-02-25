@@ -11,18 +11,20 @@ class ParagonReports {
     
     private $em;
     public function __construct(EntityManager $em) {
-        $this->repository=  $em->getRepository('NTPBundle:ParagonData');
+        $this->em=  $em;
     }
     
     public function dashboard($date){
-        $query= $this->repository->createQueryBuilder('p')
-                ->where('p.planDate = :date')
-                ->setParameter('date', $date)
-                ->getQuery();
-        
-        $result=$query->getResult();
-        \Doctrine\Common\Util\Debug::dump($result);
+        $query= $this->em
+                ->createQuery('SELECT DISTINCT p.routeNo, p.dutyTime AS TIME FROM NTPBundle:ParagonData p WHERE p.planDate = :date')
+                ->setParameter('date', $date);
+        $result= $query->getResult();
+        foreach($result as $row){
+            print_r($row);
+            echo '<br/>';   
+        }
+        //\Doctrine\Common\Util\Debug::dump($result);
         die;
-        return $result;
+        return $dashboardArray;
     }
 }
