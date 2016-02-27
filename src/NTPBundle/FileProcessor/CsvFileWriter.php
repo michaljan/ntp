@@ -13,7 +13,7 @@ use NTPBundle\ValueConventer\DateTimeNow;
 use NTPBundle\ValueConventer\UploadedBy;
 use NTPBundle\ValueConventer\PlanDateConvert;
 use NTPBundle\ValueConventer\PlanNameConventer;
-use NTPBundle\ValueConventer\DateToMicroConventer;
+use NTPBundle\ValueConventer\TimeToMicroConventer;
 use NTPBundle\ValueConventer\RouteNameConventer;
 use NTPBundle\Headers\ParagonArray;
 use Ddeboer\DataImport\ValueConverter\DateTimeValueConverter;
@@ -42,7 +42,7 @@ class CsvFileWriter extends Controller {
         $planNameConverter = new PlanNameConventer($fileRecord ->getName());
         $routeNameConventer = new RouteNameConventer($fileRecord ->getPlanDate());
         $dateTimeNow = new DateTimeNow;
-        $dateToMicroConventer =     new DateToMicroConventer;
+        $dateToMicroConventer = new TimeToMicroConventer;
         $timeConverter = new DateTimeValueConverter('H:i');
         $uploadedBy = new UploadedBy($user);
         $planDateConvert = new PlanDateConvert($fileRecord ->getPlanDate());
