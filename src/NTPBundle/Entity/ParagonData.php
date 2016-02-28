@@ -22,7 +22,7 @@ class ParagonData
     /**
      * @var integer
      *
-     * @ORM\Column(name="trip_no", type="integer", nullable=true)
+     * @ORM\Column(name="trip_no", type="integer", length=20, nullable=true)
      */
     private $tripNo;
 
@@ -43,27 +43,27 @@ class ParagonData
     /**
      * @var DateTime
      *
-     * @ORM\Column(name="start_time", type="datetime", length=10, nullable=true)
+     * @ORM\Column(name="start_time", type="datetime", length=20, nullable=true)
      */
     private $startTime;
 
     /**
      * @var DateTime
      *
-     * @ORM\Column(name="source_depot_departure_time", type="datetime", length=10, nullable=true)
+     * @ORM\Column(name="source_depot_departure_time", type="datetime", length=20, nullable=true)
      */
     private $sourceDepotDepartureTime;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="customer_id", type="string", length=10, nullable=true)
+     * @ORM\Column(name="customer_id", type="string", length=20, nullable=true)
      */
     private $customerId;
     
      /**
      * @var string
-     * @todo add to paragon
+     * 
      * @ORM\Column(name="customer_name", type="string", length=64, nullable=true)
      */
     public $customerName;
@@ -71,7 +71,7 @@ class ParagonData
     /**
      * @var DateTime
      *
-     * @ORM\Column(name="arrival_time", type="datetime", length=10, nullable=true)
+     * @ORM\Column(name="arrival_time", type="datetime", length=20, nullable=true)
      */
     
     
@@ -79,7 +79,7 @@ class ParagonData
     
     /**
      * @var string
-     * @todo add to paragon
+     * 
      * @ORM\Column(name="postcode", type="string", length=8, nullable=true)
      */
     public $postcode;
@@ -88,21 +88,21 @@ class ParagonData
     /**
      * @var DateTime
      * 
-     * @ORM\Column(name="depart_time", type="datetime", length=10, nullable=true)
+     * @ORM\Column(name="depart_time", type="datetime", length=20, nullable=true)
      */
     private $departTime;
 
     /**
-     * @var integer
+     * @var bigint
      *
-     * @ORM\Column(name="call_duration", type="integer", length=10, nullable=true)
+     * @ORM\Column(name="call_duration", type="bigint", length=20, nullable=true)
      */
     private $callDuration;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="call_type", type="string", length=10, nullable=true)
+     * @ORM\Column(name="call_type", type="string", length=20, nullable=true)
      */
     private $callType;
 
@@ -193,7 +193,7 @@ class ParagonData
     /**
      * @var DateTime
      *
-     * @ORM\Column(name="end_depot_arrival_time", type="datetime", length=10, nullable=true)
+     * @ORM\Column(name="end_depot_arrival_time", type="datetime", length=20, nullable=true)
      */
     private $endDepotArrivalTime;
 
@@ -205,16 +205,16 @@ class ParagonData
     private $depotofroute;
 
     /**
-     * @var integer
+     * @var bigint
      *
-     * @ORM\Column(name="duty_time", type="integer", length=10, nullable=true)
+     * @ORM\Column(name="duty_time", type="bigint", length=20, nullable=true)
      */
     private $dutyTime;
 
     /**
-     * @var integer
+     * @var bigint
      *
-     * @ORM\Column(name="drive_time", type="integer", length=10, nullable=true)
+     * @ORM\Column(name="drive_time", type="bigint", length=20, nullable=true)
      */
     private $driveTime;
 
@@ -233,9 +233,9 @@ class ParagonData
     private $emptyDistKms;
 
     /**
-     * @var integer
+     * @var bigint
      *
-     * @ORM\Column(name="empty_time", type="integer", length=10, nullable=true)
+     * @ORM\Column(name="empty_time", type="bigint", length=20, nullable=true)
      */
     private $emptyTime;
 
@@ -249,7 +249,7 @@ class ParagonData
     /**
      * @var string
      *
-     * @ORM\Column(name="waiting_time", type="string", length=5, nullable=true)
+     * @ORM\Column(name="waiting_time", type="bigint", length=20, nullable=true)
      */
     private $waitingTime;
 
@@ -284,21 +284,21 @@ class ParagonData
     /**
      * @var DateTime
      *
-     * @ORM\Column(name="trip_start", type="datetime", length=10, nullable=true)
+     * @ORM\Column(name="trip_start", type="datetime", length=20, nullable=true)
      */
     private $tripStart;
 
     /**
      * @var DateTime
      *
-     * @ORM\Column(name="dest_depot_arrival_time", type="datetime", length=10, nullable=true)
+     * @ORM\Column(name="dest_depot_arrival_time", type="datetime", length=20, nullable=true)
      */
     private $destDepotArrivalTime;
 
     /**
      * @var DateTime
      *
-     * @ORM\Column(name="dest_depot_departure_time", type="datetime", length=10, nullable=true)
+     * @ORM\Column(name="dest_depot_departure_time", type="datetime", length=20, nullable=true)
      */
     private $destDepotDepartureTime;
 
@@ -319,14 +319,14 @@ class ParagonData
     /**
      * @var DateTime
      *
-     * @ORM\Column(name="source_depot_arrival_time_2", type="datetime", length=10, nullable=true)
+     * @ORM\Column(name="source_depot_arrival_time_2", type="datetime", length=20, nullable=true)
      */
     private $sourceDepotArrivalTime2;
 
     /**
      * @var DateTime
      *
-     * @ORM\Column(name="source_depot_departure_time_2", type="datetime", length=10, nullable=true)
+     * @ORM\Column(name="source_depot_departure_time_2", type="datetime", length=20, nullable=true)
      */
     private $sourceDepotDepartureTime2;
 
@@ -340,7 +340,7 @@ class ParagonData
     /**
      * @var DateTime
      *
-     * @ORM\Column(name="start_depot_departure_time", type="datetime", length=10, nullable=true)
+     * @ORM\Column(name="start_depot_departure_time", type="datetime", length=20, nullable=true)
      */
     private $startDepotDepartureTime;
 
@@ -354,7 +354,7 @@ class ParagonData
     /**
      * @var DateTime
      *
-     * @ORM\Column(name="end_time", type="datetime", length=10, nullable=true)
+     * @ORM\Column(name="end_time", type="datetime", length=20, nullable=true)
      */
     private $endTime;
 
@@ -449,14 +449,14 @@ class ParagonData
     /**
      * @var integer
      *
-     * @ORM\Column(name="travel_dist_next", type="integer", length=10, nullable=true)
+     * @ORM\Column(name="travel_dist_next", type="integer", length=20, nullable=true)
      */
     private $travelDistNext;
     
     /**
      * @var integer
      *
-     * @ORM\Column(name="travel_dist_prev", type="integer", length=10, nullable=true)
+     * @ORM\Column(name="travel_dist_prev", type="integer", length=20, nullable=true)
      */
     private $travelDistPrev;
     

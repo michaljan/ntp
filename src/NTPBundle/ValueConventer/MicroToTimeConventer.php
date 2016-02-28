@@ -14,19 +14,12 @@ namespace NTPBundle\ValueConventer;
  * @author Michal
  */
 class MicroToTimeConventer {
-    public function convert(){
-    $input = 1456385160;
-    $uSec = $input % 1000;
-    $input = floor($input / 1000);
-    echo $input.'<br/>'; 
-    $seconds = $input % 60;
-    $input = floor($input / 60);
-    echo $seconds.'<br/>';
-    $minutes = $input % 60;
-    $input = floor($input / 60); 
-    echo $miutes.'<br/>';
-    $hours = $input % 60;
-    $input = floor($input / 60); 
-    echo $hours.'<br/>';
+
+    public function convert($input) {
+        $hours = floor($input / 3600);
+        $minutes = floor(($input / 60) % 60);
+        $seconds = $input % 60;
+        return $hours . ':' . $minutes . ':' . $seconds;
     }
+
 }
