@@ -43,8 +43,8 @@ class ParagonReports {
 //            print_r($row);
 //            echo '<br/>';   
 //        }
-        \Doctrine\Common\Util\Debug::dump($dashboardArray);
-          die;
-        return $dashboardArray;
+//        \Doctrine\Common\Util\Debug::dump($dashboardArray);
+//          die;
+       return $dashboardArray;
     }
 }
