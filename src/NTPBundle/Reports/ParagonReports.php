@@ -2,6 +2,7 @@
 namespace NTPBundle\Reports;
 
 use Doctrine\ORM\EntityManager;
+use NTPBundle\ValueConventer\MicroToTimeConventer;
 /**
  * Description of ParagonReports
  *
@@ -15,16 +16,35 @@ class ParagonReports {
     }
     
     public function dashboard($date){
+        $timeConventer= new MicroToTimeConventer;
         $query= $this->em
-                ->createQuery('SELECT DISTINCT p.routeNo, p.dutyTime AS TIME FROM NTPBundle:ParagonData p WHERE p.planDate = :date')
+                ->createQuery('SELECT DISTINCT p.routeNo, SUM(p.dutyTime) AS dutyTime, COUNT(p.routeNo) AS routeCount, SUM(p.distanceKms) AS distanceKms, SUM(p.emptyDistKms) AS emptyDistKms, SUM(p.emptyTime) AS emptyTime, AVG(p.timeUtil) AS timeUtil '
+                        .'FROM NTPBundle:ParagonData p WHERE p.planDate = :date')
                 ->setParameter('date', $date);
         $result= $query->getResult();
-        foreach($result as $row){
-            print_r($row);
-            echo '<br/>';   
-        }
-        //\Doctrine\Common\Util\Debug::dump($result);
-        die;
+        $dutyTime=$timeConventer->convert($result[0]['dutyTime']);
+        $runsCount=$result[0]['routeCount'];
+        $distanceKm=$result[0]['distanceKms'];
+        $emptyDistKms=$result[0]['emptyDistKms'];
+        $timeUtil=$result[0]['timeUtil'];
+        $avgDutyTime=$timeConventer->convert($result[0]['dutyTime']/$runsCount);
+        $avgDistance=$distanceKm/$runsCount;
+        $avgEmptyDist=$emptyDistKms/$runsCount;
+        $dashboardArray=array('dutyTime'=>$dutyTime,
+                              'runsCount'=>$runsCount,
+                              'distanceKm'=>$distanceKm,
+                              'emptyDistKms'=>$emptyDistKms,
+                              'timeUtil'=>$timeUtil,
+                              'avgDutyTime'=>$avgDutyTime,
+                              'avgDistance'=>$avgDistance,
+                              'avgEmptyDist'=>$avgEmptyDist
+            );
+//      foreach($result as $row){
+//            print_r($row);
+//            echo '<br/>';   
+//        }
+        \Doctrine\Common\Util\Debug::dump($dashboardArray);
+          die;
         return $dashboardArray;
     }
 }
