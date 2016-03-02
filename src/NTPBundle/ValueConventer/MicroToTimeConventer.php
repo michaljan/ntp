@@ -19,7 +19,7 @@ class MicroToTimeConventer {
         $hours = floor($input / 3600);
         $minutes = floor(($input / 60) % 60);
         $seconds = $input % 60;
-        return $hours . ':' . $minutes . ':' . $seconds;
+        return $hours . 'h : ' . $minutes.'m';
     }
 
 }

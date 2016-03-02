@@ -9,4 +9,51 @@
             {{ form_end(form) }}</div>
         <div class="col-md-10"></div>
     </div>
+    {% if report %}            
+    <br/>
+        <div class="row">
+        <div class="col-md-4">
+            <table class="table table-bordered">
+                <tr>
+                    <td>Total duty time </td>
+                    <td>{{ report.dutyTime }}</td>
+                </tr>
+                <tr>
+                    <td>Total runs</td>
+                    <td>{{ report.runsCount }}</td>
+                    
+                </tr>
+                <tr>
+                    <td>Driving distance km</td>
+                    <td>{{ report.distanceKm }}</td>
+                    
+                </tr>
+                <tr>
+                    <td>Empty distance km</td>
+                    <td>{{ report.emptyDistKms}}</td>
+                    
+                </tr>
+                <tr>
+                    <td>Time utilisation %</td>
+                    <td>{{ report.timeUtil|round(2, 'floor')}}</td>
+                </tr>
+                <tr>
+                    <td>Avarge duty time</td>
+                    <td>{{ report.avgDutyTime }}</td>
+                </tr>
+                <tr>
+                    <td>Avarge distance km</td>
+                    <td>{{ report.avgDistance|round }}</td>
+                </tr>
+                <tr>
+                    <td>Avarge empty distance km</td>
+                    <td>{{ report.avgEmptyDist|round }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-8">
+
+        </div>
+    </div>
+    {% endif %}
 {% endblock %}

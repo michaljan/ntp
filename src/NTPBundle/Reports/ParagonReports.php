@@ -23,11 +23,12 @@ class ParagonReports {
                 ->setParameter('date', $date);
         $result= $query->getResult();
         $dutyTime=$timeConventer->convert($result[0]['dutyTime']);
+        $minDutyTime=$result[0]['dutyTime'];
         $runsCount=$result[0]['routeCount'];
         $distanceKm=$result[0]['distanceKms'];
         $emptyDistKms=$result[0]['emptyDistKms'];
         $timeUtil=$result[0]['timeUtil'];
-        $avgDutyTime=$timeConventer->convert($result[0]['dutyTime']/$runsCount);
+        $avgDutyTime=$timeConventer->convert($minDutyTime/$runsCount);
         $avgDistance=$distanceKm/$runsCount;
         $avgEmptyDist=$emptyDistKms/$runsCount;
         $dashboardArray=array('dutyTime'=>$dutyTime,
