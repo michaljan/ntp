@@ -40,6 +40,9 @@ class ParagonReports {
                               'avgDistance'=>$avgDistance,
                               'avgEmptyDist'=>$avgEmptyDist
             );
+        $query= $this->em
+                ->createQuery('SELECT DISTINCT(`route_no`),`depot_id`,count(`depot_id`)'
+                        . ' FROM NTPBundle:ParagonData WHERE p.planDate = :date GROUP BY `depot_id`')
 //      foreach($result as $row){
 //            print_r($row);
 //            echo '<br/>';   

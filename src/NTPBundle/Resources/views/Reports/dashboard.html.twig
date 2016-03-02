@@ -3,83 +3,77 @@
     <div class="row">
         <div class="col-md-2">
             {{ form_start(form) }}
-                {{ form_errors(form) }}
-                {{ form_row(form.planDate) }}
-                {{ form_row(form.submit) }}
+            {{ form_errors(form) }}
+            {{ form_row(form.planDate) }}
+            {{ form_row(form.submit) }}
             {{ form_end(form) }}</div>
         <div class="col-md-10"></div>
     </div>
     {% if report %}            
-    <br/>
+        <br/>
         <div class="row">
-        <div class="col-md-4">
-            
-            <table class="table table-bordered">
-                <tr>
-                    <td>Total duty time </td>
-                    <td>{{ report.dutyTime }}</td>
-                </tr>
-                <tr>
-                    <td>Total runs</td>
-                    <td>{{ report.runsCount }}</td>
-                    
-                </tr>
-                <tr>
-                    <td>Driving distance km</td>
-                    <td>{{ report.distanceKm }}</td>
-                    
-                </tr>
-                <tr>
-                    <td>Empty distance km</td>
-                    <td>{{ report.emptyDistKms}}</td>
-                    
-                </tr>
-                <tr>
-                    <td>Time utilisation %</td>
-                    <td>{{ report.timeUtil|round(2, 'floor')}}</td>
-                </tr>
-                <tr>
-                    <td>Avarge duty time</td>
-                    <td>{{ report.avgDutyTime }}</td>
-                </tr>
-                <tr>
-                    <td>Avarge distance km</td>
-                    <td>{{ report.avgDistance|round }}</td>
-                </tr>
-                <tr>
-                    <td>Avarge empty distance km</td>
-                    <td>{{ report.avgEmptyDist|round }}</td>
-                </tr>
-            </table>
+            <div class="col-md-4">
+
+                <table class="table table-bordered">
+                    <tr>
+                        <td>Total duty time </td>
+                        <td>{{ report.dutyTime }}</td>
+                    </tr>
+                    <tr>
+                        <td>Total runs</td>
+                        <td>{{ report.runsCount }}</td>
+
+                    </tr>
+                    <tr>
+                        <td>Driving distance km</td>
+                        <td>{{ report.distanceKm }}</td>
+
+                    </tr>
+                    <tr>
+                        <td>Empty distance km</td>
+                        <td>{{ report.emptyDistKms}}</td>
+
+                    </tr>
+                    <tr>
+                        <td>Time utilisation %</td>
+                        <td>{{ report.timeUtil|round(2, 'floor')}}</td>
+                    </tr>
+                    <tr>
+                        <td>Avarge duty time</td>
+                        <td>{{ report.avgDutyTime }}</td>
+                    </tr>
+                    <tr>
+                        <td>Avarge distance km</td>
+                        <td>{{ report.avgDistance|round }}</td>
+                    </tr>
+                    <tr>
+                        <td>Avarge empty distance km</td>
+                        <td>{{ report.avgEmptyDist|round }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-8">
+                <div id="bar-example" style="height: 250px;"></div>
+
+            </div>
         </div>
-        <div class="col-md-8">
-            <div id="myfirstchart" style="height: 250px;"></div>
-            
-        </div>
-    </div>
     {% endif %}
-    <script>
-        $(function () {
-        new Morris.Line({
-  // ID of the element in which to draw the chart.
-  element: 'myfirstchart',
-  // Chart data records -- each entry in this array corresponds to a point on
-  // the chart.
-  data: [
-    { year: '2008', value: 20 },
-    { year: '2009', value: 10 },
-    { year: '2010', value: 5 },
-    { year: '2011', value: 5 },
-    { year: '2012', value: 20 }
-  ],
-  // The name of the data record attribute that contains x-values.
-  xkey: 'year',
-  // A list of names of data record attributes that contain y-values.
-  ykeys: ['value'],
-  // Labels for the ykeys -- will be displayed when you hover over the
-  // chart.
-  labels: ['Value']
-});
-        });
-    </script>
 {% endblock %}
+{% block documentReady %}
+    Morris.Bar({
+    element: 'bar-example',
+    hideHover: 'always',
+    data: [
+    { y: '2006', a: 100, b: 90 },
+    { y: '2007', a: 75,  b: 65 },
+    { y: '2008', a: 50,  b: 40 },
+    { y: '2009', a: 75,  b: 65 },
+    { y: '2010', a: 50,  b: 40 },
+    { y: '2011', a: 75,  b: 65 },
+    { y: '2012', a: 100, b: 90 }
+    ],
+    xkey: 'y',
+    ykeys: ['a', 'b'],
+    labels: ['Series A', 'Series B']
+    });
+{% endblock documentReady %}
