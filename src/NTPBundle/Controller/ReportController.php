@@ -31,7 +31,7 @@ class ReportController extends Controller {
             $result= $report->dashboard($date);
             //\Doctrine\Common\Util\Debug::dump($form->get('planDate')->getData());
         }
-        return $this->render('NTPBundle:Reports:dashboard.html.twig',array('form' => $form->createView(),'report'=>$result));
+        return $this->render('NTPBundle:Reports:dashboard.html.twig',array('form' => $form->createView(),'report'=>$result, 'json'=>new JsonResponse(($result['graph']))));
     }
 
 }

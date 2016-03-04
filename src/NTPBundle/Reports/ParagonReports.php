@@ -41,13 +41,16 @@ class ParagonReports {
                               'avgEmptyDist'=>$avgEmptyDist
             );
         $query= $this->em
-                ->createQuery('SELECT DISTINCT(`route_no`),`depot_id`,count(`depot_id`)'
-                        . ' FROM NTPBundle:ParagonData WHERE p.planDate = :date GROUP BY `depot_id`')
+                ->createQuery('SELECT DISTINCT(p.routeNo), p.depotId, count(p.depotId)'
+                        . ' FROM NTPBundle:ParagonData p WHERE p.planDate = :date GROUP BY p.depotId')
+                ->setParameter('date', $date);
+        $result= $query->getResult();
+        $dashboardArray['graph']=$result;
 //      foreach($result as $row){
 //            print_r($row);
 //            echo '<br/>';   
 //        }
-//        \Doctrine\Common\Util\Debug::dump($dashboardArray);
+//        \Doctrine\Common\Util\Debug::dump($dashboardArray['graph']);
 //          die;
        return $dashboardArray;
     }
