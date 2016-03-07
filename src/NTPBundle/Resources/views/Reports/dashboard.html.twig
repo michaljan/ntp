@@ -60,20 +60,34 @@
     {% endif %}
 {% endblock %}
 {% block documentReady %}
+    $('#report_planDate').submit(function(e) {
+
+    var url = $(this).attr("action");
+
+    $.ajax({
+        type: "POST",
+        url: "{{ path('dashboard_report') }}", 
+        data: $(this).serialize(),
+        dataType: "html",
+        success: function(msg){
+
+            alert("Success!");
+
+        }
+    });
+
+    return false;
+
+});
+    
+    
+    
     Morris.Bar({
     element: 'bar-example',
     hideHover: 'always',
-    data: [
-    { y: '2006', a: 100, b: 90 },
-    { y: '2007', a: 75,  b: 65 },
-    { y: '2008', a: 50,  b: 40 },
-    { y: '2009', a: 75,  b: 65 },
-    { y: '2010', a: 50,  b: 40 },
-    { y: '2011', a: 75,  b: 65 },
-    { y: '2012', a: 100, b: 90 }
-    ],
+    data: {{ report.graph | raw }},
     xkey: 'y',
-    ykeys: ['a', 'b'],
-    labels: ['Series A', 'Series B']
+    ykeys: ['a'],
+    labels: ['Series A']
     });
 {% endblock documentReady %}

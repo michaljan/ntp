@@ -13,6 +13,8 @@ use NTPBundle\Entity\ParagonData;
 use NTPBundle\Form\ReportType;
 use Symfony\Component\HttpFoundation\Request;
 use NTPBundle\Reports\ParagonReports;
+use \Symfony\Component\HttpFoundation\Response;
+
 /**
  * Description of ReportController
  *
@@ -29,9 +31,10 @@ class ReportController extends Controller {
             $date=$form->get('planDate')->getData();
             $report =$this->get('paragonreports');
             $result= $report->dashboard($date);
-            //\Doctrine\Common\Util\Debug::dump($form->get('planDate')->getData());
+            \Doctrine\Common\Util\Debug::dump($result['graph']);
         }
-        return $this->render('NTPBundle:Reports:dashboard.html.twig',array('form' => $form->createView(),'report'=>$result, 'json'=>new JsonResponse(($result['graph']))));
+        return new response($this->renderView('NTPBundle:Reports:dashboard.html.twig',
+                array('form' => $form->createView(),'report'=>$result)));
     }
 
 }
