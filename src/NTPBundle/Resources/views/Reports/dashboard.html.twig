@@ -1,19 +1,19 @@
 {% extends 'NTPBundle::base.html.twig' %}
 {% block body %}
-    <div class="row">
-        <div class="col-md-2">
-            {{ form_start(form) }}
-            {{ form_errors(form) }}
-            {{ form_row(form.planDate) }}
-            {{ form_row(form.submit) }}
-            {{ form_end(form) }}</div>
-        <div class="col-md-10"></div>
-    </div>
     {% if report %}            
         <br/>
         <div class="row">
             <div class="col-md-4">
-
+                <div class="row">
+                    <div class="col-md-4">
+                        {{ form_start(form) }}
+                        {{ form_errors(form) }}
+                        {{ form_row(form.planDate) }}
+                        {{ form_row(form.submit) }}
+                        {{ form_end(form) }}</div>
+                    <div class="col-md-8"></div>
+                </div>
+                <br/>
                 <table class="table table-bordered">
                     <tr>
                         <td>Total duty time </td>
@@ -52,42 +52,35 @@
                     </tr>
                 </table>
             </div>
-            <div class="col-md-8">
-                <div id="bar-example" style="height: 250px;"></div>
-
+            <div class="col-md-4">
+                    <div class="caption"><h4>Runs per site</h4></div>
+                    <div id="bar-drivers" style="height: 250px;"></div>
             </div>
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-md-2">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                {{ form_row(form.planDate) }}
+                {{ form_row(form.submit) }}
+                {{ form_end(form) }}</div>
+            <br/>
+            <div class="col-md-10"></div>
         </div>
     {% endif %}
 {% endblock %}
 {% block documentReady %}
-    $('#report_planDate').submit(function(e) {
-
-    var url = $(this).attr("action");
-
-    $.ajax({
-        type: "POST",
-        url: "{{ path('dashboard_report') }}", 
-        data: $(this).serialize(),
-        dataType: "html",
-        success: function(msg){
-
-            alert("Success!");
-
-        }
-    });
-
-    return false;
-
-});
-    
-    
-    
     Morris.Bar({
-    element: 'bar-example',
-    hideHover: 'always',
-    data: {{ report.graph | raw }},
+    element: 'bar-drivers',
+    hideHover: 'false',
+    data: {% if report %}{{ report.graph | raw }}{% endif %},
     xkey: 'y',
     ykeys: ['a'],
-    labels: ['Series A']
+    labels:['Runs'],
+    gridTextSize: '10',
+    stacked: true,
+    resize: true,
+    xLabelAngle: 35
     });
 {% endblock documentReady %}

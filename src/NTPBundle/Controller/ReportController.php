@@ -31,7 +31,10 @@ class ReportController extends Controller {
             $date=$form->get('planDate')->getData();
             $report =$this->get('paragonreports');
             $result= $report->dashboard($date);
-            \Doctrine\Common\Util\Debug::dump($result['graph']);
+            //\Doctrine\Common\Util\Debug::dump($result['graph']);
+        }
+        else{
+            $result=FALSE;
         }
         return new response($this->renderView('NTPBundle:Reports:dashboard.html.twig',
                 array('form' => $form->createView(),'report'=>$result)));

@@ -41,8 +41,8 @@ class ParagonReports {
                               'avgEmptyDist'=>$avgEmptyDist
             );
         $query= $this->em
-                ->createQuery('SELECT DISTINCT(p.routeNo),p.depotId AS y, count(p.depotId) AS a'
-                        . ' FROM NTPBundle:ParagonData p WHERE p.planDate = :date GROUP BY p.depotId')
+                ->createQuery('SELECT DISTINCT(p.routeNo),p.tripsSourceDepot AS y, count(p.depotId) AS a'
+                        . ' FROM NTPBundle:ParagonData p WHERE p.planDate = :date GROUP BY p.tripsSourceDepot')
                 ->setParameter('date', $date);
         $result= $query->getResult();
         foreach($result as $array){
