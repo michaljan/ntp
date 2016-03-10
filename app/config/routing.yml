@@ -29,6 +29,11 @@ process_csv:
     defaults:
         _controller: NTPBundle:File:processCsv
 
+delete_csv:
+    path : /deletecsv/{id}
+    defaults:
+        _controller: NTPBundle:File:deleteCsv
+
 dashboard_report:
     path : /report/dashboard
     defaults:

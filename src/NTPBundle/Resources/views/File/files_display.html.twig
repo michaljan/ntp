@@ -19,7 +19,8 @@
                 <td>{{ item.getPlanDate|date('d-m-Y') }}</td>
                 <td>{{ item.getUploadedAt|date('d-m-Y H:i') }}</td>
                 <td>
-                    <a href="{{ path('process_csv',{ id: item.id }) }}" class="btn btn-success">Process</a>    
+                    <a href="{{ path('process_csv',{ id: item.id }) }}" class="btn btn-success">Process</a>
+                    <a href="{{ path('delete_csv',{ id: item.id }) }}" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         {% endfor %}

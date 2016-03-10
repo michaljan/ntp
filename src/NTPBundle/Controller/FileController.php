@@ -11,8 +11,9 @@ use NTPBundle\FileProcessor\CsvFileWriter;
 use NTPBundle\Entity\ParagonData;
 
 class FileController extends Controller {
-    
+
     protected $processed;
+
     /**
      * @Template()
      */
@@ -32,8 +33,8 @@ class FileController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $fileUpload->setDataset($dataset);
             $em = $this->getDoctrine()->getManager();
+            $fileUpload->setDataset($dataset);
             $em->persist($fileUpload);
             $em->flush();
             return $this->redirectToRoute('file_display');
@@ -46,35 +47,48 @@ class FileController extends Controller {
         $fileUpload = new FileUpload();
         $em = $this->getDoctrine()->getManager();
         $fileProcessed = $em->getRepository('NTPBundle:FileUpload')
-                ->findByProcessed( 0 ,array('id'=>'DESC'),10,0);
+                ->findByProcessed(0, array('id' => 'DESC'), 10, 0);
         return $this->render('NTPBundle:File:files_display.html.twig', array('fileProcessed' => $fileProcessed));
     }
-    
-    public function processCsvAction($id){
+
+    public function processCsvAction($id) {
         $user = $this->container->get('security.token_storage')->getToken()->getUser()->getId();
         $em = $this->getDoctrine()->getManager();
-        $paragonData='NTPBundle:ParagonData';
-        $csvFileWriter=new CsvFileWriter($em);
+        $paragonData = 'NTPBundle:ParagonData';
+        $csvFileWriter = new CsvFileWriter($em);
         $fileRecord = $em->getRepository('NTPBundle:FileUpload')
                 ->findOneById($id);
-        if(!is_null($fileRecord)){
-            $webPath=$this->container->getParameter('web_path').'\uploads\\'.$fileRecord->getPath();
-            $result=$csvFileWriter->csvImport($webPath, $paragonData,$user,$fileRecord);
-            if(!empty($result->getExceptions())){
-               $exceptionsArray =$result->getExceptions();
+        if (!is_null($fileRecord)) {
+            $webPath = $this->container->getParameter('web_path') . '\uploads\\' . $fileRecord->getPath();
+            $result = $csvFileWriter->csvImport($webPath, $paragonData, $user, $fileRecord);
+            if (!empty($result->getExceptions())) {
+                $exceptionsArray = $result->getExceptions();
+            } else {
+                $exceptionsArray = array();
             }
-            else{
-                $exceptionsArray=array();
-            }
-        $fileRecord->setProcessed(true);
-        $em->flush();
+            $fileRecord->setProcessed(true);
+            $em->flush();
             //\Doctrine\Common\Util\Debug::dump($result);
             //die;
         }
-        return $this->render('NTPBundle:File:file_processed.html.twig',array('errors'=>($result->getErrorCount()),
-                                                                             'success'=>($result->getSuccessCount()),
-                                                                             'exceptionsArray'=>$exceptionsArray
-                                                                            ));
+        return $this->render('NTPBundle:File:file_processed.html.twig', array('errors' => ($result->getErrorCount()),
+                    'success' => ($result->getSuccessCount()),
+                    'exceptionsArray' => $exceptionsArray
+        ));
+    }
+
+    public function deleteCsvAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $fileRecord = $em->getRepository('NTPBundle:FileUpload')
+                ->findOneById($id);
+        if (!$fileRecord) {
+            throw $this->createNotFoundException(
+                    'No fie found for id ' . $id
+            );
+        }
+        $em->remove($fileRecord);
+        $em->flush();
+        return $this->redirectToRoute('file_display');
     }
 
 }
