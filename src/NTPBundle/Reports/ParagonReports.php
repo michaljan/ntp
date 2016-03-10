@@ -3,6 +3,7 @@ namespace NTPBundle\Reports;
 
 use Doctrine\ORM\EntityManager;
 use NTPBundle\ValueConventer\MicroToTimeConventer;
+use NTPBundle\ValueConventer\NTPBundle\ValueConventer\JsonMorrisConventer;
 /**
  * Description of ParagonReports
  *
@@ -45,14 +46,9 @@ class ParagonReports {
                         . ' FROM NTPBundle:ParagonData p WHERE p.planDate = :date GROUP BY p.tripsSourceDepot')
                 ->setParameter('date', $date);
         $result= $query->getResult();
-        foreach($result as $array){
-            $newResult[]= array('y'=>strval($array['y']),'a'=>intval($array['a']));
-        }
-        $rawJson=  json_encode($newResult);
-        $stringReplaceY=  str_replace('"y"',"y", $rawJson);
-        $stringReplaceA=  str_replace('"a"',"a", $stringReplaceY);
-        $newResult=  str_replace('"',"'", $stringReplaceA);
-        $dashboardArray['graph']=$newResult;
+        $jsonMorrisConventer=new JsonMorrisConventer();
+        $compiled=$jsonMorrisConventer->morrisBarChart($result);
+        $dashboardArray['graphRuns']=$compiled;
 //      foreach($result as $row){
 //            print_r($row);
 //            echo '<br/>';   

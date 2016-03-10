@@ -71,16 +71,19 @@
     {% endif %}
 {% endblock %}
 {% block documentReady %}
+{% if report %}
+        var paragonRuns = {{ report.graphRuns | raw }};
+{% endif %}
     Morris.Bar({
-    element: 'bar-drivers',
-    hideHover: 'false',
-    data: {% if report %}{{ report.graph | raw }}{% endif %},
-    xkey: 'y',
-    ykeys: ['a'],
-    labels:['Runs'],
-    gridTextSize: '10',
-    stacked: true,
-    resize: true,
-    xLabelAngle: 35
+        element: 'bar-drivers',
+        hideHover: 'false',
+        data: paragonRuns,
+        xkey: 'y',
+        ykeys: ['a'],
+        labels: ['Runs'],
+        gridTextSize: '10',
+        stacked: true,
+        resize: true,
+        xLabelAngle: 35
     });
 {% endblock documentReady %}
