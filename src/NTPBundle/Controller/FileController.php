@@ -48,17 +48,23 @@ class FileController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $fileProcessed = $em->getRepository('NTPBundle:FileUpload')
                 ->findByProcessed(0, array('id' => 'DESC'), 10, 0);
+        
         return $this->render('NTPBundle:File:files_display.html.twig', array('fileProcessed' => $fileProcessed));
     }
 
     public function processCsvAction($id) {
+        $message=null;
         $user = $this->container->get('security.token_storage')->getToken()->getUser()->getId();
         $em = $this->getDoctrine()->getManager();
         $paragonData = 'NTPBundle:ParagonData';
         $csvFileWriter = new CsvFileWriter($em);
         $fileRecord = $em->getRepository('NTPBundle:FileUpload')
-                ->findOneById($id);
-        if (!is_null($fileRecord)) {
+                ->findOneById($id); 
+        $planExists = $em->getRepository('NTPBundle:ParagonData')
+                ->findOneByPlanDate($fileRecord->getPlanDate());
+//            \Doctrine\Common\Util\Debug::dump($planExists);
+//            die;
+        if (!is_null($fileRecord) && is_null($planExists)) {
             $webPath = $this->container->getParameter('web_path') . '\uploads\\' . $fileRecord->getPath();
             $result = $csvFileWriter->csvImport($webPath, $paragonData, $user, $fileRecord);
             if (!empty($result->getExceptions())) {
@@ -71,9 +77,14 @@ class FileController extends Controller {
             //\Doctrine\Common\Util\Debug::dump($result);
             //die;
         }
+        if(!is_null($planExists)){
+            $message='File proccessed already';
+            return $this->render('NTPBundle:File:file_processed.html.twig',array('message' => $message));
+        }
         return $this->render('NTPBundle:File:file_processed.html.twig', array('errors' => ($result->getErrorCount()),
                     'success' => ($result->getSuccessCount()),
-                    'exceptionsArray' => $exceptionsArray
+                    'exceptionsArray' => $exceptionsArray,
+                    'message' => $message
         ));
     }
 

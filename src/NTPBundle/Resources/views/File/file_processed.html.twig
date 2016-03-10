@@ -1,6 +1,7 @@
 {% extends 'NTPBundle::base.html.twig' %}
 {% block body %}
     
+    {% if message==null %}
     <p>File processed succefuly</p>
     <br/>
     <p>Errors: {{ errors }}</p> <br/>
@@ -11,6 +12,12 @@
             <td> {{ item }} </td><br/>
         </tr>
     {% endfor %}
+    {% else %}
+        <p>{{ message }}</p>
+        <br/>
+         <a href="{{ path('file_display') }}">Return to display page</a>
+    {% endif %}
     </table>
+    
     
 {% endblock %}
