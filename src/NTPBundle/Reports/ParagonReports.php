@@ -3,7 +3,8 @@ namespace NTPBundle\Reports;
 
 use Doctrine\ORM\EntityManager;
 use NTPBundle\ValueConventer\MicroToTimeConventer;
-use NTPBundle\ValueConventer\NTPBundle\ValueConventer\JsonMorrisConventer;
+use NTPBundle\ValueConventer\JsonMorrisConventer;
+use NTPBundle\ValueConventer\MinutesToHoursConventer;
 /**
  * Description of ParagonReports
  *
@@ -18,6 +19,7 @@ class ParagonReports {
     
     public function dashboard($date){
         $timeConventer= new MicroToTimeConventer;
+        $minutesConventer=new MinutesToHoursConventer();
         $query= $this->em
                 ->createQuery('SELECT DISTINCT p.routeNo, SUM(p.dutyTime) AS dutyTime, COUNT(p.routeNo) AS routeCount, SUM(p.distanceKms) AS distanceKms, SUM(p.emptyDistKms) AS emptyDistKms, SUM(p.emptyTime) AS emptyTime, AVG(p.timeUtil) AS timeUtil '
                         .'FROM NTPBundle:ParagonData p WHERE p.planDate = :date')
@@ -41,6 +43,8 @@ class ParagonReports {
                               'avgDistance'=>$avgDistance,
                               'avgEmptyDist'=>$avgEmptyDist
             );
+        //Runs query for graph
+        
         $query= $this->em
                 ->createQuery('SELECT DISTINCT(p.routeNo),p.tripsSourceDepot AS y, count(p.depotId) AS a'
                         . ' FROM NTPBundle:ParagonData p WHERE p.planDate = :date GROUP BY p.tripsSourceDepot')
@@ -49,12 +53,36 @@ class ParagonReports {
         $jsonMorrisConventer=new JsonMorrisConventer();
         $compiled=$jsonMorrisConventer->morrisBarChart($result);
         $dashboardArray['graphRuns']=$compiled;
-//      foreach($result as $row){
-//            print_r($row);
-//            echo '<br/>';   
-//        }
-//        \Doctrine\Common\Util\Debug::dump($newResult);
-//       die;
-       return $dashboardArray;
+        
+        //Time utilisation per site graph
+        
+        $query= $this->em
+                ->createQuery('SELECT DISTINCT(p.routeNo),p.tripsSourceDepot AS y, AVG(p.timeUtil) AS a'
+                        . ' FROM NTPBundle:ParagonData p WHERE p.planDate = :date GROUP BY p.tripsSourceDepot')
+                ->setParameter('date', $date);
+        $result= $query->getResult();
+        $compiled=$jsonMorrisConventer->morrisBarChart($result);
+        $dashboardArray['graphAvgTime']=$compiled;
+        
+        //Duty time
+        
+        $query= $this->em
+                ->createQuery('SELECT DISTINCT(p.routeNo),p.tripsSourceDepot AS y, AVG(p.dutyTime) AS a'
+                        . ' FROM NTPBundle:ParagonData p WHERE p.planDate = :date GROUP BY p.tripsSourceDepot')
+                ->setParameter('date', $date);
+        $result= $query->getResult();
+                
+        $minutesConverted=$minutesConventer->convert($result);
+        $compiled=$jsonMorrisConventer->morrisBarChart($minutesConverted);
+//        \Doctrine\Common\Util\Debug::dump($compiled);
+//        die;
+        $dashboardArray['graphTimePerSite']=$compiled;
+        
+        
+//        
+//                  \Doctrine\Common\Util\Debug::dump($dashboardArray['graphTime']);
+//         die;
+        
+        return $dashboardArray;
     }
 }

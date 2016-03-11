@@ -23,21 +23,28 @@ use \Symfony\Component\HttpFoundation\Response;
 class ReportController extends Controller {
 
     public function dashboardAction(Request $request) {
-        $result=array();
+        $message=null;
+        $em = $this->getDoctrine()->getManager();
+        $result = array();
         $entity = new ParagonData;
-        $form=$this->createForm(ReportType::class, $entity);
+        $form = $this->createForm(ReportType::class, $entity);
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $date=$form->get('planDate')->getData();
-            $report =$this->get('paragonreports');
-            $result= $report->dashboard($date);
+            $date = $form->get('planDate')->getData();
+            $planExists = $em->getRepository('NTPBundle:ParagonData')
+                ->findOneByPlanDate($date);
+            if (!empty($planExists)) {
+                $report = $this->get('paragonreports');
+                $result = $report->dashboard($date);
+            }
+            else{
+                $message='Plan for the date is not imported';
+            }
             //\Doctrine\Common\Util\Debug::dump($result['graph']);
+        } else {
+            $result = FALSE;
         }
-        else{
-            $result=FALSE;
-        }
-        return new response($this->renderView('NTPBundle:Reports:dashboard.html.twig',
-                array('form' => $form->createView(),'report'=>$result)));
+        return new response($this->renderView('NTPBundle:Reports:dashboard.html.twig', array('form' => $form->createView(), 'report' => $result, 'message'=>$message)));
     }
 
 }
