@@ -38,5 +38,11 @@ dashboard_report:
     path : /report/dashboard
     defaults:
         _controller: NTPBundle:Report:dashboard
+        
+        
+tractor_report:
+    path : /report/tractors
+    defaults:
+        _controller: NTPBundle:Report:tractorReport
      
     

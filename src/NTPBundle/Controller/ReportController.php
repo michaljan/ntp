@@ -11,6 +11,7 @@ namespace NTPBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NTPBundle\Entity\ParagonData;
 use NTPBundle\Form\ReportType;
+use NTPBundle\Form\RangeType;
 use Symfony\Component\HttpFoundation\Request;
 use NTPBundle\Reports\ParagonReports;
 use \Symfony\Component\HttpFoundation\Response;
@@ -45,6 +46,14 @@ class ReportController extends Controller {
             $result = FALSE;
         }
         return new response($this->renderView('NTPBundle:Reports:dashboard.html.twig', array('form' => $form->createView(), 'report' => $result, 'message'=>$message)));
+    }
+    
+    
+    public function tractorReportAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(ReportType::class);
+        $form->handleRequest($request);
+        return new response($this->renderView('NTPBundle:Reports:tractorReport.html.twig', array('form' => $form->createView())));
     }
 
 }
