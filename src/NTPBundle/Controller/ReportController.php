@@ -51,8 +51,15 @@ class ReportController extends Controller {
     
     public function tractorReportAction(Request $request){
         $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm(ReportType::class);
+        $form = $this->createForm(RangeType::class);
         $form->handleRequest($request);
+        if ($form->isValid()) {
+            $startDate = $form->get('startDate')->getData();
+            $endDate = $form->get('endDate')->getData();
+            $report = $this->get('paragonreports');
+            $result = $report->tractorReport($startDate, $endDate);
+            
+        }
         return new response($this->renderView('NTPBundle:Reports:tractorReport.html.twig', array('form' => $form->createView())));
     }
 
