@@ -1,6 +1,24 @@
 {% extends 'NTPBundle::base.html.twig' %}
 {% block body %}          
     <br/>
+    {% if report %}
+        
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {{ form_row(form.startDate) }}
+            {{ form_row(form.endDate) }}
+            {{ form_row(form.submit) }}
+            {{ form_end(form) }}</div>
+        <div class="col-md-10">
+                <div class="caption"><h4>Total tractors usage</h4></div>
+                <div id="bar-tractors" style="height: 250px;"></div>
+        </div>
+    </div>
+    {% endif %}
+    
+    
     <div class="row">
         <div class="col-md-2">
             {{ form_start(form) }}
@@ -13,5 +31,23 @@
         </div>
     </div>
 {% endblock %}
+{% block documentReady %}
+    {% if report %}
+        var paragonTractors = {{ result.tractors | raw }};
+    {% endif %}
+    Morris.Bar({
+    element: 'bar-drivers',
+    hideHover: 'false',
+    data: paragonRuns,
+    xkey: 'y',
+    ykeys: ['a'],
+    labels: ['Runs'],
+    gridTextSize: '10',
+    stacked: true,
+    resize: true,
+    xLabelAngle: 35
+    });
+
+{% endblock documentReady %}
 
 

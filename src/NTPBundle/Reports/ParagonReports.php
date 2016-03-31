@@ -98,18 +98,22 @@ class ParagonReports {
                     $tractorsPerSite[$value["tripsStartDepot"]][$i] = 0;
                 }
                 if (strtotime($value ["startTime"]->format('Y-m-d H:i:s')) <= $i && strtotime($value ["endTime"]->format('Y-m-d H:i:s')) >= $i) {
-                    $tractors[$i] = $tractors[$i] + 1;
-                    $tractorsPerSite[$value["tripsStartDepot"]][$i]+=1;
+                    $tractors[$i]++;
+                    $tractorsPerSite[$value["tripsStartDepot"]][$i]++;
                 }
             }
         }
-
-//  \Doctrine\Common\Util\Debug::dump($tractorsPerSite);
-//    echo '</br>';
-//        \Doctrine\Common\Util\Debug::dump($startDate);
-//    die;
-        $tractorMatrix['tractors'] = $tractors;
+        foreach($tractors as $key=>$value){
+            $tractor[]='a:'. gmdate('d-m-y H:i:s',$key). ', y:'.$value;
+            
+        }
+        $tractor= json_encode($tractor);
+        $tractor=str_replace('"a','{a',$tractor);
+        $tractor=str_replace('"','}',$tractor);
+        $tractorMatrix['tractor']=$tractor;    
         $tractorMatrix['tractorsPerSite'] = $tractorsPerSite;
+        \Doctrine\Common\Util\Debug::dump($tractorMatrix['tractor']);
+        die;
         return $tractorMatrix;
     }
 

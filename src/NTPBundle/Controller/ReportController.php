@@ -60,7 +60,7 @@ class ReportController extends Controller {
             $result = $report->tractorReport($startDate, $endDate);
             
         }
-        return new response($this->renderView('NTPBundle:Reports:tractorReport.html.twig', array('form' => $form->createView())));
+        return new response($this->renderView('NTPBundle:Reports:tractorReport.html.twig', array('form' => $form->createView(),'result'=>$result)));
     }
 
 }
