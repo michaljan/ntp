@@ -25,7 +25,7 @@ class ReportController extends Controller {
 
     public function dashboardAction(Request $request) {
         $message=null;
-        $em = $this->getDoctrine()->getManager();
+        $em =   $this->getDoctrine()->getManager();
         $result = array();
         $entity = new ParagonData;
         $form = $this->createForm(ReportType::class, $entity);
@@ -59,8 +59,12 @@ class ReportController extends Controller {
             $report = $this->get('paragonreports');
             $result = $report->tractorReport($startDate, $endDate);
             
+        }else {
+            $result = FALSE;
         }
-        return new response($this->renderView('NTPBundle:Reports:tractorReport.html.twig', array('form' => $form->createView(),'result'=>$result)));
+//        \Doctrine\Common\Util\Debug::dump($result['tractor']);
+//        die;
+        return new response($this->renderView('NTPBundle:Reports:tractorReport.html.twig', array('form' => $form->createView(),'report'=>$result)));
     }
 
 }

@@ -33,14 +33,14 @@
 {% endblock %}
 {% block documentReady %}
     {% if report %}
-        var paragonTractors = {{ result.tractors | raw }};
+        var paragonTractors = {{ report.tractor | raw }};
     {% endif %}
-    Morris.Bar({
-    element: 'bar-drivers',
+    Morris.Area({
+    element: 'bar-tractors',
     hideHover: 'false',
-    data: paragonRuns,
-    xkey: 'y',
-    ykeys: ['a'],
+    data: paragonTractors,
+    xkey: 'a',
+    ykeys: ['y'],
     labels: ['Runs'],
     gridTextSize: '10',
     stacked: true,

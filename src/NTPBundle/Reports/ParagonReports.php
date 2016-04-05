@@ -85,11 +85,12 @@ class ParagonReports {
         $tractors = array();
         $startIntDate = strtotime($startDate->format('Y-m-d H:i:s'));
         $endIntDate = strtotime($endDate->format('Y-m-d H:i:s')) + 86400;
+        $endDate->add(new \DateInterval('PT' . 1439 . 'M'));
         $query = $this->em
                 ->createQuery('SELECT DISTINCT p.routeNo, p.tripsStartDepot, p.startTime, p.endTime '
-                        . 'FROM NTPBundle:ParagonData p WHERE p.planDate BETWEEN :startDate AND :endDate')
-                ->setParameter('startDate', $startDate->format('Y-m-d'))
-                ->setParameter('endDate', $endDate->format('Y-m-d'));
+                        . 'FROM NTPBundle:ParagonData p WHERE p.startTime BETWEEN :startDate AND :endDate')
+                ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
+                ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'));
         $result = $query->getResult();
         for ($i = $startIntDate; $i < $endIntDate; $i = $i + 900) {
             $tractors[$i] = 0;
@@ -104,16 +105,19 @@ class ParagonReports {
             }
         }
         foreach($tractors as $key=>$value){
-            $tractor[]='a:'. gmdate('d-m-y H:i:s',$key). ', y:'.$value;
+            $tractor[]='a:'.gmdate('Y-m-d H:i',$key). ', y:'.$value;
             
         }
         $tractor= json_encode($tractor);
-        $tractor=str_replace('"a','{a',$tractor);
+        $tractor=str_replace('"a:','{a:',$tractor);
         $tractor=str_replace('"','}',$tractor);
+        $tractor=str_replace('a:','a:"',$tractor);
+        $tractor=str_replace(', y','", y',$tractor);
         $tractorMatrix['tractor']=$tractor;    
-        $tractorMatrix['tractorsPerSite'] = $tractorsPerSite;
-        \Doctrine\Common\Util\Debug::dump($tractorMatrix['tractor']);
-        die;
+        //$tractorMatrix['tractorsPerSite'] = $tractorsPerSite;
+        //\Doctrine\Common\Util\Debug::dump($startDate->format('Y-m-d H:i:s'));
+        //\Doctrine\Common\Util\Debug::dump($endDate->format('Y-m-d H:i:s'));
+        //die;
         return $tractorMatrix;
     }
 
