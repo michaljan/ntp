@@ -44,5 +44,10 @@ tractor_report:
     path : /report/tractors
     defaults:
         _controller: NTPBundle:Report:tractorReport
+
+paragon_run_sheets_report:
+    path : /report/paragonrunsheets
+    defaults:
+        _controller: NTPBundle:Report:paragonRunSheetReport
      
     

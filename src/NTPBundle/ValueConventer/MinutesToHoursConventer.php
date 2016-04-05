@@ -9,12 +9,20 @@
 namespace NTPBundle\ValueConventer;
 
 /**
- * Description of MicroToTimeConventer
- *
- * @author Michal
+ * @package ddeboer/data-import-bundle
+ * 
+ * @final
  */
 class MinutesToHoursConventer {
-
+    /**
+     * 
+     * @param array $input 
+     * @return array  
+     *
+     * Converts integer minutes format 
+     * to hh:mm and rturs it as a array  
+     *     
+     */
     public function convert($input) {
         foreach($input as $key=>$item){
             $hours = floor(intval($item['a']) / 3600);

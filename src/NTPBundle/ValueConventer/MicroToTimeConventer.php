@@ -9,12 +9,22 @@
 namespace NTPBundle\ValueConventer;
 
 /**
- * Description of MicroToTimeConventer
- *
- * @author Michal
+ * @package reports
+ * 
+ * @final
  */
-class MicroToTimeConventer {
 
+class MicroToTimeConventer {
+    /**
+     * 
+     * @param integer $input 
+     * @return string  
+     *
+     * Converts integer minutes format 
+     * to hh:mm  
+     *     
+     */
+    
     public function convert($input) {
         $hours = floor($input / 3600);
         $minutes = floor(($input / 60) % 60);

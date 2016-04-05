@@ -4,16 +4,29 @@ namespace NTPBundle\ValueConventer;
 
 use Ddeboer\DataImport\ValueConverter\ValueConverterInterface;
 
+/**
+ * @package ddeboer/data-import-bundle
+ * 
+ * @final
+ */
+
 class DateConventer implements ValueConverterInterface {
     
     public function __construct($planDate) {
         return $this->planDate=$planDate;
     }
     
-    
+    /**
+     * 
+     *
+     * @param string $input 
+     * @return $date
+     *
+     * Converts csv input value in format of day name and time 
+     * to based on the plan date datetime object 
+     *    
+     */
     public function convert($input) { 
-//            \Doctrine\Common\Util\Debug::dump($this->planDate);
-//            die;
             $date=false;
             if (!$input) {
                 return;

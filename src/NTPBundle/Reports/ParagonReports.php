@@ -20,6 +20,15 @@ class ParagonReports {
         $this->em = $em;
     }
 
+    /**
+     * 
+     *
+     * @param datetime $date 
+     * @return $dashboardArray
+     *
+     * Dashboard method uses datetimem field to return
+     * dashboard array. Dashboard   
+     */
     public function dashboard($date) {
         $timeConventer = new MicroToTimeConventer;
         $minutesConventer = new MinutesToHoursConventer();
@@ -99,21 +108,20 @@ class ParagonReports {
                     $tractorsPerSite[$value["tripsStartDepot"]][$i] = 0;
                 }
                 if (strtotime($value ["startTime"]->format('Y-m-d H:i:s')) <= $i && strtotime($value ["endTime"]->format('Y-m-d H:i:s')) >= $i) {
-                    $tractors[$i]++;
-                    $tractorsPerSite[$value["tripsStartDepot"]][$i]++;
+                    $tractors[$i] ++;
+                    $tractorsPerSite[$value["tripsStartDepot"]][$i] ++;
                 }
             }
         }
-        foreach($tractors as $key=>$value){
-            $tractor[]='a:'.gmdate('Y-m-d H:i',$key). ', y:'.$value;
-            
+        foreach ($tractors as $key => $value) {
+            $tractor[] = 'a:' . gmdate('Y-m-d H:i', $key) . ', y:' . $value;
         }
-        $tractor= json_encode($tractor);
-        $tractor=str_replace('"a:','{a:',$tractor);
-        $tractor=str_replace('"','}',$tractor);
-        $tractor=str_replace('a:','a:"',$tractor);
-        $tractor=str_replace(', y','", y',$tractor);
-        $tractorMatrix['tractor']=$tractor;    
+        $tractor = json_encode($tractor);
+        $tractor = str_replace('"a:', '{a:', $tractor);
+        $tractor = str_replace('"', '}', $tractor);
+        $tractor = str_replace('a:', 'a:"', $tractor);
+        $tractor = str_replace(', y', '", y', $tractor);
+        $tractorMatrix['tractor'] = $tractor;
         //$tractorMatrix['tractorsPerSite'] = $tractorsPerSite;
         //\Doctrine\Common\Util\Debug::dump($startDate->format('Y-m-d H:i:s'));
         //\Doctrine\Common\Util\Debug::dump($endDate->format('Y-m-d H:i:s'));

@@ -2,7 +2,23 @@
 
 namespace NTPBundle\ValueConventer;
 
+/**
+ * @package morris
+ * @author Michal
+ * @final
+ */
+
 class JsonMorrisConventer{
+    
+    /**
+     * 
+     * @param array $input 
+     * @return $string
+     *
+     * Formats array to return json encoded string
+     * acceptable by Morris Bar Chart jquery  
+     *     
+     */
     public function morrisBarChart($input){
         foreach($input as $array){
             $newResult[]= array('y'=>strval($array['y']),'a'=>strval($array['a']));
