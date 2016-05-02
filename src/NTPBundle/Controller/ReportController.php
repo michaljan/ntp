@@ -66,5 +66,33 @@ class ReportController extends Controller {
 //        die;
         return new response($this->renderView('NTPBundle:Reports:tractorReport.html.twig', array('form' => $form->createView(),'report'=>$result)));
     }
-
+    
+    /**
+     * 
+     *
+     * @param array $request 
+     * @return view
+     *
+     * Controller responsible for managing paragon run sheet report
+     * creates view and gats request from wiev    
+     */
+    
+       
+    public function paragonRunSheetReportAction(Request $request){
+        $form = $this->createForm(ReportType::class);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $startDate = $form->get('planDate')->getData();
+            $report = $this->get('paragonreports');
+        \Doctrine\Common\Util\Debug::dump($request->isXmlHttpRequest());
+        die;      
+            $result = FALSE;
+        }else {
+            $result = FALSE;
+        }
+//        \Doctrine\Common\Util\Debug::dump($result['tractor']);
+//        die;
+        return new response($this->renderView('NTPBundle:Reports:paragonRunSheetReport.html.twig', array('form' => $form->createView(),'report'=>$result)));
+    }
+    
 }

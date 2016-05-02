@@ -1,0 +1,53 @@
+{% extends 'NTPBundle::base.html.twig' %}
+{% block body %}
+    {% if report %}            
+        <br/>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-5">
+                        {{ form_start(form) }}
+                        {{ form_errors(form) }}
+                        {{ form_row(form.planDate) }}
+                        {{ form_row(form.submit) }}
+                        {{ form_end(form) }}</div>
+                    <div class="col-md-7">
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-md-3">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                {{ form_row(form.planDate) }}
+                {{ form_row(form.submit) }}
+                {{ form_end(form) }}</div>
+            <br/>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block documentReady %}
+    formdata = $('form[name=report]').serialize();
+    data      = { 
+                  myvar1   : 'test'   ,
+                };
+     $.ajax({
+            type: "POST",
+            url: "{{ path('paragon_run_sheets_report') }}",
+            data: data,
+            dataType: "json",
+            success: function(response)
+            {
+                alert('Good');
+            },
+
+            error: function(XMLHttpRequest, textStatus, errorThrown)
+            {
+                alert('Error : ' + errorThrown);
+            },
+            });
+}
+
+{% endblock documentReady %}
