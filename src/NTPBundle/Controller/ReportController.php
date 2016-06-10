@@ -84,8 +84,8 @@ class ReportController extends Controller {
         if ($form->isValid()) {
             $startDate = $form->get('planDate')->getData();
             $report = $this->get('paragonreports');
-        \Doctrine\Common\Util\Debug::dump($request->isXmlHttpRequest());
-        die;      
+        //\Doctrine\Common\Util\Debug::dump($request->isXmlHttpRequest());
+        //die;      
             $result = FALSE;
         }else {
             $result = FALSE;

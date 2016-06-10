@@ -6,7 +6,7 @@
             <div class="col-md-4">
                 <div class="row">
                     <div class="col-md-5">
-                        {{ form_start(form) }}
+                        {{ form_start(form,{'attr': {'id': 'form_person_edit'}}) }}
                         {{ form_errors(form) }}
                         {{ form_row(form.planDate) }}
                         {{ form_row(form.submit) }}
@@ -19,7 +19,7 @@
     {% else %}
         <div class="row">
             <div class="col-md-3">
-                {{ form_start(form) }}
+                {{ form_start(form,{'attr': {'id': 'form1'}}) }}
                 {{ form_errors(form) }}
                 {{ form_row(form.planDate) }}
                 {{ form_row(form.submit) }}
@@ -29,17 +29,15 @@
     {% endif %}
 {% endblock %}
 {% block documentReady %}
-    formdata = $('form[name=report]').serialize();
-    data      = { 
-                  myvar1   : 'test'   ,
-                };
-     $.ajax({
+    $('#form1').submit(function(event){
+    var data="";
+    $.ajax({
             type: "POST",
             url: "{{ path('paragon_run_sheets_report') }}",
             data: data,
             dataType: "json",
             success: function(response)
-            {
+            {   
                 alert('Good');
             },
 
@@ -48,6 +46,8 @@
                 alert('Error : ' + errorThrown);
             },
             });
+         
 }
+)
 
 {% endblock documentReady %}
