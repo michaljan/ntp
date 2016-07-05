@@ -36,5 +36,62 @@ class VehicleData
     private $id;
 
 
-}
 
+    /**
+     * Set vehicleName
+     *
+     * @param string $vehicleName
+     *
+     * @return VehicleData
+     */
+    public function setVehicleName($vehicleName)
+    {
+        $this->vehicleName = $vehicleName;
+
+        return $this;
+    }
+
+    /**
+     * Get vehicleName
+     *
+     * @return string
+     */
+    public function getVehicleName()
+    {
+        return $this->vehicleName;
+    }
+
+    /**
+     * Set vehicleType
+     *
+     * @param string $vehicleType
+     *
+     * @return VehicleData
+     */
+    public function setVehicleType($vehicleType)
+    {
+        $this->vehicleType = $vehicleType;
+
+        return $this;
+    }
+
+    /**
+     * Get vehicleType
+     *
+     * @return string
+     */
+    public function getVehicleType()
+    {
+        return $this->vehicleType;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}

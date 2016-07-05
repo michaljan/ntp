@@ -29,5 +29,38 @@ class DriverType
     private $id;
 
 
-}
 
+    /**
+     * Set typeName
+     *
+     * @param string $typeName
+     *
+     * @return DriverType
+     */
+    public function setTypeName($typeName)
+    {
+        $this->typeName = $typeName;
+
+        return $this;
+    }
+
+    /**
+     * Get typeName
+     *
+     * @return string
+     */
+    public function getTypeName()
+    {
+        return $this->typeName;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}

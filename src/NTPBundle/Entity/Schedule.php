@@ -166,7 +166,7 @@ class Schedule
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="NTPBundle\Entity\VehicleData")
+     * @ORM\ManyToOne(targetEntity="NTPBundle\Entity\VehicleData")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="vehicle_data_id", referencedColumnName="id")
      * })
@@ -178,7 +178,7 @@ class Schedule
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="NTPBundle\Entity\DriverData")
+     * @ORM\ManyToOne(targetEntity="NTPBundle\Entity\DriverData")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="driver_data_id", referencedColumnName="id")
      * })
@@ -186,5 +186,556 @@ class Schedule
     private $driverData;
 
 
-}
 
+    /**
+     * Set routeNo
+     *
+     * @param string $routeNo
+     *
+     * @return Schedule
+     */
+    public function setRouteNo($routeNo)
+    {
+        $this->routeNo = $routeNo;
+
+        return $this;
+    }
+
+    /**
+     * Get routeNo
+     *
+     * @return string
+     */
+    public function getRouteNo()
+    {
+        return $this->routeNo;
+    }
+
+    /**
+     * Set startTimePlanned
+     *
+     * @param \DateTime $startTimePlanned
+     *
+     * @return Schedule
+     */
+    public function setStartTimePlanned($startTimePlanned)
+    {
+        $this->startTimePlanned = $startTimePlanned;
+
+        return $this;
+    }
+
+    /**
+     * Get startTimePlanned
+     *
+     * @return \DateTime
+     */
+    public function getStartTimePlanned()
+    {
+        return $this->startTimePlanned;
+    }
+
+    /**
+     * Set startTimeActual
+     *
+     * @param \DateTime $startTimeActual
+     *
+     * @return Schedule
+     */
+    public function setStartTimeActual($startTimeActual)
+    {
+        $this->startTimeActual = $startTimeActual;
+
+        return $this;
+    }
+
+    /**
+     * Get startTimeActual
+     *
+     * @return \DateTime
+     */
+    public function getStartTimeActual()
+    {
+        return $this->startTimeActual;
+    }
+
+    /**
+     * Set departTimePlanned
+     *
+     * @param \DateTime $departTimePlanned
+     *
+     * @return Schedule
+     */
+    public function setDepartTimePlanned($departTimePlanned)
+    {
+        $this->departTimePlanned = $departTimePlanned;
+
+        return $this;
+    }
+
+    /**
+     * Get departTimePlanned
+     *
+     * @return \DateTime
+     */
+    public function getDepartTimePlanned()
+    {
+        return $this->departTimePlanned;
+    }
+
+    /**
+     * Set departTimeActual
+     *
+     * @param \DateTime $departTimeActual
+     *
+     * @return Schedule
+     */
+    public function setDepartTimeActual($departTimeActual)
+    {
+        $this->departTimeActual = $departTimeActual;
+
+        return $this;
+    }
+
+    /**
+     * Get departTimeActual
+     *
+     * @return \DateTime
+     */
+    public function getDepartTimeActual()
+    {
+        return $this->departTimeActual;
+    }
+
+    /**
+     * Set arrivalTimePlanned
+     *
+     * @param \DateTime $arrivalTimePlanned
+     *
+     * @return Schedule
+     */
+    public function setArrivalTimePlanned($arrivalTimePlanned)
+    {
+        $this->arrivalTimePlanned = $arrivalTimePlanned;
+
+        return $this;
+    }
+
+    /**
+     * Get arrivalTimePlanned
+     *
+     * @return \DateTime
+     */
+    public function getArrivalTimePlanned()
+    {
+        return $this->arrivalTimePlanned;
+    }
+
+    /**
+     * Set arrivalTimeActual
+     *
+     * @param \DateTime $arrivalTimeActual
+     *
+     * @return Schedule
+     */
+    public function setArrivalTimeActual($arrivalTimeActual)
+    {
+        $this->arrivalTimeActual = $arrivalTimeActual;
+
+        return $this;
+    }
+
+    /**
+     * Get arrivalTimeActual
+     *
+     * @return \DateTime
+     */
+    public function getArrivalTimeActual()
+    {
+        return $this->arrivalTimeActual;
+    }
+
+    /**
+     * Set finishTimePlanned
+     *
+     * @param \DateTime $finishTimePlanned
+     *
+     * @return Schedule
+     */
+    public function setFinishTimePlanned($finishTimePlanned)
+    {
+        $this->finishTimePlanned = $finishTimePlanned;
+
+        return $this;
+    }
+
+    /**
+     * Get finishTimePlanned
+     *
+     * @return \DateTime
+     */
+    public function getFinishTimePlanned()
+    {
+        return $this->finishTimePlanned;
+    }
+
+    /**
+     * Set finishTimeActual
+     *
+     * @param \DateTime $finishTimeActual
+     *
+     * @return Schedule
+     */
+    public function setFinishTimeActual($finishTimeActual)
+    {
+        $this->finishTimeActual = $finishTimeActual;
+
+        return $this;
+    }
+
+    /**
+     * Get finishTimeActual
+     *
+     * @return \DateTime
+     */
+    public function getFinishTimeActual()
+    {
+        return $this->finishTimeActual;
+    }
+
+    /**
+     * Set dutyTimePlanned
+     *
+     * @param integer $dutyTimePlanned
+     *
+     * @return Schedule
+     */
+    public function setDutyTimePlanned($dutyTimePlanned)
+    {
+        $this->dutyTimePlanned = $dutyTimePlanned;
+
+        return $this;
+    }
+
+    /**
+     * Get dutyTimePlanned
+     *
+     * @return integer
+     */
+    public function getDutyTimePlanned()
+    {
+        return $this->dutyTimePlanned;
+    }
+
+    /**
+     * Set dutyTimeActual
+     *
+     * @param integer $dutyTimeActual
+     *
+     * @return Schedule
+     */
+    public function setDutyTimeActual($dutyTimeActual)
+    {
+        $this->dutyTimeActual = $dutyTimeActual;
+
+        return $this;
+    }
+
+    /**
+     * Get dutyTimeActual
+     *
+     * @return integer
+     */
+    public function getDutyTimeActual()
+    {
+        return $this->dutyTimeActual;
+    }
+
+    /**
+     * Set routeDistance
+     *
+     * @param integer $routeDistance
+     *
+     * @return Schedule
+     */
+    public function setRouteDistance($routeDistance)
+    {
+        $this->routeDistance = $routeDistance;
+
+        return $this;
+    }
+
+    /**
+     * Get routeDistance
+     *
+     * @return integer
+     */
+    public function getRouteDistance()
+    {
+        return $this->routeDistance;
+    }
+
+    /**
+     * Set routeTime
+     *
+     * @param integer $routeTime
+     *
+     * @return Schedule
+     */
+    public function setRouteTime($routeTime)
+    {
+        $this->routeTime = $routeTime;
+
+        return $this;
+    }
+
+    /**
+     * Get routeTime
+     *
+     * @return integer
+     */
+    public function getRouteTime()
+    {
+        return $this->routeTime;
+    }
+
+    /**
+     * Set loader
+     *
+     * @param string $loader
+     *
+     * @return Schedule
+     */
+    public function setLoader($loader)
+    {
+        $this->loader = $loader;
+
+        return $this;
+    }
+
+    /**
+     * Get loader
+     *
+     * @return string
+     */
+    public function getLoader()
+    {
+        return $this->loader;
+    }
+
+    /**
+     * Set trailerNumber
+     *
+     * @param string $trailerNumber
+     *
+     * @return Schedule
+     */
+    public function setTrailerNumber($trailerNumber)
+    {
+        $this->trailerNumber = $trailerNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get trailerNumber
+     *
+     * @return string
+     */
+    public function getTrailerNumber()
+    {
+        return $this->trailerNumber;
+    }
+
+    /**
+     * Set seal
+     *
+     * @param string $seal
+     *
+     * @return Schedule
+     */
+    public function setSeal($seal)
+    {
+        $this->seal = $seal;
+
+        return $this;
+    }
+
+    /**
+     * Get seal
+     *
+     * @return string
+     */
+    public function getSeal()
+    {
+        return $this->seal;
+    }
+
+    /**
+     * Set adBlue
+     *
+     * @param integer $adBlue
+     *
+     * @return Schedule
+     */
+    public function setAdBlue($adBlue)
+    {
+        $this->adBlue = $adBlue;
+
+        return $this;
+    }
+
+    /**
+     * Get adBlue
+     *
+     * @return integer
+     */
+    public function getAdBlue()
+    {
+        return $this->adBlue;
+    }
+
+    /**
+     * Set fuelOnSite
+     *
+     * @param integer $fuelOnSite
+     *
+     * @return Schedule
+     */
+    public function setFuelOnSite($fuelOnSite)
+    {
+        $this->fuelOnSite = $fuelOnSite;
+
+        return $this;
+    }
+
+    /**
+     * Get fuelOnSite
+     *
+     * @return integer
+     */
+    public function getFuelOnSite()
+    {
+        return $this->fuelOnSite;
+    }
+
+    /**
+     * Set kmsPlanned
+     *
+     * @param integer $kmsPlanned
+     *
+     * @return Schedule
+     */
+    public function setKmsPlanned($kmsPlanned)
+    {
+        $this->kmsPlanned = $kmsPlanned;
+
+        return $this;
+    }
+
+    /**
+     * Get kmsPlanned
+     *
+     * @return integer
+     */
+    public function getKmsPlanned()
+    {
+        return $this->kmsPlanned;
+    }
+
+    /**
+     * Set kmsActual
+     *
+     * @param integer $kmsActual
+     *
+     * @return Schedule
+     */
+    public function setKmsActual($kmsActual)
+    {
+        $this->kmsActual = $kmsActual;
+
+        return $this;
+    }
+
+    /**
+     * Get kmsActual
+     *
+     * @return integer
+     */
+    public function getKmsActual()
+    {
+        return $this->kmsActual;
+    }
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     *
+     * @return Schedule
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set vehicleData
+     *
+     * @param \NTPBundle\Entity\VehicleData $vehicleData
+     *
+     * @return Schedule
+     */
+    public function setVehicleData(\NTPBundle\Entity\VehicleData $vehicleData)
+    {
+        $this->vehicleData = $vehicleData;
+
+        return $this;
+    }
+
+    /**
+     * Get vehicleData
+     *
+     * @return \NTPBundle\Entity\VehicleData
+     */
+    public function getVehicleData()
+    {
+        return $this->vehicleData;
+    }
+
+    /**
+     * Set driverData
+     *
+     * @param \NTPBundle\Entity\DriverData $driverData
+     *
+     * @return Schedule
+     */
+    public function setDriverData(\NTPBundle\Entity\DriverData $driverData)
+    {
+        $this->driverData = $driverData;
+
+        return $this;
+    }
+
+    /**
+     * Get driverData
+     *
+     * @return \NTPBundle\Entity\DriverData
+     */
+    public function getDriverData()
+    {
+        return $this->driverData;
+    }
+}
