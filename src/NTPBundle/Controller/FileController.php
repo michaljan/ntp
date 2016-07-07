@@ -65,7 +65,7 @@ class FileController extends Controller {
 //            \Doctrine\Common\Util\Debug::dump($planExists);
 //            die;
         if (!is_null($fileRecord) && is_null($planExists)) {
-            $webPath = $this->container->getParameter('web_path') . '\uploads\\' . $fileRecord->getPath();
+            $webPath = __DIR__.'/../data/uploads/' . $fileRecord->getPath();
             $result = $csvFileWriter->csvImport($webPath, $paragonData, $user, $fileRecord);
             if (!empty($result->getExceptions())) {
                 $exceptionsArray = $result->getExceptions();

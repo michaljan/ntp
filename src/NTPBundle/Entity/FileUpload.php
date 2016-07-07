@@ -97,12 +97,12 @@ class FileUpload {
     public function getUploadRootDir() {
         // the absolute directory path where uploaded documents should be saved
         //return __DIR__ . '/' . $this->getUploadDir();
-        return 'C:\wamp\www\data' . $this->getUploadDir();
+        return __DIR__.'/../data' . $this->getUploadDir();
     }
 
     protected function getUploadDir() {
         // get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view.
-        return '\uploads';
+        return '/uploads';
     }
 
     /**

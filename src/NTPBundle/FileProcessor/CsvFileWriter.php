@@ -34,6 +34,16 @@ class CsvFileWriter extends Controller {
         $csvReader->setHeaderRowNumber(0);
         $csvReader->setStrict(false);
         $csvReader->setColumnHeaders($headers->csvReaderArray());
+//        \Doctrine\Common\Util\Debug::dump($doctrineWriter);
+//        die;
+//        foreach($csvReader as $row){
+//            print_r($row);
+//            
+//        }
+//        
+//        die;    
+        
+        
         $workflow = new Workflow($csvReader);
         $doctrineWriter = new DoctrineWriter($this->em, $entity);
         $doctrineWriter->disableTruncate();
