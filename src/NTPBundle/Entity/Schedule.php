@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Schedule
  *
- * @ORM\Table(name="schedule", uniqueConstraints={@ORM\UniqueConstraint(name="route_no_UNIQUE", columns={"route_no"})}, indexes={@ORM\Index(name="fk_schedule_driver_data1_idx", columns={"driver_data_id"}), @ORM\Index(name="fk_schedule_vehicle_data1_idx", columns={"vehicle_data_id"})})
+ * @ORM\Table(name="schedule")
  * @ORM\Entity
  */
 class Schedule
@@ -157,35 +157,41 @@ class Schedule
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var \NTPBundle\Entity\VehicleData
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * 
+     * 
      * @ORM\ManyToOne(targetEntity="NTPBundle\Entity\VehicleData")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="vehicle_data_id", referencedColumnName="id")
-     * })
+     * @ORM\JoinColumn(name="vehicle_data_id", referencedColumnName="id")
+     *
      */
     private $vehicleData;
 
     /**
      * @var \NTPBundle\Entity\DriverData
      *
-     * @ORM\Id
+     * 
      * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\ManyToOne(targetEntity="NTPBundle\Entity\DriverData")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="driver_data_id", referencedColumnName="id")
-     * })
+     * @ORM\JoinColumn(name="driver_data_id", referencedColumnName="id")
+     *
      */
     private $driverData;
 
-
+    /**
+     * @var \NTPBundle\Entity\CallDetails
+     *
+     * 
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToMany(targetEntity="NTPBundle\Entity\CallDetails",mappedBy="schedule")
+     *
+     */
+    private $callDetails;
 
     /**
      * Set routeNo

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CallDetails
  *
- * @ORM\Table(name="call_details", indexes={@ORM\Index(name="fk_call_details_schedule1_idx", columns={"schedule_id"})})
+ * @ORM\Table(name="call_details")
  * @ORM\Entity
  */
 class CallDetails
@@ -311,21 +311,21 @@ class CallDetails
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var \NTPBundle\Entity\Schedule
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToMany(targetEntity="NTPBundle\Entity\Schedule")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="schedule_id", referencedColumnName="id")
-     * })
+     * 
+     * 
+     * @ORM\ManyToOne(targetEntity="NTPBundle\Entity\Schedule",inversedBy="callDetails")
+     * @ORM\JoinColumn(name="schedule_id", referencedColumnName="id")
+     * 
      */
     private $schedule;
+    
 
 
 

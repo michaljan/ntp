@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * DriverData
  *
- * @ORM\Table(name="driver_data", indexes={@ORM\Index(name="fk_driver_data_driver_type1_idx", columns={"driver_type_id"})})
+ * @ORM\Table(name="driver_data")
  * @ORM\Entity
  */
 class DriverData
@@ -31,19 +31,16 @@ class DriverData
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var \NTPBundle\Entity\DriverType
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * 
      * @ORM\ManyToOne(targetEntity="NTPBundle\Entity\DriverType")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="driver_type_id", referencedColumnName="id")
-     * })
+     * @ORM\JoinColumn(name="driver_type_id", referencedColumnName="id")
      */
     private $driverType;
 
