@@ -116,37 +116,37 @@ class ParagonData
     /**
      * @var integer
      *
-     * @ORM\Column(name="cages", type="integer", nullable=true)
+     * @ORM\Column(name="measure_1", type="integer", nullable=true)
      */
-    private $cages;
+    private $measure1;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="chep_pallets", type="integer", nullable=true)
+     * @ORM\Column(name="measure_2", type="integer", nullable=true)
      */
-    private $chepPallets;
+    private $measure2;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="ps_pallets", type="integer", nullable=true)
+     * @ORM\Column(name="measure_3", type="integer", nullable=true)
      */
-    private $psPallets;
+    private $measure3;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="container", type="integer", nullable=true)
+     * @ORM\Column(name="measure_4", type="integer", nullable=true)
      */
-    private $container;
+    private $measure4;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="cage_equivalent", type="integer", nullable=true)
+     * @ORM\Column(name="measure_5", type="integer", nullable=true)
      */
-    private $cageEquivalent;
+    private $measure5;
 
     /**
      * @var integer
@@ -400,6 +400,48 @@ class ParagonData
      */
     public $timeWindowEnd;
     
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cust_data_1", type="string", length=20, nullable=true)
+     */
+    private $custData1;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cust_data_2", type="string", length=20, nullable=true)
+     */
+    private $custData2;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cust_data_3", type="string", length=20, nullable=true)
+     */
+    private $custData3;
+    
+    
+        /**
+     * @var integer
+     *
+     * @ORM\Column(name="ndata_1", type="integer", length=20, nullable=true)
+     */
+    private $ndata1;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ndata_2", type="integer", length=20, nullable=true)
+     */
+    private $ndata2;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ndata_3", type="integer", length=20, nullable=true)
+     */
+    private $ndata3;
     
     
     /**
@@ -749,123 +791,123 @@ class ParagonData
     }
 
     /**
-     * Set cages
+     * Set measure1
      *
-     * @param integer $cages
+     * @param integer $measure1
      *
      * @return ParagonData
      */
-    public function setCages($cages)
+    public function setMeasure1($measure1)
     {
-        $this->cages = $cages;
+        $this->measure1 = $measure1;
 
         return $this;
     }
 
     /**
-     * Get cages
+     * Get measure1
      *
      * @return integer
      */
-    public function getCages()
+    public function getMeasure1()
     {
-        return $this->cages;
+        return $this->measure1;
     }
 
     /**
-     * Set chepPallets
+     * Set measure2
      *
-     * @param integer $chepPallets
+     * @param integer $measure2
      *
      * @return ParagonData
      */
-    public function setChepPallets($chepPallets)
+    public function setMeasure2($measure2)
     {
-        $this->chepPallets = $chepPallets;
+        $this->measure2 = $measure2;
 
         return $this;
     }
 
     /**
-     * Get chepPallets
+     * Get measure2
      *
      * @return integer
      */
-    public function getChepPallets()
+    public function getMeasure2()
     {
-        return $this->chepPallets;
+        return $this->measure2;
     }
 
     /**
-     * Set psPallets
+     * Set Measure3
      *
-     * @param integer $psPallets
+     * @param integer $Measure3
      *
      * @return ParagonData
      */
-    public function setPsPallets($psPallets)
+    public function setMeasure3($Measure3)
     {
-        $this->psPallets = $psPallets;
+        $this->Measure3 = $Measure3;
 
         return $this;
     }
 
     /**
-     * Get psPallets
+     * Get Measure3
      *
      * @return integer
      */
-    public function getPsPallets()
+    public function getMeasure3()
     {
-        return $this->psPallets;
+        return $this->Measure3;
     }
 
     /**
-     * Set container
+     * Set measure4
      *
-     * @param integer $container
+     * @param integer $measure4
      *
      * @return ParagonData
      */
-    public function setContainer($container)
+    public function setMeasure4($measure4)
     {
-        $this->container = $container;
+        $this->measure4 = $measure4;
 
         return $this;
     }
 
     /**
-     * Get container
+     * Get measure4
      *
      * @return integer
      */
-    public function getContainer()
+    public function getMeasure4()
     {
-        return $this->container;
+        return $this->measure4;
     }
 
     /**
-     * Set cageEquivalent
+     * Set measure5
      *
-     * @param integer $cageEquivalent
+     * @param integer $measure5
      *
      * @return ParagonData
      */
-    public function setCageEquivalent($cageEquivalent)
+    public function setMeasure5($measure5)
     {
-        $this->cageEquivalent = $cageEquivalent;
+        $this->measure5 = $measure5;
 
         return $this;
     }
 
     /**
-     * Get cageEquivalent
+     * Get measure5
      *
      * @return integer
      */
-    public function getCageEquivalent()
+    public function getMeasure5()
     {
-        return $this->cageEquivalent;
+        return $this->measure5;
     }
 
     /**
@@ -1962,6 +2004,149 @@ class ParagonData
         return $this->timeWindowEnd;
     }
     
+     /**
+     * Set custData1
+     *
+     * @param string $custData1
+     *
+     * @return ParagonData
+     */
+    public function setCustData1($custData1)
+    {
+        $this->custData1 = $custData1;
+
+        return $this;
+    }
+
+    /**
+     * Get custData1
+     *
+     * @return string
+     */
+    public function getcustData1()
+    {
+        return $this->custData1;
+    }
+    
+       /**
+     * Set custData1
+     *
+     * @param string $custData1
+     *
+     * @return ParagonData
+     */
+    public function setCustData2($custData2)
+    {
+        $this->custData2 = $custData2;
+
+        return $this;
+    }
+
+    /**
+     * Get custData2
+     *
+     * @return string
+     */
+    public function getcustData2()
+    {
+        return $this->custData2;
+    }
+    
+       /**
+     * Set custData3
+     *
+     * @param string $custData3
+     *
+     * @return ParagonData
+     */
+    public function setCustData3($custData3)
+    {
+        $this->custData3 = $custData3;
+
+        return $this;
+    }
+
+    /**
+     * Get custData3
+     *
+     * @return string
+     */
+    public function getcustData3()
+    {
+        return $this->custData3;
+    }
+    
+    /**
+     * Set ndata1
+     *
+     * @param integer $ndata1
+     *
+     * @return ParagonData
+     */
+    public function setNdata1($ndata1)
+    {
+        $this->ndata1 = $ndata1;
+
+        return $this;
+    }
+
+    /**
+     * Get ndata1
+     *
+     * @return integer
+     */
+    public function getNdata1()
+    {
+        return $this->ndata1;
+    }
+    
+       /**
+     * Set ndata1
+     *
+     * @param integer $ndata1
+     *
+     * @return ParagonData
+     */
+    public function setNdata2($ndata2)
+    {
+        $this->ndata2 = $ndata2;
+
+        return $this;
+    }
+
+    /**
+     * Get ndata2
+     *
+     * @return integer
+     */
+    public function getNdata2()
+    {
+        return $this->ndata2;
+    }
+    
+       /**
+     * Set ndata3
+     *
+     * @param integer $ndata3
+     *
+     * @return ParagonData
+     */
+    public function setNdata3($ndata3)
+    {
+        $this->ndata3 = $ndata3;
+
+        return $this;
+    }
+
+    /**
+     * Get ndata3
+     *
+     * @return integer
+     */
+    public function getNdata3()
+    {
+        return $this->ndata3;
+    }
     
 }
 
