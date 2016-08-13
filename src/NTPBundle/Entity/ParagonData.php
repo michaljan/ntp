@@ -422,7 +422,7 @@ class ParagonData
     private $custData3;
     
     
-        /**
+    /**
      * @var integer
      *
      * @ORM\Column(name="ndata_1", type="integer", length=20, nullable=true)
@@ -457,6 +457,42 @@ class ParagonData
      * @ORM\Column(name="ndata_5", type="integer", length=20, nullable=true)
      */
     private $ndata5;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sdata_1", type="string", length=50, nullable=true)
+     */
+    private $sdata1;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sdata_2", type="string", length=50, nullable=true)
+     */
+    private $sdata2;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sdata_3", type="string", length=50, nullable=true)
+     */
+    private $sdata3;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sdata_4", type="string", length=50, nullable=true)
+     */
+    
+    private $sdata4;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sdata_5", type="string", length=50, nullable=true)
+     */
+    private $sdata5;
     
     /**
      * @var \DateTime
@@ -2115,9 +2151,9 @@ class ParagonData
     }
     
        /**
-     * Set ndata1
+     * Set ndata2
      *
-     * @param integer $ndata1
+     * @param integer $ndata2
      *
      * @return ParagonData
      */
@@ -2209,6 +2245,129 @@ class ParagonData
     public function getNdata5()
     {
         return $this->ndata5;
+    }
+    
+    
+    
+    /**
+     * Set sdata1
+     *
+     * @param string $sdata1
+     *
+     * @return ParagonData
+     */
+    public function setSdata1($sdata1)
+    {
+        $this->sdata1 = $sdata1;
+
+        return $this;
+    }
+
+    /**
+     * Get sdata1
+     *
+     * @return string
+     */
+    public function getSdata1()
+    {
+        return $this->sdata1;
+    }
+    
+       /**
+     * Set sdata2
+     *
+     * @param string $sdata2
+     *
+     * @return ParagonData
+     */
+    public function setSdata2($sdata2)
+    {
+        $this->sdata2 = $sdata2;
+
+        return $this;
+    }
+
+    /**
+     * Get sdata2
+     *
+     * @return string
+     */
+    public function getSdata2()
+    {
+        return $this->sdata2;
+    }
+    
+    /**
+     * Set sdata3
+     *
+     * @param string $sdata3
+     *
+     * @return ParagonData
+     */
+    public function setSdata3($sdata3)
+    {
+        $this->sdata3 = $sdata3;
+
+        return $this;
+    }
+
+    /**
+     * Get sdata3
+     *
+     * @return string
+     */
+    public function getSdata3()
+    {
+        return $this->sdata3;
+    }
+    
+    
+    /**
+     * Set sdata4
+     *
+     * @param string $sdata4
+     *
+     * @return ParagonData
+     */
+    public function setSdata4($sdata4)
+    {
+        $this->sdata4 = $sdata4;
+
+        return $this;
+    }
+
+    /**
+     * Get sdata4
+     *
+     * @return string
+     */
+    public function getSdata4()
+    {
+        return $this->sdata4;
+    }
+    
+    /**
+     * Set sdata5
+     *
+     * @param string $sdata5
+     *
+     * @return ParagonData
+     */
+    public function setSdata5($sdata5)
+    {
+        $this->sdata5 = $sdata5;
+
+        return $this;
+    }
+
+    /**
+     * Get sdata5
+     *
+     * @return string
+     */
+    public function getSdata5()
+    {
+        return $this->sdata5;
     }
 }
 
