@@ -36,7 +36,7 @@ class ParagonData
     /**
      * @var integer
      *
-     * @ORM\Column(name="depot_id", type="integer", nullable=true)
+     * @ORM\Column(name="depot_id", type="string", nullable=true)
      */
     private $depotId;
 
@@ -443,6 +443,20 @@ class ParagonData
      */
     private $ndata3;
     
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ndata_4", type="integer", length=20, nullable=true)
+     */
+    
+    private $ndata4;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ndata_5", type="integer", length=20, nullable=true)
+     */
+    private $ndata5;
     
     /**
      * @var \DateTime
@@ -577,7 +591,7 @@ class ParagonData
     /**
      * Set depotId
      *
-     * @param integer $depotId
+     * @param string $depotId
      *
      * @return ParagonData
      */
@@ -591,7 +605,7 @@ class ParagonData
     /**
      * Get depotId
      *
-     * @return integer
+     * @return string
      */
     public function getDepotId()
     {
@@ -2124,7 +2138,7 @@ class ParagonData
         return $this->ndata2;
     }
     
-       /**
+    /**
      * Set ndata3
      *
      * @param integer $ndata3
@@ -2148,5 +2162,53 @@ class ParagonData
         return $this->ndata3;
     }
     
+    
+    /**
+     * Set ndata4
+     *
+     * @param integer $ndata4
+     *
+     * @return ParagonData
+     */
+    public function setNdata4($ndata4)
+    {
+        $this->ndata4 = $ndata4;
+
+        return $this;
+    }
+
+    /**
+     * Get ndata4
+     *
+     * @return integer
+     */
+    public function getNdata4()
+    {
+        return $this->ndata4;
+    }
+    
+    /**
+     * Set ndata5
+     *
+     * @param integer $ndata5
+     *
+     * @return ParagonData
+     */
+    public function setNdata5($ndata5)
+    {
+        $this->ndata5 = $ndata5;
+
+        return $this;
+    }
+
+    /**
+     * Get ndata5
+     *
+     * @return integer
+     */
+    public function getNdata5()
+    {
+        return $this->ndata5;
+    }
 }
 

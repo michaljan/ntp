@@ -58,8 +58,8 @@ class ParagonReports {
         //Runs query for graph
 
         $query = $this->em
-                ->createQuery('SELECT DISTINCT(p.routeNo),p.tripsSourceDepot AS y, count(p.depotId) AS a'
-                        . ' FROM NTPBundle:ParagonData p WHERE p.planDate = :date GROUP BY p.tripsSourceDepot')
+                ->createQuery('SELECT DISTINCT(p.routeNo),p.depotId AS y, count(p.depotId) AS a'
+                        . ' FROM NTPBundle:ParagonData p WHERE p.planDate = :date GROUP BY p.depotId')
                 ->setParameter('date', $date);
         $result = $query->getResult();
         $jsonMorrisConventer = new JsonMorrisConventer();
@@ -69,8 +69,8 @@ class ParagonReports {
         //Time utilisation per site graph
 
         $query = $this->em
-                ->createQuery('SELECT DISTINCT(p.routeNo),p.tripsSourceDepot AS y, AVG(p.timeUtil) AS a'
-                        . ' FROM NTPBundle:ParagonData p WHERE p.planDate = :date GROUP BY p.tripsSourceDepot')
+                ->createQuery('SELECT DISTINCT(p.routeNo),p.depotId AS y, AVG(p.timeUtil) AS a'
+                        . ' FROM NTPBundle:ParagonData p WHERE p.planDate = :date GROUP BY p.depotId')
                 ->setParameter('date', $date);
         $result = $query->getResult();
         $compiled = $jsonMorrisConventer->morrisBarChart($result);
@@ -79,8 +79,8 @@ class ParagonReports {
         //Duty time
 
         $query = $this->em
-                ->createQuery('SELECT DISTINCT(p.routeNo),p.tripsSourceDepot AS y, AVG(p.dutyTime) AS a'
-                        . ' FROM NTPBundle:ParagonData p WHERE p.planDate = :date GROUP BY p.tripsSourceDepot')
+                ->createQuery('SELECT DISTINCT(p.routeNo),p.depotId AS y, AVG(p.dutyTime) AS a'
+                        . ' FROM NTPBundle:ParagonData p WHERE p.planDate = :date GROUP BY p.depotId')
                 ->setParameter('date', $date);
         $result = $query->getResult();
 
