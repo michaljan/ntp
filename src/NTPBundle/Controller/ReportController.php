@@ -41,7 +41,6 @@ class ReportController extends Controller {
             else{
                 $message='Plan for the date is not imported';
             }
-            //\Doctrine\Common\Util\Debug::dump($result['graph']);
         } else {
             $result = FALSE;
         }
