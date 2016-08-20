@@ -77,6 +77,29 @@ class ReportController extends Controller {
      */
     
        
+    public function storesETAAction(Request $request){
+        $form = $this->createForm(ReportType::class);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $startDate = $form->get('planDate')->getData();
+            $report = $this->get('paragonreports');
+            $result = FALSE;
+        }else {
+            $result = FALSE;
+        }
+        return new response($this->renderView('NTPBundle:Reports:paragonRunSheetReport.html.twig', array('form' => $form->createView(),'report'=>$result)));
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public function paragonRunSheetReportAction(Request $request){
         $form = $this->createForm(ReportType::class);
         $form->handleRequest($request);

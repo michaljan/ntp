@@ -45,6 +45,12 @@ tractor_report:
     defaults:
         _controller: NTPBundle:Report:tractorReport
 
+storeseta_report:
+    path : /report/storeseta
+    defaults:
+        _controller: NTPBundle:Report:storesETA
+
+
 paragon_run_sheets_report:
     path : /report/paragonrunsheets
     defaults:
