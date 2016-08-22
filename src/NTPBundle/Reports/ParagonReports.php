@@ -132,7 +132,7 @@ class ParagonReports {
     public function storesEta($date){
         $query = $this->em
                 ->createQuery("SELECT p.customerId, p.customerName, p.arrivalTime, p.departTime "
-                        . "FROM NTPBundle:ParagonData p WHERE p.planDate = :date AND p.callType = 'D' AND p.customerId BETWEEN 1 AND 999 ")
+                        . "FROM NTPBundle:ParagonData p WHERE p.planDate = :date AND p.callType = 'D' AND p.customerId BETWEEN 1 AND 999 ORDER BY p.customerName")
                 ->setParameter('date', $date);
         $result = $query->getResult();
         //\Doctrine\Common\Util\Debug::dump($result[1]["arrivalTime"]->format('H:i:s')  );
