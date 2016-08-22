@@ -56,4 +56,8 @@ paragon_run_sheets_report:
     defaults:
         _controller: NTPBundle:Report:paragonRunSheetReport
      
+tms_route_dispaly:
+    path : /tms/routedisplay
+    defaults:
+        _controller: NTPBundle:TMS:routeDisplay
     

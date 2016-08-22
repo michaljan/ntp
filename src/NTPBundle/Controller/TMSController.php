@@ -4,10 +4,10 @@ namespace NTPBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NTPBundle\TMS\Para;
 
-class NtpController extends Controller
+class TMSController extends Controller
 {
    
-    public function paragonTranslateAction()
+    public function routeDisplayAction()
     {
         return $this->render('NTPBundle:Default:index.html.twig');
     }

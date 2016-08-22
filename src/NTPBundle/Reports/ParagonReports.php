@@ -135,8 +135,6 @@ class ParagonReports {
                         . "FROM NTPBundle:ParagonData p WHERE p.planDate = :date AND p.callType = 'D' AND p.customerId BETWEEN 1 AND 999 ORDER BY p.customerName")
                 ->setParameter('date', $date);
         $result = $query->getResult();
-        //\Doctrine\Common\Util\Debug::dump($result[1]["arrivalTime"]->format('H:i:s')  );
-        //die;
         return $result;
     }
 

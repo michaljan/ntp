@@ -11,7 +11,7 @@ class RouteNameConventer implements ValueConverterInterface {
     }
 
         public function convert($input) {          
-            $date =  $this->date->format('dmY');
+            $date =  $this->date->format('Ymd');
             $output='NTP'.$date.sprintf('%06d', $input);
         return $output;
     }
