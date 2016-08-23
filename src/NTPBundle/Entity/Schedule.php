@@ -18,6 +18,13 @@ class Schedule
      * @ORM\Column(name="route_no", type="string", length=255, nullable=false)
      */
     private $routeNo;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="trip_no", type="integer",  nullable=true)
+     */
+    private $tripNo;
 
     /**
      * @var \DateTime
@@ -193,6 +200,16 @@ class Schedule
      */
     private $callDetails;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="depot_id", type="string", length=45, nullable=true)
+     */
+    private $depotId;
+    
+    
+    
+    
     /**
      * Set routeNo
      *
@@ -744,4 +761,56 @@ class Schedule
     {
         return $this->driverData;
     }
+    
+    
+    /**
+     * Set tripNo
+     *
+     * @param integer $tripNo
+     *
+     * @return Schedule
+     */
+    public function setTripNo($tripNo)
+    {
+        $this->tripNo = $tripNo;
+
+        return $this;
+    }
+
+    /**
+     * Get tripNo
+     *
+     * @return integer
+     */
+    public function getTripNo()
+    {
+        return $this->tripNo;
+    }
+    
+    
+    /**
+     * Set depotId
+     *
+     * @param string $depotId
+     *
+     * @return Schedule
+     */
+    public function setDepotId($depotId)
+    {
+        $this->depotId = $depotId;
+
+        return $this;
+    }
+
+    /**
+     * Get depotId
+     *
+     * @return string
+     */
+    public function getDepotId()
+    {
+        return $this->depotId;
+    }
+
+
 }
