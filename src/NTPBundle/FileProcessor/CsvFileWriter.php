@@ -46,6 +46,9 @@ class CsvFileWriter extends Controller {
         $timeConverter = new DateTimeValueConverter('H:i');
         $uploadedBy = new UploadedBy($user);
         $planDateConvert = new PlanDateConvert($fileRecord ->getPlanDate());
+        $date=$fileRecord ->getPlanDate();
+//               \Doctrine\Common\Util\Debug::dump($date->format('Y-m-d'));
+//        die;
         $workflow->setSkipItemOnFailure(true)
                 ->addValueConverter('routeNo', $routeNameConventer)
                 ->addValueConverter('startTime', $dateConverter)
@@ -72,15 +75,16 @@ class CsvFileWriter extends Controller {
                 ->addValueConverter('planName', $planNameConverter);
 //        \Doctrine\Common\Util\Debug::dump($doctrineWriter);
 //        die;
-//        foreach($csvReader as $row){
-//            print_r($row);
-//            
-//        }
-//        
-//        die;    
         $result = $workflow->process();
+        //update query to generate route and trip combination
+        $query = $this->em
+                ->createQuery("UPDATE NTPBundle:ParagonData p SET p.routeNo = CONCAT(p.routeNo,'0', p.tripNo) "
+                            . "WHERE p.planDate=:date")
+                ->setParameter('date', $date);
+        $query->execute();
         return $result;
     }
+    
 
 }
 
