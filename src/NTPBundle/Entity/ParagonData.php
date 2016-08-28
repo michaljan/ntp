@@ -553,6 +553,14 @@ class ParagonData
     private $travelDistPrev;
     
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="week_number", type="integer", length=20, nullable=true)
+     */
+    private $weekNumber;
+    
+    
+    /**
      * Set routeNo
      *
      * @param string $routeNo
@@ -2369,5 +2377,30 @@ class ParagonData
     {
         return $this->sdata5;
     }
+    
+    /**
+     * Get weekNumber
+     *
+     * @return integer
+     */
+    public function getWeekNumber()
+    {
+        return $this->weekNumber;
+    }
+
+    /**
+     * Set weekNumber
+     *
+     * @param integer $weekNumber
+     *
+     * @return ParagonData
+     */
+    public function setWeekNumber($weekNumber)
+    {
+        $this->weekNumber = $weekNumber;
+
+        return $this;
+    }
+
 }
 

@@ -12,6 +12,7 @@ use NTPBundle\Entity\ParagonData;
 use NTPBundle\ValueConventer\DateTimeNow;
 use NTPBundle\ValueConventer\UploadedBy;
 use NTPBundle\ValueConventer\PlanDateConvert;
+use NTPBundle\ValueConventer\WeekNumberConventer;
 use NTPBundle\ValueConventer\PlanNameConventer;
 use NTPBundle\ValueConventer\TimeToMicroConventer;
 use NTPBundle\ValueConventer\RouteNameConventer;
@@ -39,6 +40,7 @@ class CsvFileWriter extends Controller {
         $doctrineWriter->disableTruncate();
         $workflow->addWriter($doctrineWriter);
         $dateConverter = new DateConventer($fileRecord ->getPlanDate());
+        $weekNumberConverter = new WeekNumberConventer($fileRecord ->getPlanDate());
         $planNameConverter = new PlanNameConventer($fileRecord ->getName());
         $routeNameConventer = new RouteNameConventer($fileRecord ->getPlanDate());
         $dateTimeNow = new DateTimeNow;
@@ -72,7 +74,8 @@ class CsvFileWriter extends Controller {
                 ->addValueConverter('uploadDate', $dateTimeNow)
                 ->addValueConverter('uploadedBy', $uploadedBy)
                 ->addValueConverter('planDate', $planDateConvert)
-                ->addValueConverter('planName', $planNameConverter);
+                ->addValueConverter('planName', $planNameConverter)
+                ->addValueConverter('weekNumber', $weekNumberConverter);
 //        \Doctrine\Common\Util\Debug::dump($doctrineWriter);
 //        die;
         $result = $workflow->process();

@@ -34,7 +34,7 @@ class ParagonReports {
         $minutesConventer = new MinutesToHoursConventer();
         $query = $this->em
                 ->createQuery('SELECT DISTINCT p.routeNo, SUM(p.dutyTime) AS dutyTime, COUNT(p.routeNo) AS routeCount, SUM(p.distanceKms) AS distanceKms, SUM(p.emptyDistKms) AS emptyDistKms, SUM(p.emptyTime) AS emptyTime, AVG(p.timeUtil) AS timeUtil '
-                        . 'FROM NTPBundle:ParagonData p WHERE p.planDate = :date')
+                        . 'FROM NTPBundle:ParagonData p WHERE p.planDate = :date AND p.tripNo=1 AND p.callTripPosition=1')
                 ->setParameter('date', $date);
         $result = $query->getResult();
         $dutyTime = $timeConventer->convert($result[0]['dutyTime']);
@@ -59,7 +59,7 @@ class ParagonReports {
 
         $query = $this->em
                 ->createQuery('SELECT DISTINCT(p.routeNo),p.depotId AS y, count(p.depotId) AS a'
-                        . ' FROM NTPBundle:ParagonData p WHERE p.planDate = :date GROUP BY p.depotId')
+                        . ' FROM NTPBundle:ParagonData p WHERE p.planDate = :date AND p.tripNo=1 AND p.callTripPosition=1 GROUP BY p.depotId')
                 ->setParameter('date', $date);
         $result = $query->getResult();
         $jsonMorrisConventer = new JsonMorrisConventer();
@@ -70,7 +70,7 @@ class ParagonReports {
 
         $query = $this->em
                 ->createQuery('SELECT DISTINCT(p.routeNo),p.depotId AS y, AVG(p.timeUtil) AS a'
-                        . ' FROM NTPBundle:ParagonData p WHERE p.planDate = :date GROUP BY p.depotId')
+                        . ' FROM NTPBundle:ParagonData p WHERE p.planDate = :date AND p.tripNo=1 AND p.callTripPosition=1 GROUP BY p.depotId')
                 ->setParameter('date', $date);
         $result = $query->getResult();
         $compiled = $jsonMorrisConventer->morrisBarChart($result);
@@ -80,7 +80,7 @@ class ParagonReports {
 
         $query = $this->em
                 ->createQuery('SELECT DISTINCT(p.routeNo),p.depotId AS y, AVG(p.dutyTime) AS a'
-                        . ' FROM NTPBundle:ParagonData p WHERE p.planDate = :date GROUP BY p.depotId')
+                        . ' FROM NTPBundle:ParagonData p WHERE p.planDate = :date AND p.tripNo=1 AND p.callTripPosition=1 GROUP BY p.depotId')
                 ->setParameter('date', $date);
         $result = $query->getResult();
 
@@ -97,7 +97,7 @@ class ParagonReports {
         $endDate->add(new \DateInterval('PT' . 1439 . 'M'));
         $query = $this->em
                 ->createQuery('SELECT DISTINCT p.routeNo, p.tripsStartDepot, p.startTime, p.endTime '
-                        . 'FROM NTPBundle:ParagonData p WHERE p.startTime BETWEEN :startDate AND :endDate')
+                        . 'FROM NTPBundle:ParagonData p WHERE p.tripNo=1 AND p.callTripPosition=1 AND p.startTime BETWEEN :startDate AND :endDate')
                 ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
                 ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'));
         $result = $query->getResult();
