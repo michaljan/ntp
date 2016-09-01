@@ -12,9 +12,9 @@ class WeekRangeType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('startWeek', IntegerType::class, array('widget' => 'single_text',
+                ->add('startWeek', IntegerType::class , array(
                     'attr' => array('class' => 'form-control')))
-                ->add('endWeek', IntegerType::class, array('widget' => 'single_text',
+                ->add('endWeek', IntegerType::class, array(
                     'attr' => array('class' => 'form-control')))
                 ->add('submit', SubmitType::class,array('attr' => array('class' => 'btn btn-default')))
         ;

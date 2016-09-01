@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NTPBundle\Entity\ParagonData;
 use NTPBundle\Form\ReportType;
 use NTPBundle\Form\RangeType;
+use NTPBundle\Form\WeekRangeType;
 use Symfony\Component\HttpFoundation\Request;
 use NTPBundle\Reports\ParagonReports;
 use \Symfony\Component\HttpFoundation\Response;
@@ -92,6 +93,20 @@ class ReportController extends Controller {
     }
     
     
+    public function planSummaryAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(WeekRangeType::class);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $startWeek = $form->get('startWeek')->getData();
+            $endWeek = $form->get('endWeek')->getData();
+            $report = $this->get('paragonreports');
+            $result = $report->planSummary($startWeek,$endWeek);
+        }else {
+            $result = FALSE;
+        }
+        return new response($this->renderView('NTPBundle:Reports:planSummary.html.twig', array('form' => $form->createView(),'report'=>$result)));
+    }
     
     
     

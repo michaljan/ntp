@@ -21,6 +21,7 @@
                                     <th>Store name</th>
                                     <th>Planned arrival time</th>
                                     <th>Planned departure time</th>
+                                    <th>Planned duration time</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -31,6 +32,7 @@
                                    <td> {{ record.customerName }} </td>
                                    <td> {{ record.arrivalTime|date('H:i') }}</td>
                                    <td> {{ record.departTime|date('H:i') }}</td>
+                                   <td> {{ record.callDuration|date('H:i') }}</td>
                                    </tr>
                                 {% endfor %}    
                             </tbody>

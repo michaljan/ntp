@@ -131,10 +131,22 @@ class ParagonReports {
     
     public function storesEta($date){
         $query = $this->em
-                ->createQuery("SELECT p.customerId, p.customerName, p.arrivalTime, p.departTime "
+                ->createQuery("SELECT p.customerId, p.customerName, p.arrivalTime, p.departTime, p.callDuration "
                         . "FROM NTPBundle:ParagonData p WHERE p.planDate = :date AND p.callType = 'D' AND p.customerId BETWEEN 1 AND 999 ORDER BY p.customerName")
                 ->setParameter('date', $date);
         $result = $query->getResult();
+        return $result;
+    }
+    
+    public function planSummary($startWeek,$endWeek){
+        $query = $this->em
+                ->createQuery("SELECT p.customerId, p.customerName, p.arrivalTime, p.departTime, p.callDuration "
+                        . "FROM NTPBundle:ParagonData p WHERE p.weekNumber BETWEEN :startWeek AND :endWeek")
+                ->setParameter('startWeek', $startWeek)
+                ->setParameter('endWeek', $endWeek);
+        $result = $query->getResult();
+        \Doctrine\Common\Util\Debug::dump($result);
+        die;
         return $result;
     }
 

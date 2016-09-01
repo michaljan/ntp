@@ -7,13 +7,12 @@ use Ddeboer\DataImport\ValueConverter\ValueConverterInterface;
 class WeekNumberConventer implements ValueConverterInterface {
     
     public function __construct($date) {
-        $this->date=$date;
+        $dateOb=new \DateTime($date);
     }
 
         public function convert($input) {          
-            $date=new \DateTime($this->date);
-            $date->add(new \DateInterval('P8D'));
-            $output=$date->format("W");
+            $dateOb->add(new \DateInterval('P8D'));
+            $output=$dateOb->format("W");
         return $output;
     }
 
