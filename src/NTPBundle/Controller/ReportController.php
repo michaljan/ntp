@@ -100,8 +100,9 @@ class ReportController extends Controller {
         if ($form->isValid()) {
             $startWeek = $form->get('startWeek')->getData();
             $endWeek = $form->get('endWeek')->getData();
+            $year = $form->get('year')->getData();
             $report = $this->get('paragonreports');
-            $result = $report->planSummary($startWeek,$endWeek);
+            $result = $report->planSummary($year,$startWeek,$endWeek);
         }else {
             $result = FALSE;
         }

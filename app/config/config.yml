@@ -64,7 +64,13 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
-
+        dql:
+            datetime_functions:
+                convert_tz: DoctrineExtensions\Query\Mysql\ConvertTz
+                date: DoctrineExtensions\Query\Mysql\Date
+                year: DoctrineExtensions\Query\Mysql\Year
+                weekday: DoctrineExtensions\Query\Mysql\WeekDay
+                dayname: DoctrineExtensions\Query\Mysql\DayName
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"

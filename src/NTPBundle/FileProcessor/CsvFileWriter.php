@@ -39,9 +39,8 @@ class CsvFileWriter extends Controller {
         $doctrineWriter = new DoctrineWriter($this->em, $entity);
         $doctrineWriter->disableTruncate();
         $workflow->addWriter($doctrineWriter);
-        $date=$fileRecord ->getPlanDate();
         $dateConverter = new DateConventer($fileRecord ->getPlanDate());
-        $weekNumberConverter = new WeekNumberConventer($date->format('Y-m-d'));
+        $weekNumberConverter = new WeekNumberConventer($fileRecord ->getPlanDate());
         $planNameConverter = new PlanNameConventer($fileRecord ->getName());
         $routeNameConventer = new RouteNameConventer($fileRecord ->getPlanDate());
         $dateTimeNow = new DateTimeNow;
@@ -51,6 +50,7 @@ class CsvFileWriter extends Controller {
         $planDateConvert = new PlanDateConvert($fileRecord ->getPlanDate());
         //\Doctrine\Common\Util\Debug::dump($date->format('Y-m-d'));
         //die;
+        $date=$fileRecord ->getPlanDate();
         $workflow->setSkipItemOnFailure(true)
                 ->addValueConverter('routeNo', $routeNameConventer)
                 ->addValueConverter('startTime', $dateConverter)

@@ -11,7 +11,9 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 class WeekRangeType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder
+        $builder 
+                ->add('year', IntegerType::class, array('data' => (new \DateTime())->format('Y'),
+                    'attr' => array('class' => 'form-control')))
                 ->add('startWeek', IntegerType::class , array(
                     'attr' => array('class' => 'form-control')))
                 ->add('endWeek', IntegerType::class, array(

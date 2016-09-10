@@ -34,6 +34,7 @@
         "ddeboer/data-import": "^0.18.0",
         "symfony/validator": "^3.0",
         "symfony/dependency-injection": "^2.8.0",
+        "beberlei/DoctrineExtensions": "*",
         "symfony/finder": "^3.0"
     },
     "require-dev": {

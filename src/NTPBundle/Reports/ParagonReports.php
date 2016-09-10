@@ -138,12 +138,13 @@ class ParagonReports {
         return $result;
     }
     
-    public function planSummary($startWeek,$endWeek){
+    public function planSummary($year, $startWeek,$endWeek){
         $query = $this->em
-                ->createQuery("SELECT p.customerId, p.customerName, p.arrivalTime, p.departTime, p.callDuration "
-                        . "FROM NTPBundle:ParagonData p WHERE p.weekNumber BETWEEN :startWeek AND :endWeek")
+                ->createQuery("SELECT DISTINCT p.routeNo,SUM(p.dutyTime) AS dutyTime, dayname(p.planDate) "
+                        . "FROM NTPBundle:ParagonData p WHERE p.weekNumber BETWEEN :startWeek AND :endWeek AND year(p.planDate)=:year GROUP BY p.weekNumber, p.planDate")
                 ->setParameter('startWeek', $startWeek)
-                ->setParameter('endWeek', $endWeek);
+                ->setParameter('endWeek', $endWeek)
+                ->setParameter('year', $year);
         $result = $query->getResult();
         \Doctrine\Common\Util\Debug::dump($result);
         die;

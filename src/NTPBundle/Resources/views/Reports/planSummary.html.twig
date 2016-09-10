@@ -7,8 +7,10 @@
         <div class="col-md-2">
             {{ form_start(form) }}
             {{ form_errors(form) }}
+            {{ form_row(form.year) }}
             {{ form_row(form.startWeek) }}
             {{ form_row(form.endWeek) }}
+            <br/>
             {{ form_row(form.submit) }}
             {{ form_end(form) }}</div>
         <div class="col-md-10">
@@ -23,11 +25,15 @@
         <div class="col-md-2">
             {{ form_start(form) }}
             {{ form_errors(form) }}
+            {{ form_row(form.year) }}
             {{ form_row(form.startWeek) }}
             {{ form_row(form.endWeek) }}
+             <br/>
             {{ form_row(form.submit) }}
             {{ form_end(form) }}</div>
         <div class="col-md-10">
+            <div class="caption"><h4>Plan summary</h4></div>
+       
         </div>
     </div>
 {% endblock %}
