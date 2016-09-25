@@ -1,0 +1,105 @@
+{% extends 'NTPBundle::base.html.twig' %}
+{% block body %}          
+    <br/>
+    {% if report %}
+
+        <div class="row">
+            <div class="col-md-2">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                {{ form_row(form.yearStart) }}
+                {{ form_row(form.yearEnd) }}
+                {{ form_row(form.startWeek) }}
+                {{ form_row(form.endWeek) }}
+                <br/>
+                {{ form_row(form.submit) }}
+                {{ form_end(form) }}</div>
+            <div class="col-md-10">
+                <div class="caption"><h4>Summarised volume</h4></div>
+                <table class="table table-condense">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Week number</th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                            <th>Saturday</th>
+                            <th>Sunday</th>
+                      
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for key,record in report.volume %}
+                            <tr>
+                                <td></td>
+                                <td> {{ key }}</td>
+                                <td> {{ attribute(record, 'Monday')|default('0') }} </td>
+                                <td> {{ attribute(record, 'Tuesday')|default('0') }} </td>
+                                <td> {{ attribute(record, 'Wednesday')|default('0') }} </td>
+                                <td> {{ attribute(record, 'Thursday')|default('0') }} </td>
+                                <td> {{ attribute(record, 'Friday')|default('0') }} </td>
+                                <td> {{ attribute(record, 'Saturday')|default('0') }} </td>
+                                <td> {{ attribute(record, 'Sunday')|default('0') }} </td>
+                            </tr>
+                        {% endfor %}    
+                    </tbody>
+                </table>
+                <div class="caption"><h4>Summarised pallet footprint</h4></div>
+                <table class="table table-condense">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Week number</th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                            <th>Saturday</th>
+                            <th>Sunday</th>
+                      
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for key,record in report.pallet %}
+                            <tr>
+                                <td></td>
+                                <td> {{ key }}</td>
+                                <td> {{ attribute(record, 'Monday')|default('0') }} </td>
+                                <td> {{ attribute(record, 'Tuesday')|default('0') }} </td>
+                                <td> {{ attribute(record, 'Wednesday')|default('0') }} </td>
+                                <td> {{ attribute(record, 'Thursday')|default('0') }} </td>
+                                <td> {{ attribute(record, 'Friday')|default('0') }} </td>
+                                <td> {{ attribute(record, 'Saturday')|default('0') }} </td>
+                                <td> {{ attribute(record, 'Sunday')|default('0') }} </td>
+                            </tr>
+                        {% endfor %}    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    {% else %}
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {{ form_row(form.yearStart) }}
+            {{ form_row(form.yearEnd) }}
+            {{ form_row(form.startWeek) }}
+            {{ form_row(form.endWeek) }}
+            <br/>
+            {{ form_row(form.submit) }}
+            {{ form_end(form) }}</div>
+        <div class="col-md-10">
+        <div class="caption"><h4>Plan summary</h4></div>
+
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
+
+

@@ -138,17 +138,25 @@ class ParagonReports {
         return $result;
     }
     
-    public function planSummary($year, $startWeek,$endWeek){
+    public function planVolume($yearStart,$yearEnd, $startWeek,$endWeek){
         $query = $this->em
-                ->createQuery("SELECT DISTINCT p.routeNo,SUM(p.dutyTime) AS dutyTime, dayname(p.planDate) "
-                        . "FROM NTPBundle:ParagonData p WHERE p.weekNumber BETWEEN :startWeek AND :endWeek AND year(p.planDate)=:year GROUP BY p.weekNumber, p.planDate")
+                ->createQuery("SELECT SUM(p.ndata5) AS volume,SUM(p.measure5) AS palletFootprint, dayname(p.startTime) AS planDay, p.weekNumber "
+                        . "FROM NTPBundle:ParagonData p WHERE p.weekNumber BETWEEN :startWeek AND :endWeek AND year(p.planDate) BETWEEN :yearStart AND :yearEnd AND p.ndata5<>0 "
+                        . "GROUP BY planDay, p.weekNumber")
                 ->setParameter('startWeek', $startWeek)
                 ->setParameter('endWeek', $endWeek)
                 ->setParameter('year', $year);
         $result = $query->getResult();
-        \Doctrine\Common\Util\Debug::dump($result);
-        die;
-        return $result;
+        //create pivot table for display
+        
+        foreach($result as $key=>$value){
+            $arrayResult ['volume'][$value['weekNumber']][$value['planDay']]=$value['volume'];
+            $arrayResult ['pallet'][$value['weekNumber']][$value['planDay']]=$value['palletFootprint'];
+        }
+        //echo $arrayResult['Thursday']['volume'];    
+        //\Doctrine\Common\Util\Debug::dump($arrayResult);
+        //die;
+        return $arrayResult;
     }
 
 }

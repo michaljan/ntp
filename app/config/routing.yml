@@ -62,7 +62,7 @@ tms_route_dispaly:
         _controller: NTPBundle:TMS:routeDisplay
 
 
-plan_summary_report:
-    path : /report/plansummary
+summary_volume_report:
+    path : /report/volumereport
     defaults:
-        _controller: NTPBundle:Report:planSummary
+        _controller: NTPBundle:Report:summaryVolume

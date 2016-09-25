@@ -93,20 +93,21 @@ class ReportController extends Controller {
     }
     
     
-    public function planSummaryAction(Request $request){
+    public function summaryVolumeAction(Request $request){
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(WeekRangeType::class);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $startWeek = $form->get('startWeek')->getData();
             $endWeek = $form->get('endWeek')->getData();
-            $year = $form->get('year')->getData();
+            $yearStart = $form->get('yearStart')->getData();
+            $yearEnd = $form->get('yearEnd')->getData();
             $report = $this->get('paragonreports');
-            $result = $report->planSummary($year,$startWeek,$endWeek);
+            $result = $report->planVolume($yearStart,$yearEnd,$startWeek,$endWeek);
         }else {
             $result = FALSE;
         }
-        return new response($this->renderView('NTPBundle:Reports:planSummary.html.twig', array('form' => $form->createView(),'report'=>$result)));
+        return new response($this->renderView('NTPBundle:Reports:summaryVolume.html.twig', array('form' => $form->createView(),'report'=>$result)));
     }
     
     
@@ -122,9 +123,7 @@ class ReportController extends Controller {
         $form->handleRequest($request);
         if ($form->isValid()) {
             $startDate = $form->get('planDate')->getData();
-            $report = $this->get('paragonreports');
-        //\Doctrine\Common\Util\Debug::dump($request->isXmlHttpRequest());
-        //die;      
+            $report = $this->get('paragonreports');     
             $result = FALSE;
         }else {
             $result = FALSE;
