@@ -139,13 +139,15 @@ class ParagonReports {
     }
     
     public function planVolume($yearStart,$yearEnd, $startWeek,$endWeek){
+        $arrayResult=array();
         $query = $this->em
                 ->createQuery("SELECT SUM(p.ndata5) AS volume,SUM(p.measure5) AS palletFootprint, dayname(p.startTime) AS planDay, p.weekNumber "
                         . "FROM NTPBundle:ParagonData p WHERE p.weekNumber BETWEEN :startWeek AND :endWeek AND year(p.planDate) BETWEEN :yearStart AND :yearEnd AND p.ndata5<>0 "
                         . "GROUP BY planDay, p.weekNumber")
                 ->setParameter('startWeek', $startWeek)
                 ->setParameter('endWeek', $endWeek)
-                ->setParameter('year', $year);
+                ->setParameter('yearStart', $yearStart)
+                ->setParameter('yearEnd', $yearEnd);
         $result = $query->getResult();
         //create pivot table for display
         

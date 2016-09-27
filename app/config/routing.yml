@@ -66,3 +66,9 @@ summary_volume_report:
     path : /report/volumereport
     defaults:
         _controller: NTPBundle:Report:summaryVolume
+
+
+wickesDashboard_report:
+    path : /wickesreport/dashboard
+    defaults:
+        _controller: NTPBundle:WickesReport:wickesDashboard

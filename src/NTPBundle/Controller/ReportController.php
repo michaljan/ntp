@@ -133,4 +133,7 @@ class ReportController extends Controller {
         return new response($this->renderView('NTPBundle:Reports:paragonRunSheetReport.html.twig', array('form' => $form->createView(),'report'=>$result)));
     }
     
+    
+    
+    
 }

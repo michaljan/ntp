@@ -66,14 +66,14 @@
         </div>
     {% else %}
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 {{ form_start(form) }}
                 {{ form_errors(form) }}
                 {{ form_row(form.planDate) }}
                 {{ form_row(form.submit) }}
                 {{ form_end(form) }}</div>
             <br/>
-            <div class="col-md9">
+            <div class="col-md12">
                  {% if message %}
                      <h5><b>{{ message }}</b></h5>
                  {% endif %}    
