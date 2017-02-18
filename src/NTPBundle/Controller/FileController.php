@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use NTPBundle\FileProcessor\CsvFileWriter;
 use NTPBundle\Entity\ParagonData;
 
+
 class FileController extends Controller {
 
     protected $processed;
@@ -101,5 +102,26 @@ class FileController extends Controller {
         $em->flush();
         return $this->redirectToRoute('file_display');
     }
+    
+    public function uploadedPlansAction(){
+        $em = $this->getDoctrine()->getManager();
+        $endDate=  date('Y-m-d');
+        $startDate=new \DateTime('Today');
+        $startDate->sub(new \DateInterval('P30D'));
+        $dateCounter=$startDate;
+        $startDate=$startDate->format('Y-m-d');
+        $query=$em->createQuery('SELECT DISTINCT p.planDate FROM NTPBundle:ParagonData p WHERE p.planDate BETWEEN :startDate AND :endDate')
+                    ->setParameter('startDate', $startDate)
+                    ->setParameter('endDate', $endDate);
+        $result = $query->getResult();
+        for($i=1;$i<=30;$i++){
+            $dateArray[$i]=$dateCounter->format('Y-m-d');
+            $dateCounter->add(new \DateInterval('P1D'));
+        }
+        \Doctrine\Common\Util\Debug::dump($dateArray);
+        die;
+        return $this->render('NTPBundle:File:files_history.html.twig', array('result' => $result,'dateArray'=>$dateArray));
+    }
+            
 
 }

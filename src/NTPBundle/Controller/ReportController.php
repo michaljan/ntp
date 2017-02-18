@@ -112,12 +112,6 @@ class ReportController extends Controller {
     
     
     
-    
-    
-    
-    
-    
-    
     public function paragonRunSheetReportAction(Request $request){
         $form = $this->createForm(ReportType::class);
         $form->handleRequest($request);
@@ -131,7 +125,9 @@ class ReportController extends Controller {
 //        \Doctrine\Common\Util\Debug::dump($result['tractor']);
 //        die;
         return new response($this->renderView('NTPBundle:Reports:paragonRunSheetReport.html.twig', array('form' => $form->createView(),'report'=>$result)));
-    }
+    
+        
+        }
     
     
     

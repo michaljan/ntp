@@ -23,6 +23,11 @@ file_display:
     path : /filedisplay
     defaults:
         _controller: NTPBundle:File:displayFiles
+
+upload_plan_display:
+    path : /uploadedplans
+    defaults:
+        _controller: NTPBundle:File:uploadedPlans
         
 process_csv:
     path : /processcsv/{id}

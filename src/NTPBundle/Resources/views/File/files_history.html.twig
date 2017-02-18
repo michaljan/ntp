@@ -1,0 +1,6 @@
+{% extends 'NTPBundle::base.html.twig' %}
+{% block body %}
+        {% for item in result %}
+            {{ item.planDate|date('d-m-Y') }}<br>
+        {% endfor %}
+{% endblock %}
