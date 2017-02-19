@@ -303,16 +303,16 @@ class ParagonData
     private $destDepotDepartureTime;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="trips_end_depot", type="integer", nullable=true)
+     * @ORM\Column(name="trips_end_depot", type="string", nullable=true)
      */
     private $tripsEndDepot;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="trips_source_depot", type="integer", nullable=true)
+     * @ORM\Column(name="trips_source_depot", type="string", nullable=true)
      */
     private $tripsSourceDepot;
 
@@ -331,9 +331,9 @@ class ParagonData
     private $sourceDepotDepartureTime2;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="trips_start_depot", type="integer", nullable=true)
+     * @ORM\Column(name="trips_start_depot", type="string", nullable=true)
      */
     private $tripsStartDepot;
 
@@ -1499,7 +1499,7 @@ class ParagonData
     /**
      * Set tripsEndDepot
      *
-     * @param integer $tripsEndDepot
+     * @param string $tripsEndDepot
      *
      * @return ParagonData
      */
@@ -1513,7 +1513,7 @@ class ParagonData
     /**
      * Get tripsEndDepot
      *
-     * @return integer
+     * @return string
      */
     public function getTripsEndDepot()
     {
@@ -1523,7 +1523,7 @@ class ParagonData
     /**
      * Set tripsSourceDepot
      *
-     * @param integer $tripsSourceDepot
+     * @param string $tripsSourceDepot
      *
      * @return ParagonData
      */
@@ -1537,7 +1537,7 @@ class ParagonData
     /**
      * Get tripsSourceDepot
      *
-     * @return integer
+     * @return string
      */
     public function getTripsSourceDepot()
     {
@@ -1595,7 +1595,7 @@ class ParagonData
     /**
      * Set tripsStartDepot
      *
-     * @param integer $tripsStartDepot
+     * @param string $tripsStartDepot
      *
      * @return ParagonData
      */
@@ -1609,7 +1609,7 @@ class ParagonData
     /**
      * Get tripsStartDepot
      *
-     * @return integer
+     * @return string
      */
     public function getTripsStartDepot()
     {
