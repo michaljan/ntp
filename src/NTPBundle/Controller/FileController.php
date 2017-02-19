@@ -10,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use NTPBundle\FileProcessor\CsvFileWriter;
 use NTPBundle\Entity\ParagonData;
 
-
 class FileController extends Controller {
 
     protected $processed;
@@ -49,24 +48,24 @@ class FileController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $fileProcessed = $em->getRepository('NTPBundle:FileUpload')
                 ->findByProcessed(0, array('id' => 'DESC'), 10, 0);
-        
+
         return $this->render('NTPBundle:File:files_display.html.twig', array('fileProcessed' => $fileProcessed));
     }
 
     public function processCsvAction($id) {
-        $message=null;
+        $message = null;
         $user = $this->container->get('security.token_storage')->getToken()->getUser()->getId();
         $em = $this->getDoctrine()->getManager();
         $paragonData = 'NTPBundle:ParagonData';
         $csvFileWriter = new CsvFileWriter($em);
         $fileRecord = $em->getRepository('NTPBundle:FileUpload')
-                ->findOneById($id); 
+                ->findOneById($id);
         $planExists = $em->getRepository('NTPBundle:ParagonData')
                 ->findOneByPlanDate($fileRecord->getPlanDate());
 //            \Doctrine\Common\Util\Debug::dump($planExists);
 //            die;
         if (!is_null($fileRecord) && is_null($planExists)) {
-            $webPath = __DIR__.'/../data/uploads/' . $fileRecord->getPath();
+            $webPath = __DIR__ . '/../data/uploads/' . $fileRecord->getPath();
             $result = $csvFileWriter->csvImport($webPath, $paragonData, $user, $fileRecord);
             if (!empty($result->getExceptions())) {
                 $exceptionsArray = $result->getExceptions();
@@ -78,9 +77,9 @@ class FileController extends Controller {
             //\Doctrine\Common\Util\Debug::dump($result);
             //die;
         }
-        if(!is_null($planExists)){
-            $message='File proccessed already';
-            return $this->render('NTPBundle:File:file_processed.html.twig',array('message' => $message));
+        if (!is_null($planExists)) {
+            $message = 'File proccessed already';
+            return $this->render('NTPBundle:File:file_processed.html.twig', array('message' => $message));
         }
         return $this->render('NTPBundle:File:file_processed.html.twig', array('errors' => ($result->getErrorCount()),
                     'success' => ($result->getSuccessCount()),
@@ -102,26 +101,41 @@ class FileController extends Controller {
         $em->flush();
         return $this->redirectToRoute('file_display');
     }
-    
-    public function uploadedPlansAction(){
+
+    public function uploadedPlansAction() {
         $em = $this->getDoctrine()->getManager();
-        $endDate=  date('Y-m-d');
-        $startDate=new \DateTime('Today');
+        $endDate = date('Y-m-d');
+        $startDate = new \DateTime('Today');
         $startDate->sub(new \DateInterval('P30D'));
-        $dateCounter=$startDate;
-        $startDate=$startDate->format('Y-m-d');
-        $query=$em->createQuery('SELECT DISTINCT p.planDate FROM NTPBundle:ParagonData p WHERE p.planDate BETWEEN :startDate AND :endDate')
-                    ->setParameter('startDate', $startDate)
-                    ->setParameter('endDate', $endDate);
+        $dateCounter = $startDate;
+        $startDate = $startDate->format('Y-m-d');
+        $query = $em->createQuery('SELECT DISTINCT p.planDate FROM NTPBundle:ParagonData p WHERE p.planDate BETWEEN :startDate AND :endDate')
+                ->setParameter('startDate', $startDate)
+                ->setParameter('endDate', $endDate);
         $result = $query->getResult();
-        for($i=1;$i<=30;$i++){
-            $dateArray[$i]=$dateCounter->format('Y-m-d');
+        $formattedArray = array_map(function($num) {
+            return $num['planDate']->format('Y-m-d');
+        }, $result);
+        $count = 1;
+        for ($i = 1; $i <= 36; $i++) {
+            $dateArray[$i]['date'] = $dateCounter->format('Y-m-d');
+            if (in_array($dateCounter->format('Y-m-d'), $formattedArray)) {
+                $dateArray[$i]['inarray'] = True;
+            } else {
+                $dateArray[$i]['inarray'] = False;
+            }
+            if ($count == 6) {
+                $dateArray[$i]['counter'] = True;
+                $count = 0;
+            } else {
+                $dateArray[$i]['counter'] = False;
+            }
+            $count++;
             $dateCounter->add(new \DateInterval('P1D'));
         }
-        \Doctrine\Common\Util\Debug::dump($dateArray);
-        die;
-        return $this->render('NTPBundle:File:files_history.html.twig', array('result' => $result,'dateArray'=>$dateArray));
+        //\Doctrine\Common\Util\Debug::dump($dateArray);
+        //die;
+        return $this->render('NTPBundle:File:files_history.html.twig', array('dateArray' => $dateArray));
     }
-            
 
 }

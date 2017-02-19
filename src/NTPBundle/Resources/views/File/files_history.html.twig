@@ -1,6 +1,14 @@
 {% extends 'NTPBundle::base.html.twig' %}
 {% block body %}
-        {% for item in result %}
-            {{ item.planDate|date('d-m-Y') }}<br>
-        {% endfor %}
+        {% for item in dateArray %}
+                {% if item.inarray == "True" %}
+                    <span class="label label-success">{{ item.date|date('d-m-Y D') }} </span>
+                    {% else %}
+                        <span class="label label-danger">{{ item.date|date('d-m-Y D') }}</span>
+                
+                    {% endif %}
+                    {% if item.counter == "True" %}
+                        <br>
+                    {% endif %}    
+            {% endfor %}
 {% endblock %}
