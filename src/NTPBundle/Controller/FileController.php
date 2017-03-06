@@ -104,7 +104,9 @@ class FileController extends Controller {
 
     public function uploadedPlansAction() {
         $em = $this->getDoctrine()->getManager();
-        $endDate = date('Y-m-d');
+        $endDate = new \DateTime('Today');
+        $endDate->add(new \DateInterval('P5D'));
+        $endDate=$endDate->format('Y-m-d');
         $startDate = new \DateTime('Today');
         $startDate->sub(new \DateInterval('P30D'));
         $dateCounter = $startDate;
