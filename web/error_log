@@ -1,0 +1,48 @@
+[20-Feb-2017 21:19:34 Europe/Berlin] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:43
+Stack trace:
+#0 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php(43): PDO->__construct('mysql:host=127....', 'root', 'Password123', Array)
+#1 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOMySql/Driver.php(45): Doctrine\DBAL\Driver\PDOConnection->__construct('mysql:host=127....', 'root', 'Password123', Array)
+#2 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(360): Doctrine\DBAL\Driver\PDOMySql\Driver->connect(Array, 'root', 'Password123', Array)
+#3 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(429): Doctrine\DBAL\Connection->connect()
+#4 /home/mxmelite/public_html/transport/vendor/doctrine/dbal in /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/AbstractMySQLDriver.php on line 103
+[20-Feb-2017 21:49:20 Europe/Berlin] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:43
+Stack trace:
+#0 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php(43): PDO->__construct('mysql:host=127....', 'root', 'Password123', Array)
+#1 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOMySql/Driver.php(45): Doctrine\DBAL\Driver\PDOConnection->__construct('mysql:host=127....', 'root', 'Password123', Array)
+#2 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(360): Doctrine\DBAL\Driver\PDOMySql\Driver->connect(Array, 'root', 'Password123', Array)
+#3 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(429): Doctrine\DBAL\Connection->connect()
+#4 /home/mxmelite/public_html/transport/vendor/doctrine/dbal in /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/AbstractMySQLDriver.php on line 103
+[20-Feb-2017 21:49:58 Europe/Berlin] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:43
+Stack trace:
+#0 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php(43): PDO->__construct('mysql:host=127....', 'root', 'Password123', Array)
+#1 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOMySql/Driver.php(45): Doctrine\DBAL\Driver\PDOConnection->__construct('mysql:host=127....', 'root', 'Password123', Array)
+#2 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(360): Doctrine\DBAL\Driver\PDOMySql\Driver->connect(Array, 'root', 'Password123', Array)
+#3 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(429): Doctrine\DBAL\Connection->connect()
+#4 /home/mxmelite/public_html/transport/vendor/doctrine/dbal in /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/AbstractMySQLDriver.php on line 103
+[20-Feb-2017 21:50:58 Europe/Berlin] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:43
+Stack trace:
+#0 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php(43): PDO->__construct('mysql:host=127....', 'root', 'Password123', Array)
+#1 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOMySql/Driver.php(45): Doctrine\DBAL\Driver\PDOConnection->__construct('mysql:host=127....', 'root', 'Password123', Array)
+#2 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(360): Doctrine\DBAL\Driver\PDOMySql\Driver->connect(Array, 'root', 'Password123', Array)
+#3 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(429): Doctrine\DBAL\Connection->connect()
+#4 /home/mxmelite/public_html/transport/vendor/doctrine/dbal in /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/AbstractMySQLDriver.php on line 103
+[20-Feb-2017 21:51:28 Europe/Berlin] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:43
+Stack trace:
+#0 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php(43): PDO->__construct('mysql:host=127....', 'root', 'Password123', Array)
+#1 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOMySql/Driver.php(45): Doctrine\DBAL\Driver\PDOConnection->__construct('mysql:host=127....', 'root', 'Password123', Array)
+#2 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(360): Doctrine\DBAL\Driver\PDOMySql\Driver->connect(Array, 'root', 'Password123', Array)
+#3 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(429): Doctrine\DBAL\Connection->connect()
+#4 /home/mxmelite/public_html/transport/vendor/doctrine/dbal in /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/AbstractMySQLDriver.php on line 103
+[20-Feb-2017 21:57:46 Europe/Berlin] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:43
+Stack trace:
+#0 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php(43): PDO->__construct('mysql:host=127....', 'root', 'Password123', Array)
+#1 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOMySql/Driver.php(45): Doctrine\DBAL\Driver\PDOConnection->__construct('mysql:host=127....', 'root', 'Password123', Array)
+#2 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(360): Doctrine\DBAL\Driver\PDOMySql\Driver->connect(Array, 'root', 'Password123', Array)
+#3 /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(429): Doctrine\DBAL\Connection->connect()
+#4 /home/mxmelite/public_html/transport/vendor/doctrine/dbal in /home/mxmelite/public_html/transport/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/AbstractMySQLDriver.php on line 103
+[20-Feb-2017 22:07:51 Europe/Berlin] PHP Fatal error:  Uncaught exception 'ReflectionException' with message 'Class NTPBundle\Entity\NTPBundle\Entity\Group does not exist' in /home/mxmelite/public_html/transport/vendor/doctrine/common/lib/Doctrine/Common/Proxy/ProxyGenerator.php:953
+Stack trace:
+#0 /home/mxmelite/public_html/transport/vendor/doctrine/common/lib/Doctrine/Common/Proxy/ProxyGenerator.php(953): ReflectionParameter->getClass()
+#1 /home/mxmelite/public_html/transport/vendor/doctrine/common/lib/Doctrine/Common/Proxy/ProxyGenerator.php(904): Doctrine\Common\Proxy\ProxyGenerator->getParameterType(Object(Doctrine\ORM\Mapping\ClassMetadata), Object(ReflectionMethod), Object(ReflectionParameter))
+#2 /home/mxmelite/public_html/transport/vendor/doctrine/common/lib/Doctrine/Common/Proxy/ProxyGenerator.php(780): Doctrine\Common\Proxy\ProxyGenerator->buildParametersString(Object(Doctrine\ORM\Mapping\ClassMetadata), Object(ReflectionMethod), Array)
+#3 [internal function]: Doctrine\Common\Proxy\ProxyGenerator->generateMethods(Object(Doctrine\ORM\Mapping\ClassMetada in /home/mxmelite/public_html/transport/vendor/doctrine/common/lib/Doctrine/Common/Proxy/Exception/UnexpectedValueException.php on line 53
