@@ -27,6 +27,15 @@ class User extends BaseUser
      */
     protected $groups;
     
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="store_number", type="integer", nullable=true)
+     */
+    protected $storeNumber;
+    
+    
     public function __construct() {
         
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
@@ -44,4 +53,18 @@ class User extends BaseUser
 
         return $this;
     }
+    
+    public function getStoreNumber()
+    {
+        return $this->storeNumber;
+    }
+    
+    
+    public function setStoreNumber($storeNumber)
+    {
+        $this->storeNumber = $storeNumber;
+
+        return $this;
+    }
+    
 }
