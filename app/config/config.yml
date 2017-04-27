@@ -85,7 +85,10 @@ fos_user:
     user_class: NTPBundle\Entity\User
     group:
         group_class: NTPBundle\Entity\Group
-
+    registration:
+        form:
+            name: app_user_registration
+            
 assetic:
     debug:          '%kernel.debug%'
     use_controller: false

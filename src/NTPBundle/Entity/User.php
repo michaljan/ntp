@@ -4,6 +4,7 @@ namespace NTPBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -28,10 +29,17 @@ class User extends BaseUser
     protected $groups;
     
     
-    /**
-     * @var integer
-     *
+     /**
      * @ORM\Column(name="store_number", type="integer", nullable=true)
+     *
+     * @Assert\NotBlank(message="Please enter your store number", groups={"Registration", "Profile"})
+     * @Assert\Length(
+     *     min=1,
+     *     max=7,
+     *     minMessage="The name is too short.",
+     *     maxMessage="The name is too long.",
+     *     groups={"Registration", "Profile"}
+     * )
      */
     protected $storeNumber;
     
