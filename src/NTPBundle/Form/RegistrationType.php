@@ -1,7 +1,7 @@
 <?php
 // src/AppBundle/Form/RegistrationType.php
 
-namespace AppBundle\Form;
+namespace NTPBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -12,14 +12,20 @@ class RegistrationType extends AbstractType
     {
         $builder->add('storeNumber');
     }
-
+    
     public function getParent()
     {
         return 'fos_user_registration';
     }
+    
 
-    public function getStoreName()
+    public function getBlockPrefix()
     {
-        return 'app_user_registration';
+        return 'ntp_user_registration';
+    }
+
+    public function getStoreNumber()
+    {
+        return $this->getBlockPrefix();
     }
 }

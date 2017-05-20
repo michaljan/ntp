@@ -87,7 +87,7 @@ fos_user:
         group_class: NTPBundle\Entity\Group
     registration:
         form:
-            name: app_user_registration
+            type: NTPBundle\Form\RegistrationType
             
 assetic:
     debug:          '%kernel.debug%'
@@ -100,3 +100,25 @@ assetic:
 #        product_image:
 #            uri_prefix:         /data/uploads
 #            upload_destination: %kernel.root_dir%/../app/data/uploads
+
+easy_admin:
+    entities:
+        User:
+            class: NTPBundle\Entity\User
+            edit:
+                fields: ['username', 'email', 'enabled', 'locked']
+            new:
+                fields: 
+                    - { property: 'username' }
+                    - { property: 'email', type: 'email', label: 'E-mail address' }
+                    - { property: 'plainPassword', type: 'password' }
+                    - { property: 'roles'}
+                    - { property: 'enabled'}
+                    - { property: 'locked'}
+                    - { property: 'storeNumber' }
+        Group:
+            class: NTPBundle\Entity\Group
+            new:
+                fields:
+                    - { property: 'name' }
+                    - { property: 'roles'}

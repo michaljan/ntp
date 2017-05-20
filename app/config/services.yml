@@ -12,7 +12,7 @@ services:
     fos_user.doctrine_registry:
         alias: doctrine
         
-    app.form.registration:
-        class: AppBundle\Form\RegistrationType
+    ntp.form.registration:
+        class: NTPBundle\Form\RegistrationType
         tags:
-            - { name: form.type, alias: app_user_registration }
+            - { name: form.type, alias: ntp_user_registration }

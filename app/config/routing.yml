@@ -77,3 +77,8 @@ wickesDashboard_report:
     path : /wickesreport/dashboard
     defaults:
         _controller: NTPBundle:WickesReport:wickesDashboard
+
+easy_admin_bundle:
+    resource: "@EasyAdminBundle/Controller/"
+    type:     annotation
+    prefix:   /admin

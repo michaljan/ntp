@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             //new Vich\UploaderBundle\VichUploaderBundle(),
             new Ddeboer\DataImportBundle\DdeboerDataImportBundle(),
+            new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

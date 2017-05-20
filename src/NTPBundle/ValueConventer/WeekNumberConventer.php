@@ -17,7 +17,13 @@ class WeekNumberConventer implements ValueConverterInterface {
                 $output=1;
             }
             else{
-                $output=$this->dateOb->format("W");
+                if($output=$this->dateOb->format("N")==7){
+                    $output=$this->dateOb->format("W")+1;
+                }
+                else
+                {
+                    $output=$this->dateOb->format("W");
+                }
             }    
         return $output;
     }

@@ -35,7 +35,8 @@
         "symfony/validator": "^3.0",
         "symfony/dependency-injection": "^2.8.0",
         "beberlei/DoctrineExtensions": "*",
-        "symfony/finder": "^3.0"
+        "symfony/finder": "^3.0",
+        "javiereguiluz/easyadmin-bundle": "* dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
