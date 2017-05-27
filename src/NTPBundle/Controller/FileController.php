@@ -159,6 +159,9 @@ class FileController extends Controller {
                 );
                 return $response;
             }
+            else{
+                $this->get('session')->getFlashBag()->add('notice', array('type' => 'warning', 'title' => 'Message from server', 'message' => 'No data for this date range found'));
+            }
         }
         return $this->render('NTPBundle:File:download_file.html.twig', array('form' => $form->createView()));
     }
