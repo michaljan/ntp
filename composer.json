@@ -31,7 +31,7 @@
         "symfony/assetic-bundle": "^2.7",
         "knplabs/knp-menu-bundle": "^2.0",
         "vich/uploader-bundle": "^0.14.0",
-        "ddeboer/data-import": "^0.18.0",
+        "ddeboer/data-import-bundle": "* 0.1.0",
         "symfony/validator": "^3.0",
         "symfony/dependency-injection": "^2.8.0",
         "beberlei/DoctrineExtensions": "*",
@@ -71,5 +71,5 @@
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         }
-    }
+}
 }

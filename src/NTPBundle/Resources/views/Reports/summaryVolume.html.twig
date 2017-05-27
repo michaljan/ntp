@@ -3,18 +3,18 @@
     <br/>
     {% if report %}
 
-        <div class="row">
-            <div class="col-md-2">
-                {{ form_start(form) }}
-                {{ form_errors(form) }}
-                {{ form_row(form.yearStart) }}
-                {{ form_row(form.yearEnd) }}
-                {{ form_row(form.startWeek) }}
-                {{ form_row(form.endWeek) }}
-                <br/>
-                {{ form_row(form.submit) }}
-                {{ form_end(form) }}</div>
-            <div class="col-md-10">
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {{ form_row(form.yearStart) }}
+            {{ form_row(form.yearEnd) }}
+            {{ form_row(form.startWeek) }}
+            {{ form_row(form.endWeek) }}
+            <br/>
+            {{ form_row(form.submit) }}
+            {{ form_end(form) }}</div>
+        <div class="col-md-10">
                 <div class="caption"><h4>Summarised volume</h4></div>
                 <table class="table table-condense">
                     <thead>

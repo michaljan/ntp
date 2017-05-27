@@ -39,6 +39,11 @@ delete_csv:
     defaults:
         _controller: NTPBundle:File:deleteCsv
 
+download_file:
+    path : /downloadfile
+    defaults:
+        _controller: NTPBundle:File:downloadFile
+
 dashboard_report:
     path : /report/dashboard
     defaults:

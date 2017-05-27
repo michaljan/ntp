@@ -8,7 +8,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use NTPBundle\FileProcessor\CsvFileWriter;
+use NTPBundle\FileProcessor\CsvFileReader;
 use NTPBundle\Entity\ParagonData;
+use NTPBundle\Form\DateRangeType;
+
 
 class FileController extends Controller {
 
@@ -136,6 +139,19 @@ class FileController extends Controller {
         //\Doctrine\Common\Util\Debug::dump($dateArray);
         //die;
         return $this->render('NTPBundle:File:files_history.html.twig', array('dateArray' => $dateArray));
+    }
+    
+    public function downloadFileAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(DateRangeType::class);
+        $form->handleRequest($request);
+        if($form->isValid()){
+            $csvFileReader = new CsvFileReader($em);
+            $startDate = $form->get('startDate')->getData();
+            $endDate = $form->get('endDate')->getData();
+            $result=$csvFileReader->readDatabase($startDate,$endDate);
+        }
+        return $this->render('NTPBundle:File:download_file.html.twig', array('form' => $form->createView()));
     }
 
 }
