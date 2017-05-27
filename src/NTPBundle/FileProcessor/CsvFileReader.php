@@ -14,9 +14,10 @@ class CsvFileReader {
     }
 
     public function readDatabase($startDate, $endDate) {
+        array_map('unlink', glob(__DIR__ . '/../data/downloads/*.csv'));
         $csvPath = __DIR__ . '/../data/downloads/paragon' . date("Ymd") . '.csv';
         $query = $this->em
-                ->createQuery("SELECT DATE_FORMAT(p.startTime, '%d-%m-%Y') AS startTime "
+                ->createQuery("SELECT DATE_FORMAT(p.startTime, '%d-%m-%Y %H:%m') AS startTime "
                         . "FROM NTPBundle:ParagonData p WHERE p.startTime BETWEEN :startDate AND :endDate")
                 ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
                 ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'));
@@ -29,9 +30,10 @@ class CsvFileReader {
             }
 
             $writer->finish();
+
+            return $csvPath;
         }
-        \Doctrine\Common\Util\Debug::dump($result);
-        die;
+        return false;
     }
 
 }

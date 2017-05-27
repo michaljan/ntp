@@ -11,7 +11,8 @@ use NTPBundle\FileProcessor\CsvFileWriter;
 use NTPBundle\FileProcessor\CsvFileReader;
 use NTPBundle\Entity\ParagonData;
 use NTPBundle\Form\DateRangeType;
-
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class FileController extends Controller {
 
@@ -140,16 +141,24 @@ class FileController extends Controller {
         //die;
         return $this->render('NTPBundle:File:files_history.html.twig', array('dateArray' => $dateArray));
     }
-    
+
     public function downloadFileAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(DateRangeType::class);
         $form->handleRequest($request);
-        if($form->isValid()){
+        if ($form->isValid()) {
             $csvFileReader = new CsvFileReader($em);
             $startDate = $form->get('startDate')->getData();
             $endDate = $form->get('endDate')->getData();
-            $result=$csvFileReader->readDatabase($startDate,$endDate);
+            $result = $csvFileReader->readDatabase($startDate, $endDate);
+            if ($result <> false) {
+                $response = new BinaryFileResponse($result);
+                $response->headers->set('Content-Type', 'text/plain');
+                $response->setContentDisposition(
+                        ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'paragon' . date("Ymd") . '.csv'
+                );
+                return $response;
+            }
         }
         return $this->render('NTPBundle:File:download_file.html.twig', array('form' => $form->createView()));
     }
