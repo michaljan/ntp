@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             //new Vich\UploaderBundle\VichUploaderBundle(),
             new Ddeboer\DataImportBundle\DdeboerDataImportBundle(),
             new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
+            new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
             
         );
 
