@@ -640,3 +640,8 @@ div.body-login-container{
     padding: 10px;
     
 }
+div.header-pdf {
+    background: url("../bundles/ntp/images/storeimage.png") no-repeat;
+    height:30px;
+    width:150px;
+}

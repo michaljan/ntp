@@ -1,0 +1,8 @@
+div.header-pdf {
+    background: url("../images/storeimage.png") no-repeat;
+      display: block;
+  max-width:230px;
+  max-height:95px;
+    height:30px;
+    width:150px;
+}
