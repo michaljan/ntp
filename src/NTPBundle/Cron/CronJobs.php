@@ -16,5 +16,16 @@ class CronJobs {
 
         $pdfGenerator->returnPDFResponseFromHTML($html);
     }
+    
+        public function weekExtractTrigger() {
+            $csvReader=new \NTPBundle\FileProcessor\CsvFileReader;
+            $endDate=Date("Y-m-d",time());
+            $startDate=Date("Y-m-d",strtotime("-1 week"));
+            $result=$csvReader->readDatabase($startDate, $endDate);
+            if($result<>false){
+                
+            }
+            
+    }
 
 }
