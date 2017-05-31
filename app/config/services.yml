@@ -16,3 +16,7 @@ services:
         class: NTPBundle\Form\RegistrationType
         tags:
             - { name: form.type, alias: ntp_user_registration }
+            
+    app.custom_mailer:
+        class:     NTPBundle\Mailer\CustomMailer
+        arguments: ['@logger']
