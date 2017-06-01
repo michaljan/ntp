@@ -638,10 +638,27 @@ div.body-login-container{
     right: 10%;
     width: 300px;
     padding: 10px;
-    
+
+label {
+    display: block;
+    padding-left: 15px;
+    text-indent: -15px;
+}
+input {
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    margin:0;
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+    *overflow: hidden;
 }
 div.header-pdf {
     background: url("../bundles/ntp/images/storeimage.png") no-repeat;
+      display: block;
+  max-width:230px;
+  max-height:95px;
     height:30px;
     width:150px;
 }

@@ -19,4 +19,4 @@ services:
             
     app.custom_mailer:
         class:     NTPBundle\Mailer\CustomMailer
-        arguments: ['@logger']
+        arguments: ['@mailer']

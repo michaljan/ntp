@@ -1,15 +1,16 @@
 div.body-login-background {
     background: url("../images/dhlbackground.jpg") no-repeat center center;
-    background-size: 80%;  
+    background-size: 70%;  
+    top: 20%;
     height:520px;
     width:auto;
 }
 
 div.body-login-container{
     position: absolute;
-    top: 20%;
-    right: 10%;
+    top: 25%;
+    right: 5%;
     width: 300px;
     padding: 10px;
-    
 }
+

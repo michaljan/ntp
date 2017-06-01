@@ -9,7 +9,7 @@ class CustomMailer {
     
     private $mailer;
 
-    public function __construct(LoggerInterface $logger)
+    public function __construct($mailer)
     {
         $this->mailer = $mailer;
     }
