@@ -1,29 +1,16 @@
 div.body-login-background {
     background: url("../bundles/ntp/images/dhlbackground.jpg") no-repeat center center;
-    background-size: 80%;  
-    height:520px;
+    background-size: 90%;  
+    height:720px;
     width:auto;
+    position: relative;
 }
 
 div.body-login-container{
     position: absolute;
-    top: 20%;
+    top: 30%;
     right: 10%;
     width: 300px;
     padding: 10px;
+}
 
-label {
-    display: block;
-    padding-left: 15px;
-    text-indent: -15px;
-}
-input {
-    width: 13px;
-    height: 13px;
-    padding: 0;
-    margin:0;
-    vertical-align: bottom;
-    position: relative;
-    top: -1px;
-    *overflow: hidden;
-}
