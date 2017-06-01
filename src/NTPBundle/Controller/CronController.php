@@ -1,10 +1,11 @@
 <?php
 
-namespace NTPBundle\Cron;
+namespace NTPBundle\Controller;
 
 use NTPBundle\Generator\PDFGenerator;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class CronJobs {
+class CronController extends Controller{
 
     public function pdfTrigger() {
         $pdfGenerator = new PDFGenerator;
