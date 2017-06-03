@@ -1,7 +1,7 @@
 <?php
 namespace NTPBundle\Entity;
 
-
+//updates
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -35,6 +35,7 @@ class User extends BaseUser
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
         parent::__construct();
     }
+    
     
     public function getGroups()
     {
