@@ -29,20 +29,6 @@ class User extends BaseUser
     protected $groups;
     
     
-     /**
-     * @ORM\Column(name="store_number", type="integer", nullable=true)
-     *
-     * @Assert\NotBlank(message="Please enter your store number", groups={"Registration", "Profile"})
-     * @Assert\Length(
-     *     min=1,
-     *     max=7,
-     *     minMessage="The name is too short.",
-     *     maxMessage="The name is too long.",
-     *     groups={"Registration", "Profile"}
-     * )
-     */
-    protected $storeNumber;
-    
     
     public function __construct() {
         
@@ -59,19 +45,6 @@ class User extends BaseUser
     public function setGroups(NTPBundle\Entity\Group $groups)
     {
         $this->groups = $groups;
-
-        return $this;
-    }
-    
-    public function getStoreNumber()
-    {
-        return $this->storeNumber;
-    }
-    
-    
-    public function setStoreNumber($storeNumber)
-    {
-        $this->storeNumber = $storeNumber;
 
         return $this;
     }
