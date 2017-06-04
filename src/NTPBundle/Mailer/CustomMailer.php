@@ -15,14 +15,16 @@ class CustomMailer {
     }
     
     
-    public function weekExtractMail() {
+    public function weekExtractMail($attachmentPath) {
         
         $message = \Swift_Message::newInstance()
-                ->setSubject('Hello Email')
+                ->setSubject('Weekly extract')
                 ->setFrom('no-reply@mxmelite.com')
                 ->setTo('michal.papke@wp.pl')
-                ->setBody("Test"
-        );
+                ->setBody("Test")
+                ->attach(\Swift_Attachment::fromPath($attachmentPath))
+                
+        ;
         //$this->get('mail.helper')->send($message);
         $this->mailer->send($message);
         return $this;
