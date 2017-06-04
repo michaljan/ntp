@@ -8,10 +8,11 @@ namespace NTPBundle\Mailer;
 class CustomMailer {
     
     private $mailer;
-
+    
     public function __construct($mailer)
     {
         $this->mailer = $mailer;
+        
     }
     
     

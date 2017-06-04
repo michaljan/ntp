@@ -3,6 +3,7 @@
 parameters:
 #    parameter_name: value
     web_path: 'C:\wamp\www\data'
+    temp_file_path: null
 
 services:
     fileprocessor.csvfilewriter:
@@ -20,3 +21,7 @@ services:
     app.custom_mailer:
         class:     NTPBundle\Mailer\CustomMailer
         arguments: ['@mailer']
+        
+    ntp.weekly_cron_extract:
+        class: NTPBundle\Service\CronService
+        arguments: ['@doctrine.orm.entity_manager']
