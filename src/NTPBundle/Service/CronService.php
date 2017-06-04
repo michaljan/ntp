@@ -16,11 +16,9 @@ class CronService {
     public function readDatabase() {
         $endDate = new \DateTime();
         $startDate = new \DateTime();
-        $endDate->sub(new \DateInterval("P1W"));
+        $startDate->sub(new \DateInterval("P1W"));
         array_map('unlink', glob(__DIR__ . '/../data/downloads/*.csv'));
         $csvPath = __DIR__ . '/../data/downloads/paragoncron' . date("Ymd") . '.csv';
-        var_dump($csvPath);
-        die;
         $query = $this->em
                 ->createQuery("SELECT p.id, p.routeNo, p.tripNo, p.callTripPosition, p.depotId, DATE_FORMAT(p.startTime,'%Y-%m-%d %H:%i:%s') , DATE_FORMAT( p.sourceDepotDepartureTime,'%Y-%m-%d %H:%i:%s'), p.customerId, DATE_FORMAT( p.arrivalTime,'%Y-%m-%d %H:%i:%s'),DATE_FORMAT( p.departTime,'%Y-%m-%d %H:%i:%s') , p.callDuration, p.callType, p.orderDetails1, p.prodCode, p.productName, p.trailerGroupName, p.orderDetails2, p.orderDetails3, p.orderDetails4, DATE_FORMAT(p.endDepotArrivalTime ,'%Y-%m-%d %H:%i:%s'), p.depotofroute, p.dutyTime, p.driveTime, p.distanceKms, p.emptyDistKms, p.emptyTime, p.timeUtil, p.waitingTime, p.noOfTrips, p.routeDropNo, p.callNo, p.tripDropNo, DATE_FORMAT( p.tripStart,'%Y-%m-%d %H:%i:%s'), DATE_FORMAT( p.destDepotArrivalTime,'%Y-%m-%d %H:%i:%s'), DATE_FORMAT( p.destDepotDepartureTime,'%Y-%m-%d %H:%i:%s'), p.tripsEndDepot, p.tripsSourceDepot, DATE_FORMAT( p.sourceDepotArrivalTime2,'%Y-%m-%d %H:%i:%s'), DATE_FORMAT( p.sourceDepotDepartureTime2,'%Y-%m-%d %H:%i:%s'), p.tripsStartDepot, DATE_FORMAT( p.startDepotDepartureTime,'%Y-%m-%d %H:%i:%s'), p.trailerTypeName, DATE_FORMAT(p.endTime ,'%Y-%m-%d %H:%i:%s'), p.transferId, p.driverGroupName, p.tractorGroupName, p.callRefNumber, DATE_FORMAT(p.uploadDate ,'%Y-%m-%d %H:%i:%s'), p.uploadedBy, DATE_FORMAT(p.planDate ,'%Y-%m-%d'), p.planName, p.routeName, p.customerName, p.postcode, DATE_FORMAT( p.timeWindowStart,'%Y-%m-%d %H:%i:%s'), DATE_FORMAT(p.timeWindowEnd ,'%Y-%m-%d %H:%i:%s'), p.travelDistNext, p.travelDistPrev, p.custData1, p.measure1, p.measure2, p.measure3, p.measure4, p.measure5, p.custData2, p.custData3, p.ndata1, p.ndata2, p.ndata3, p.ndata4, p.ndata5, p.sdata1, p.sdata2, p.sdata3, p.sdata4, p.sdata5, p.weekNumber "
                         . "FROM NTPBundle:ParagonData p WHERE p.planDate BETWEEN :startDate AND :endDate")
