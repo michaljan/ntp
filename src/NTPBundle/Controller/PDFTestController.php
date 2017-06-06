@@ -15,8 +15,7 @@ class PDFTestController extends Controller {
      * @Route("/pdftest")
      */
     public function pdfTestAction() {
-        $mailer=new CronTriggersCommand();
-        $mailer->weekExtractTrigger();
+
         return new response($this->renderView('NTPBundle:PDFReports:weekVolumes.html.twig', array()));
     }
 

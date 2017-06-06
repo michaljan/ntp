@@ -1,8 +1,10 @@
-div.header-pdf {
-    background: url("../bundles/ntp/images/storeimage.png") no-repeat;
-      display: block;
-  max-width:230px;
-  max-height:95px;
-    height:30px;
-    width:150px;
+div.header-pdf h1{
+    text-align: center
+}
+
+div.header-pdf img{
+    float: right;
+    height: 200px;
+    width: auto;
+    
 }
