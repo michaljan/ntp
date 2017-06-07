@@ -25,22 +25,19 @@ class CronService {
                 ->setParameter('startDate', $startDate->format('Y-m-d'))
                 ->setParameter('endDate', $endDate->format('Y-m-d'));
         $result = $query->getResult();
-        $fp = fopen($csvPath, 'w');
         $headers=array("id","route_no","trip_no","call_trip_position","depot_id","start_time","source_depot_departure_time","customer_id","arrival_time","depart_time","call_duration","call_type","order_details_1","prod_code","product_name","trailer_group_name","order_details_2","order_details_3","order_details_4","end_depot_arrival_time","depotofroute","duty_time","drive_time","distance_kms","empty_dist_kms","empty_time","time_util_","waiting_time","no_of_trips","route_drop_no","call_no","trip_drop_no","trip_start","dest_depot_arrival_time","dest_depot_departure_time","trips_end_depot","trips_source_depot","source_depot_arrival_time_2","source_depot_departure_time_2","trips_start_depot","start_depot_departure_time","trailer_type_name","end_time","transfer_id","driver_group_name","tractor_group_name","call_ref_number","upload_Date","uploaded_by","plan_date","plan_name","route_name","customer_name","postcode","time_window_start","time_window_end","travel_dist_next","travel_dist_prev","cust_data_1","measure_1","measure_2","measure_3","measure_4","measure_5","cust_data_2","cust_data_3","ndata_1","ndata_2","ndata_3","ndata_4","ndata_5","sdata_1","sdata_2","sdata_3","sdata_4","sdata_5","week_number");
-//         \Doctrine\Common\Util\Debug::dump($result);
-//        die;
-        fputcsv($fp,$headers, $delimiter = ';');
-        if (!empty($result)) {
-            foreach ($result as $row){ 
-                $row=array_map('strval', $row);
-                 fputcsv($fp,$row, $delimiter = ';');
-            }
-            fclose($fp);
-            die();
-            return $csvPath;
-            
+        $file=(fopen($csvPath, 'w')); 
+        $delimiter='"';
+        $separator=';';
+        fwrite($file, $delimiter.
+            implode($delimiter.$separator.$delimiter, $headers).$delimiter."\n");
+        foreach($result as $row){
+            fwrite($file, $delimiter.
+            implode($delimiter.$separator.$delimiter, $row).$delimiter."\n"); 
         }
-        return false;
+        fclose($file);
+        return $csvPath;
+     
     }
     
     
