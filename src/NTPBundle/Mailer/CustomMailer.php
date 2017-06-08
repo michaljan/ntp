@@ -21,8 +21,8 @@ class CustomMailer {
         $message = \Swift_Message::newInstance()
                 ->setSubject('Weekly extract')
                 ->setFrom('no-reply@mxmelite.com')
-                ->setTo('michal.papke@wp.pl')
-                ->setBody("Test")
+                ->setTo('michal.janicki@dhl.com')
+                ->setBody("Weekly paragon database extract")
                 ->attach(\Swift_Attachment::fromPath($attachmentPath))
                 
         ;
