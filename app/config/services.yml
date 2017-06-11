@@ -25,3 +25,7 @@ services:
     ntp.weekly_cron_extract:
         class: NTPBundle\Service\CronService
         arguments: ['@doctrine.orm.entity_manager']
+        
+    ntp.pdf_reports:
+        class: NTPBundle\Reports\PDFReports
+        arguments: ['@doctrine.orm.entity_manager']

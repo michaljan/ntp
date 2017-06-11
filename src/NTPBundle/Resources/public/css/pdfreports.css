@@ -1,10 +1,12 @@
 div.header-pdf h1{
-    text-align: center
+    text-align: center;
+    padding-left: 150px;
 }
 
 div.header-pdf img{
     float: right;
-    height: 200px;
+    height: 60px;
     width: auto;
+    padding-right: 50px;
     
 }
