@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Ddeboer\DataImportBundle\DdeboerDataImportBundle(),
             new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
             new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
+            new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             
         );
 
