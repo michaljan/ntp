@@ -21,7 +21,11 @@ class PDFTestController extends Controller {
         $result=array();
         
         $result= $this->get('ntp.pdf_reports')->dailyVolumes();
-        return new response($this->renderView('NTPBundle:PDFReports:volumes.html.twig', array('result'=>$result)));
+        $resultPallet= $this->get('ntp.pdf_reports')->palletVolumes();
+        $trailerFill= $this->get('ntp.pdf_reports')->trailerFill();
+        $palletFill= $this->get('ntp.pdf_reports')->palletFill();
+        $avgTrailerFill= $this->get('ntp.pdf_reports')->avgTrailerFill();
+        return new response($this->renderView('NTPBundle:PDFReports:volumes.html.twig', array('result'=>$result,'resultPallet'=>$resultPallet,'trailerFill'=>$trailerFill,"palletFill"=>$palletFill,"avgTrailerFill"=>$avgTrailerFill)));
     }
 
 }
