@@ -9,32 +9,25 @@
         <title>NTP SITE</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        {% javascripts '@NTPBundle/Resources/public/js/*' %}
-        <script src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
        {% block headblock %}
-           {% endblock headblock %}
-
-        {% stylesheets 'bundles/ntp/css/*' filter='cssrewrite' %}
-        <link rel="stylesheet" href="{{ asset_url }}" />
-        {% endstylesheets %}
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+       {% endblock headblock %}
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        
      
     </head>
-    <body>
+    <body onload="init()">
       
         {% block body %}
         {% endblock %}
       
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+ 
 
 
         <script>
@@ -54,7 +47,7 @@
             b[l].l = +new Date;
             e = o.createElement(i);
             r = o.getElementsByTagName(i)[0];
-            e.src = '//www.google-analytics.com/analytics.js';
+            e.src = 'https://www.google-analytics.com/analytics.js';
             r.parentNode.insertBefore(e, r)
         }(window, document, 'script', 'ga'));
         ga('create', 'UA-XXXXX-X', 'auto');

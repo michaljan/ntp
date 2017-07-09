@@ -1,176 +1,176 @@
-    {% extends 'NTPBundle::pdfBase.html.twig' %}
-    {% block body %}
-        <div class="row">
-            <div class="header-pdf">
-            <img src="{{ asset('bundles/ntp/images/storeimage.png') }}" /> 
-            <h1>WICKES SDC VOLUME WEEKLY REPORT</h1> 
-            </div>
-            
-        </div>
-       <div class="row">
-       <hr>
-       <div class="col-md-4">
-           <div id="columnchart_values" style="width: 500px; height: 300px;"></div>
-           <br/>
-           <div id="piechart" style="width: 500px; height: 300px;"></div>
+{% extends 'NTPBundle::pdfBase.html.twig' %}
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <h1>WICKES SDC VOLUME WEEKLY REPORT</h1> 
+    </div>
+<div class="row">
+    <hr>
+    <div class="col-md-4">
+        <div id="columnchart_values" style="width: 500px; height: 300px;"></div>
+        <br/>
+        <div id="piechart" style="width: 500px; height: 300px;"></div>
 
 
-       </div>
-       <div class="col-md-4">
-             <div id="columnchart_pallet" style="width: 500px; height: 300px;"></div>
-           <br/>
-           <div id="columnchart_trailer" style="width: 500px; height: 300px;"></div>
-          
-       </div>
-       <div class="col-md-4">
-           <div id="palletFill" style="width: 500px; height: 300px;"></div>
-           <div id="avgTrailerFill" style="width: 500px; height: 300px;"></div>
-       </div>
-       
-       </div>
-        
-    {% endblock %}
+    </div>
+    <div class="col-md-4">
+        <div id="columnchart_pallet" style="width: 500px; height: 300px;"></div>
+        <br/>
+        <div id="columnchart_trailer" style="width: 500px; height: 300px;"></div>
 
-    {% block headblock %}
+    </div>
+    <div class="col-md-4">
+        <div id="palletFill" style="width: 500px; height: 300px;"></div>
+        <div id="avgTrailerFill" style="width: 500px; height: 300px;"></div>
+    </div>
+
+</div>
+</div>
+
+{% endblock %}
+
+{% block headblock %}
     <script type="text/javascript">
-      // Load the Visualization API and the corechart package.
-      google.charts.load('current', {'packages':['corechart']});
+        // Load the Visualization API and the corechart package.
+    function init() {
+                google.load("visualization", "1.1", { packages:["corechart"], callback: 'drawCharts' });
+            }
 
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(drawColumnChart);
-      google.charts.setOnLoadCallback(drawPieChart);
-      google.charts.setOnLoadCallback(drawColumnPallet);
-      google.charts.setOnLoadCallback(drawColumnTrailer);
- google.charts.setOnLoadCallback(drawPalletFill);
- google.charts.setOnLoadCallback(drawavgTrailerFill);
-
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      
-      function drawColumnChart() {
-      var data = google.visualization.arrayToDataTable({{ result.volumeBar | raw }});
-      var view = new google.visualization.DataView(data);
-      view.setColumns([0, 1,
-                       { calc: "stringify",
-                         sourceColumn: 1,
-                         type: "string",
-                         role: "annotation" },
-                       2]);
-
-      var options = {
-        title: "Daily cubic meter ",
-        width: 500,
-        height: 300,
-        bar: {groupWidth: "95%"},
-        legend: { position: "none" },
-      };
-           var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
-      chart.draw(view, options);
-  }
-      
-      function drawPieChart() {
-        var data = google.visualization.arrayToDataTable({{ result.volumePie | raw }});
-
-        var options = {
-          title: 'Week volume allocation in %',
-          is3D: true,
-        };
-
-     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-     chart.draw(data, options);
- }
-      function drawColumnPallet() {
-      var data = google.visualization.arrayToDataTable({{ resultPallet.palletBar | raw }});
-      var view = new google.visualization.DataView(data);
-      view.setColumns([0, 1,
-                       { calc: "stringify",
-                         sourceColumn: 1,
-                         type: "string",
-                         role: "annotation" },
-                       2]);
-
-      var options = {
-        title: "Pallet footprint ",
-        width: 500,
-        height: 300,
-        bar: {groupWidth: "95%"},
-        legend: { position: "none" },
-      };
-      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_pallet"));
-      chart.draw(view, options);
-  }
-  function drawColumnTrailer() {
-      var data = google.visualization.arrayToDataTable({{ trailerFill.trailerChart | raw }});
-      var view = new google.visualization.DataView(data);
-          view.setColumns([0, 1,
-                       { calc: "stringify",
-                         sourceColumn: 1,
-                         type: "string",
-                         role: "annotation" },
-                       2]);
-
-      var options = {
-        title: "Traile fill based on 58 pallets footprint ",
-        width: 500,
-        height: 300,
-        bar: {groupWidth: "95%"},
-        legend: { position: "none" },
-        vAxis: {format: "percent"},
-      };
-      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_trailer"));
-      chart.draw(view, options);
-  }
-      
-  function drawPalletFill() {
-      var data = google.visualization.arrayToDataTable({{ palletFill.palletFillColumn | raw }});
-      var view = new google.visualization.DataView(data);
-          view.setColumns([0, 1,
-                       { calc: "stringify",
-                         sourceColumn: 1,
-                         type: "string",
-                         role: "annotation" },
-                       2]);
-
-      var options = {
-        title: "Pallet fill in cubic meter ",
-        width: 500,
-        height: 300,
-        bar: {groupWidth: "95%"},
-        legend: { position: "none" },
-        vAxis: { minValue: 0.6 },
+            function drawCharts() {
+            // Set a callback to run when the Google Visualization API is loaded.
+            drawColumnChart();
+            drawPieChart();
+            drawColumnPallet();
+            drawColumnTrailer();
+            drawPalletFill();
+            drawavgTrailerFill();
+            }
+            // Callback that creates and populates a data table,
+            // instantiates the pie chart, passes in the data and
+            // draws it.
         
-      };
-      var chart = new google.visualization.ColumnChart(document.getElementById("palletFill"));
-      chart.draw(view, options);
-  }
-  
-      
-  function drawavgTrailerFill() {
-      var data = google.visualization.arrayToDataTable({{ avgTrailerFill.avgTrailerFill | raw }});
-      var view = new google.visualization.DataView(data);
-          view.setColumns([0, 1,
-                       { calc: "stringify",
-                         sourceColumn: 1,
-                         type: "string",
-                         role: "annotation" },
-                       2]);
+        function drawColumnChart() {
+            var data = google.visualization.arrayToDataTable({{ result.volumeBar | raw }});
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"},
+                2]);
 
-      var options = {
-        title: "Avarage pallet fill per trailer ",
-        width: 500,
-        height: 300,
-        bar: {groupWidth: "95%"},
-        legend: { position: "none" },
-       
-        
-      };
-      var chart = new google.visualization.ColumnChart(document.getElementById("avgTrailerFill"));
-      chart.draw(view, options);
-  }
-            
+            var options = {
+                title: "Daily cubic meter ",
+                width: 500,
+                height: 300,
+                bar: {groupWidth: "95%"},
+                legend: {position: "none"},
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+            chart.draw(view, options);
+        }
 
-      
+        function drawPieChart() {
+            var data = google.visualization.arrayToDataTable({{ result.volumePie | raw }});
+
+            var options = {
+                title: 'Week volume allocation in %',
+                is3D: true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options);
+        }
+        function drawColumnPallet() {
+            var data = google.visualization.arrayToDataTable({{ resultPallet.palletBar | raw }});
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"},
+                2]);
+
+            var options = {
+                title: "Pallet footprint ",
+                width: 500,
+                height: 300,
+                bar: {groupWidth: "95%"},
+                legend: {position: "none"},
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_pallet"));
+            chart.draw(view, options);
+        }
+        function drawColumnTrailer() {
+            var data = google.visualization.arrayToDataTable({{ trailerFill.trailerChart | raw }});
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"},
+                2]);
+
+            var options = {
+                title: "Traile fill based on 58 pallets footprint ",
+                width: 500,
+                height: 300,
+                bar: {groupWidth: "95%"},
+                legend: {position: "none"},
+                vAxis: {format: "percent"},
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_trailer"));
+            chart.draw(view, options);
+        }
+
+        function drawPalletFill() {
+            var data = google.visualization.arrayToDataTable({{ palletFill.palletFillColumn | raw }});
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"},
+                2]);
+
+            var options = {
+                title: "Pallet fill in cubic meter ",
+                width: 500,
+                height: 300,
+                bar: {groupWidth: "95%"},
+                legend: {position: "none"},
+                vAxis: {minValue: 0.6},
+
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("palletFill"));
+            chart.draw(view, options);
+        }
+
+
+        function drawavgTrailerFill() {
+            var data = google.visualization.arrayToDataTable({{ avgTrailerFill.avgTrailerFill | raw }});
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"},
+                2]);
+
+            var options = {
+                title: "Avarage pallet fill per trailer ",
+                width: 500,
+                height: 300,
+                bar: {groupWidth: "95%"},
+                legend: {position: "none"},
+
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("avgTrailerFill"));
+            chart.draw(view, options);
+        }
+
+
+
     </script>
 
 {% endblock headblock %}

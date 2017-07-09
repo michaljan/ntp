@@ -3,7 +3,7 @@
 // src/AppBundle/Controller/AdminController.php
 
 namespace NTPBundle\Controller;
-
+use Symfony\Component\Process\Exception\ProcessTimedOutException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -13,20 +13,21 @@ class PDFController extends Controller {
 
 
     public $result;
-    
-    
-      /**
+    /**
      * @Route("/pdftest")
      */
+    
+    
+
     public function pdfPrepareAction(){
         $html=$this->pdfVoluemAction();
-        $filePath=$this->returnPDFAction($html);
+        $filePath=$this->returnPDF($html);
         
         return new Response($filePath);
         
     }
     
-    
+
     public function pdfVoluemAction() {
         $result=array();
         $result= $this->get('ntp.pdf_reports')->dailyVolumes();
@@ -35,26 +36,18 @@ class PDFController extends Controller {
         $palletFill= $this->get('ntp.pdf_reports')->palletFill();
         $avgTrailerFill= $this->get('ntp.pdf_reports')->avgTrailerFill();
         $html=$this->renderView('NTPBundle:PDFReports:volumes.html.twig', array('result'=>$result,'resultPallet'=>$resultPallet,'trailerFill'=>$trailerFill,"palletFill"=>$palletFill,"avgTrailerFill"=>$avgTrailerFill));
-        $this->returnPDF($html);
+       
+        return new Response($html);
     }
     
         
     public function returnPDF($html) {
-        //set_time_limit(30); uncomment this line according to your needs
-        // If you are not in a controller, retrieve of some way the service container and then retrieve it
-        //$pdf = $container->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-        //if you are in a controlller use :
-
-        $filename = sprintf('test-%s.pdf', date('Y-m-d'));
-
-        return new Response(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
-            200,
-            [
-                'Content-Type'        => 'application/pdf',
-                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
-            ]
-        );
+        $webPath = __DIR__ . '/../data/pdf/file.pdf';
+        file_put_contents(__DIR__ . '/../data/pdf/file.html',$html);
+        $this->get('knp_snappy.pdf')->getInternalGenerator()->setTimeout(600);
+        $this->get('knp_snappy.pdf')->generateFromHtml($html,$webPath);
+        return new Response($webPath);
+           
     }
     
 
