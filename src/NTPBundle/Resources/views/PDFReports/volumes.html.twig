@@ -7,21 +7,21 @@
 <div class="row">
     <hr>
     <div class="col-xs-4">
-        <div id="columnchart_values" style="width: 500px; height: 300px;"></div>
+        <div id="columnchart_values" style="width: 500px; height: 350px;"></div>
         <br/>
-        <div id="piechart" style="width: 500px; height: 300px;"></div>
+        <div id="piechart" style="width: 500px; height: 350px;"></div>
 
 
     </div>
     <div class="col-xs-4">
-        <div id="columnchart_pallet" style="width: 500px; height: 300px;"></div>
+        <div id="columnchart_pallet" style="width: 500px; height: 350px;"></div>
         <br/>
-        <div id="columnchart_trailer" style="width: 500px; height: 300px;"></div>
+        <div id="columnchart_trailer" style="width: 500px; height: 350px;"></div>
 
     </div>
     <div class="col-xs-4">
-        <div id="palletFill" style="width: 500px; height: 300px;"></div>
-        <div id="avgTrailerFill" style="width: 500px; height: 300px;"></div>
+        <div id="palletFill" style="width: 500px; height: 350px;"></div>
+        <div id="avgTrailerFill" style="width: 500px; height: 350px;"></div>
     </div>
 
 </div>
@@ -62,8 +62,8 @@
             var options = {
                 title: "Daily cubic meter ",
                 width: 500,
-                height: 300,
-                bar: {groupWidth: "95%"},
+                height: 350,
+                bar: {groupWidth: "90%"},
                 legend: {position: "none"},
             };
             var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
@@ -76,6 +76,9 @@
             var options = {
                 title: 'Week volume allocation in %',
                 is3D: true,
+                width: 600,
+                height: 350,
+                pieSliceTextStyle: {fontSize: 10,},
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -94,8 +97,8 @@
             var options = {
                 title: "Pallet footprint ",
                 width: 500,
-                height: 300,
-                bar: {groupWidth: "95%"},
+                height: 350,
+                bar: {groupWidth: "90%"},
                 legend: {position: "none"},
             };
             var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_pallet"));
@@ -114,8 +117,8 @@
             var options = {
                 title: "Traile fill based on 58 pallets footprint ",
                 width: 500,
-                height: 300,
-                bar: {groupWidth: "95%"},
+                height: 350,
+                bar: {groupWidth: "90%"},
                 legend: {position: "none"},
                 vAxis: {format: "percent"},
             };
@@ -136,8 +139,8 @@
             var options = {
                 title: "Pallet fill in cubic meter ",
                 width: 500,
-                height: 300,
-                bar: {groupWidth: "95%"},
+                height: 350,
+                bar: {groupWidth: "90%"},
                 legend: {position: "none"},
                 vAxis: {minValue: 0.6},
 
@@ -160,8 +163,8 @@
             var options = {
                 title: "Avarage pallet fill per trailer ",
                 width: 500,
-                height: 300,
-                bar: {groupWidth: "95%"},
+                height: 350,
+                bar: {groupWidth: "90%"},
                 legend: {position: "none"},
 
             };
