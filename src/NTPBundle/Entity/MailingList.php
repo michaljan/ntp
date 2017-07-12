@@ -1,14 +1,14 @@
-
 <?php
+
 namespace NTPBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 /**
- * DriverType
+ * MailingList
  *
  * @ORM\Table(name="mailing_list")
  * @ORM\Entity
  */
-class DriverType
+class MailingList
 {
     /**
      * @var string
@@ -29,7 +29,24 @@ class DriverType
      *
      * @ORM\Column(name="mailing_description", type="string", length=245, nullable=true)
      */
-    private $mailingDescription;	
+    private $mailingDescription;
+    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="subject", type="string", length=45, nullable=true)
+     */
+    private $subject;
+    
+        
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="body", type="string", length=245, nullable=true)
+     */
+    private $body;
+	
 	
 	
 	/**
@@ -124,6 +141,53 @@ class DriverType
     {
         return $this->mailingDescription;
     }
+    
+    
+     /**
+     * Set subject
+     *
+     * @param string $subject
+     *
+     * @return MailList
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+        return $this;
+    }
+    /**
+     * Get subject
+     *
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+    
+    
+      /**
+     * Set body
+     *
+     * @param string $body
+     *
+     * @return MailList
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+        return $this;
+    }
+    /**
+     * Get body
+     *
+     * @return string
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+    
 	
 	/**
      * Set active

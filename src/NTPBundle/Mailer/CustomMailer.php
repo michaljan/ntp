@@ -16,14 +16,14 @@ class CustomMailer {
     }
     
     
-    public function weekExtractMail($attachmentPath) {
+    public function weekExtractMail($data) {
         
         $message = \Swift_Message::newInstance()
-                ->setSubject('Weekly extract')
+                ->setSubject($data[0])
                 ->setFrom('no-reply@mxmelite.com')
-                ->setTo('michal.janicki@dhl.com')
-                ->setBody("Weekly paragon database extract")
-                ->attach(\Swift_Attachment::fromPath($attachmentPath))
+                ->setTo($data[1])
+                ->setBody($data[2])
+                ->attach(\Swift_Attachment::fromPath($data[3]))
                 
         ;
         //$this->get('mail.helper')->send($message);
