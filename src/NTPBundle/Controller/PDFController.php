@@ -8,6 +8,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NTPBundle\Controller\GeneratorController;
+use NTPBundle\Mailer\CustomMailer;
+use Doctrine\ORM\EntityManager;
+use NTPBundle\Entity\MailingList;
+
 
 class PDFController extends Controller {
 
@@ -21,17 +25,21 @@ class PDFController extends Controller {
     
     public function __construct() {
         array_map('unlink', glob(__DIR__ . '/../data/pdf/*.*'));
+        $this->em = $this->get('doctrine')->getEntityManager();
     }
 
-    /**
-     * @Route("/pdftest")
-     */
+
    
-    public function pdfPrepareAction(){
+    public function pdfVolumePrepareAction(){
         $html=$this->pdfVoluemAction();
-        $filePath=$this->returnPDF($html);
-        
-        return new Response($filePath);
+        $attachmentPath=$this->returnPDF($html);
+        die;
+        $mailerData=$this->mailerData(1);
+        $data[0]=$mailerData->getSubject();//subject
+        $data[1]=$mailerData->getMailList();//mailing list
+        $data[2]=$mailerData->getBody();//boday
+        $data[3]=$attachmentPath;
+        return new Response($data);
         
     }
     
@@ -51,12 +59,14 @@ class PDFController extends Controller {
         
     public function returnPDF($html) {
         $webPath = __DIR__ . '/../data/pdf/weeklyvolumecron' . date("Ymd") . '.pdf';
-        //file_put_contents( __DIR__ . '/../data/pdf/weeklyvolumecron' . date("Ymd") . '.html',$html);
         $this->get('knp_snappy.pdf')->getInternalGenerator()->setTimeout(600);
         $this->get('knp_snappy.pdf')->generateFromHtml($html,$webPath);
         return new Response($webPath);
            
     }
     
-
+    public function mailerData($id){
+        $result=$this->em->find("NTPBundle\Entity\MailingList", $id);
+        return $result;
+    }
 }

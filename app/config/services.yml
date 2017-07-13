@@ -29,3 +29,7 @@ services:
     ntp.pdf_reports:
         class: NTPBundle\Reports\PDFReports
         arguments: ['@doctrine.orm.entity_manager']
+        
+    app.pdf_controller:
+        class: NTPBundle\Controller\PDFController
+       

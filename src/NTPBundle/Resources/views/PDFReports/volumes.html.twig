@@ -1,42 +1,64 @@
 {% extends 'NTPBundle::pdfBase.html.twig' %}
 {% block body %}
-<div class="container-fluid">
-    <div class="row">
-        <h1>WICKES SDC VOLUME WEEKLY REPORT</h1> 
-    </div>
-<div class="row">
-    <hr>
-    <div class="col-xs-4">
-        <div id="columnchart_values" style="width: 500px; height: 300px;"></div>
-        <br/>
-        <div id="piechart" style="width: 500px; height: 300px;"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <h1>WICKES SDC VOLUME WEEKLY REPORT</h1> 
+        </div>
+        <div class="row">
+            <hr>
+            <div class="col-xs-4" style="border: 1px solid black">
+                <div id="columnchart_values" align="center" style="width: 500px; height: 300px;"></div>
+                <br/>
+                <p align="center">Total of daily store volumes represented in cubic meters</p> 
 
 
-    </div>
-    <div class="col-xs-4">
-        <div id="columnchart_pallet" style="width: 500px; height: 300px;"></div>
-        <br/>
-        <div id="columnchart_trailer" style="width: 500px; height: 300px;"></div>
+            </div>
+            <div class="col-xs-4" style="border: 1px solid black">
+                <div id="columnchart_pallet" style="width: 500px; height: 300px;"></div>
+                <br/>
+                <p align="center">Calculated pallet footprint by cube cruncher by day</p> 
+
+            </div>
+            <div class="col-xs-4" style="border: 1px solid black">
+                <div id="palletFill" style="width: 500px; height: 300px;"></div>
+                <br/>
+                <p align="center">Calculated pallet fill based on pallet footprint and daily cubic meters</p>
+
+            </div>
+
+        </div>
+        <div class="row">
+
+
+            <div class="col-xs-4" style="border: 1px solid black">
+                
+                <div id="piechart" style="width: 500px; height: 300px;"></div>
+                <br/>
+                <p align="center">Precentage volume allocation by weekday</p> 
+            </div>
+            <div class="col-xs-4" style="border: 1px solid black">
+                <div id="columnchart_trailer" style="width: 500px; height: 300px;"></div>
+                <br/>
+                <p align="center">Trailer pallet fill based on 58 pallets per vehicle</p>
+            </div>
+            <div class="col-xs-4" style="border: 1px solid black">
+                <div id="avgTrailerFill" style="width: 500px; height: 300px;"></div>
+                <p align="center">Average pallet footprint trailer fill based on cube cruncher caluclation</p>
+            </div>
+        </div>
 
     </div>
-    <div class="col-xs-4">
-        <div id="palletFill" style="width: 500px; height: 300px;"></div>
-        <div id="avgTrailerFill" style="width: 500px; height: 300px;"></div>
-    </div>
-
-</div>
-</div>
 
 {% endblock %}
 
 {% block headblock %}
     <script type="text/javascript">
         // Load the Visualization API and the corechart package.
-    function init() {
-                google.load("visualization", "1.1", { packages:["corechart"], callback: 'drawCharts' });
-            }
+        function init() {
+            google.load("visualization", "1.1", {packages: ["corechart"], callback: 'drawCharts'});
+        }
 
-            function drawCharts() {
+        function drawCharts() {
             // Set a callback to run when the Google Visualization API is loaded.
             drawColumnChart();
             drawPieChart();
@@ -44,11 +66,11 @@
             drawColumnTrailer();
             drawPalletFill();
             drawavgTrailerFill();
-            }
-            // Callback that creates and populates a data table,
-            // instantiates the pie chart, passes in the data and
-            // draws it.
-        
+        }
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+
         function drawColumnChart() {
             var data = google.visualization.arrayToDataTable({{ result.volumeBar | raw }});
             var view = new google.visualization.DataView(data);
@@ -61,7 +83,7 @@
 
             var options = {
                 title: "Daily cubic meter ",
-                width: 500,
+                width: 430,
                 height: 300,
                 bar: {groupWidth: "95%"},
                 legend: {position: "none"},
@@ -93,7 +115,7 @@
 
             var options = {
                 title: "Pallet footprint ",
-                width: 500,
+                width: 440,
                 height: 300,
                 bar: {groupWidth: "95%"},
                 legend: {position: "none"},
@@ -113,7 +135,7 @@
 
             var options = {
                 title: "Traile fill based on 58 pallets footprint ",
-                width: 500,
+                width: 440,
                 height: 300,
                 bar: {groupWidth: "95%"},
                 legend: {position: "none"},
@@ -135,7 +157,7 @@
 
             var options = {
                 title: "Pallet fill in cubic meter ",
-                width: 500,
+                width: 440,
                 height: 300,
                 bar: {groupWidth: "95%"},
                 legend: {position: "none"},
@@ -159,7 +181,7 @@
 
             var options = {
                 title: "Avarage pallet fill per trailer ",
-                width: 500,
+                width: 440,
                 height: 300,
                 bar: {groupWidth: "95%"},
                 legend: {position: "none"},
