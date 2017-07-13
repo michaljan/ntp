@@ -26,16 +26,9 @@ class CustomMailer {
                 ->attach(\Swift_Attachment::fromPath($data[3]))
                 
         ;
-        //$this->get('mail.helper')->send($message);
         $this->mailer->send($message);
         return $this;
     }
 
 }
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 

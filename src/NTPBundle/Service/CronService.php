@@ -4,6 +4,7 @@ namespace NTPBundle\Service;
 use Ddeboer\DataImport\Writer\CsvWriter;
 use Doctrine\ORM\EntityManager;
 
+
 class CronService {
 
     private $em;
@@ -14,11 +15,11 @@ class CronService {
     }
 
     public function mailerData($id){
-        $result=$this->em->find("MailingList", $id);
+        $result=$this->em->find("NTPBundle\Entity\MailingList", $id);
         return $result;
     }
     
-    public function readDatabase() {
+    public function readVolume() {
         $endDate = new \DateTime();
         $startDate = new \DateTime();
         $startDate->sub(new \DateInterval("P1W"));
@@ -41,13 +42,11 @@ class CronService {
             implode($delimiter.$separator.$delimiter, $row).$delimiter."\n"); 
         }
         fclose($file);
-        $mailerData=$this->mailerData(1);
-        $data[0]=$mailerData[4];//subject
-        $data[1]=$mailerData[3];//mailing list
-        $data[2]=$mailerData[5];//boday
+        $mailerData=$this->mailerData(2);
+        $data[0]=$mailerData->getSubject();//subject
+        $data[1]=$mailerData->getMailList();//mailing list
+        $data[2]=$mailerData->getBody();//boday
         $data[3]=$attachmentPath;
-        var_dump($data);
-        die;
         return $data;
      
     }

@@ -13,12 +13,20 @@ class PDFController extends Controller {
 
 
     public $result;
-    /**
-     * @Route("/pdftest")
+    /*
+     * Clear all files in pdf folder
      */
     
     
+    
+    public function __construct() {
+        array_map('unlink', glob(__DIR__ . '/../data/pdf/*.*'));
+    }
 
+    /**
+     * @Route("/pdftest")
+     */
+   
     public function pdfPrepareAction(){
         $html=$this->pdfVoluemAction();
         $filePath=$this->returnPDF($html);
@@ -42,8 +50,8 @@ class PDFController extends Controller {
     
         
     public function returnPDF($html) {
-        $webPath = __DIR__ . '/../data/pdf/file.pdf';
-        file_put_contents(__DIR__ . '/../data/pdf/file.html',$html);
+        $webPath = __DIR__ . '/../data/pdf/weeklyvolumecron' . date("Ymd") . '.pdf';
+        //file_put_contents( __DIR__ . '/../data/pdf/weeklyvolumecron' . date("Ymd") . '.html',$html);
         $this->get('knp_snappy.pdf')->getInternalGenerator()->setTimeout(600);
         $this->get('knp_snappy.pdf')->generateFromHtml($html,$webPath);
         return new Response($webPath);

@@ -29,10 +29,11 @@ class CronTriggersCommand extends ContainerAwareCommand {
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         //send paragon data
-        $data=$this->getContainer()->get('ntp.weekly_cron_extract')->readDatabase();
+        $data=$this->getContainer()->get('ntp.weekly_cron_extract')->readVolume();
         $this->getContainer()->get('app.custom_mailer')->weekExtractMail($data);
         
         //send volume report
+        
     }
 
 }
