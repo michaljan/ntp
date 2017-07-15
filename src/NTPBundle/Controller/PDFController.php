@@ -28,11 +28,9 @@ class PDFController extends Controller {
         
     }
 
-
-   
     public function pdfVolumePrepare(){
         $html=$this->pdfVoluemAction();
-        $attachmentPath=$this->returnPDFAction($html);
+        $attachmentPath=$this->returnPDF($html);
         $mailerData=$this->mailerDataAction(1);
         $data[0]=$mailerData->getSubject();//subject
         $data[1]=$mailerData->getMailList();//mailing list
@@ -42,7 +40,11 @@ class PDFController extends Controller {
         
     }
     
+    /*
+     *  @Route("/pdftest")
+     */
 
+   
     public function pdfVoluemAction() {
         $result=array();
         $result= $this->get('ntp.pdf_reports')->dailyVolumes();
@@ -56,11 +58,11 @@ class PDFController extends Controller {
     }
     
         
-    public function returnPDFAction($html) {
+    public function returnPDF($html) {
         $webPath = __DIR__ . '/../data/pdf/weeklyvolumecron' . date("Ymd") . '.pdf';
         $this->get('knp_snappy.pdf')->getInternalGenerator()->setTimeout(600);
         $this->get('knp_snappy.pdf')->generateFromHtml($html,$webPath);
-        return new Response($webPath);
+        return $webPath;
            
     }
     
