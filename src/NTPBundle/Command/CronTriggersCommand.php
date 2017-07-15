@@ -34,8 +34,8 @@ class CronTriggersCommand extends ContainerAwareCommand {
         
         
         //send volume report
-        $data=$this->getContainer()->get('app.pdf_controller')->pdfVolumePrepareAction();
-        //$this->getContainer()->get('app.custom_mailer')->weekExtractMail($data);
+        $data=$this->getContainer()->get('app.pdf_generate')->pdfVolumePrepare();
+        $this->getContainer()->get('app.custom_mailer')->weekExtractMail($data);
        // app.pdf_controller
     }
 

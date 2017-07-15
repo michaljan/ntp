@@ -25,21 +25,20 @@ class PDFController extends Controller {
     
     public function __construct() {
         array_map('unlink', glob(__DIR__ . '/../data/pdf/*.*'));
-        $this->em = $this->get('doctrine')->getEntityManager();
+        
     }
 
 
    
-    public function pdfVolumePrepareAction(){
+    public function pdfVolumePrepare(){
         $html=$this->pdfVoluemAction();
-        $attachmentPath=$this->returnPDF($html);
-        die;
-        $mailerData=$this->mailerData(1);
+        $attachmentPath=$this->returnPDFAction($html);
+        $mailerData=$this->mailerDataAction(1);
         $data[0]=$mailerData->getSubject();//subject
         $data[1]=$mailerData->getMailList();//mailing list
         $data[2]=$mailerData->getBody();//boday
         $data[3]=$attachmentPath;
-        return new Response($data);
+        return $data;
         
     }
     
@@ -57,7 +56,7 @@ class PDFController extends Controller {
     }
     
         
-    public function returnPDF($html) {
+    public function returnPDFAction($html) {
         $webPath = __DIR__ . '/../data/pdf/weeklyvolumecron' . date("Ymd") . '.pdf';
         $this->get('knp_snappy.pdf')->getInternalGenerator()->setTimeout(600);
         $this->get('knp_snappy.pdf')->generateFromHtml($html,$webPath);
@@ -65,7 +64,8 @@ class PDFController extends Controller {
            
     }
     
-    public function mailerData($id){
+    public function mailerDataAction($id){
+        $this->em = $this->getDoctrine()->getEntityManager();
         $result=$this->em->find("NTPBundle\Entity\MailingList", $id);
         return $result;
     }
