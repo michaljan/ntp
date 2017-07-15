@@ -16,26 +16,19 @@ class CustomMailer {
     }
     
     
-    public function weekExtractMail($attachmentPath) {
+    public function weekExtractMail($data) {
         
         $message = \Swift_Message::newInstance()
-                ->setSubject('Weekly extract')
+                ->setSubject($data[0])
                 ->setFrom('no-reply@mxmelite.com')
-                ->setTo('michal.janicki@dhl.com')
-                ->setBody("Weekly paragon database extract")
-                ->attach(\Swift_Attachment::fromPath($attachmentPath))
+                ->setTo($data[1])
+                ->setBody($data[2])
+                ->attach(\Swift_Attachment::fromPath($data[3]))
                 
         ;
-        //$this->get('mail.helper')->send($message);
         $this->mailer->send($message);
         return $this;
     }
 
 }
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 

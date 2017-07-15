@@ -25,7 +25,14 @@ services:
     ntp.weekly_cron_extract:
         class: NTPBundle\Service\CronService
         arguments: ['@doctrine.orm.entity_manager']
+
+    app.pdf_generate:
+        class: NTPBundle\Controller\PDFController
+        calls:
+            - [ setContainer, [ @service_container ]]
         
     ntp.pdf_reports:
         class: NTPBundle\Reports\PDFReports
         arguments: ['@doctrine.orm.entity_manager']
+  
+       

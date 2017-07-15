@@ -18,7 +18,7 @@ class CronTriggersCommand extends ContainerAwareCommand {
         ->setName('ntp:send-email')
 
         // the short description shown while running "php app/console list"
-        ->setDescription('Sends cron emails')
+        ->setDescription('Sends cron emails weekly')
 
         // the full command description shown when running the command with
         // the "--help" option
@@ -29,10 +29,14 @@ class CronTriggersCommand extends ContainerAwareCommand {
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         //send paragon data
-        $path=$this->getContainer()->get('ntp.weekly_cron_extract')->readDatabase();
-        $this->getContainer()->get('app.custom_mailer')->weekExtractMail($path);
+        $data=$this->getContainer()->get('ntp.weekly_cron_extract')->readVolume();
+        $this->getContainer()->get('app.custom_mailer')->weekExtractMail($data);
+        
         
         //send volume report
+        $data=$this->getContainer()->get('app.pdf_generate')->pdfVolumePrepare();
+        $this->getContainer()->get('app.custom_mailer')->weekExtractMail($data);
+       // app.pdf_controller
     }
 
 }

@@ -8,22 +8,37 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NTPBundle\Controller\GeneratorController;
+use NTPBundle\Mailer\CustomMailer;
+use Doctrine\ORM\EntityManager;
+use NTPBundle\Entity\MailingList;
+
 
 class PDFController extends Controller {
 
 
     public $result;
-    /**
-     * @Route("/pdftest")
+    /*
+     * Clear all files in pdf folder
      */
     
     
-
-    public function pdfPrepareAction(){
-        $html=$this->pdfVoluemAction();
-        $filePath=$this->returnPDF($html);
+    
+    public function __construct() {
+        array_map('unlink', glob(__DIR__ . '/../data/pdf/*.*'));
         
-        return new Response($filePath);
+    }
+
+
+   
+    public function pdfVolumePrepare(){
+        $html=$this->pdfVoluemAction();
+        $attachmentPath=$this->returnPDFAction($html);
+        $mailerData=$this->mailerDataAction(1);
+        $data[0]=$mailerData->getSubject();//subject
+        $data[1]=$mailerData->getMailList();//mailing list
+        $data[2]=$mailerData->getBody();//boday
+        $data[3]=$attachmentPath;
+        return $data;
         
     }
     
@@ -41,14 +56,17 @@ class PDFController extends Controller {
     }
     
         
-    public function returnPDF($html) {
-        $webPath = __DIR__ . '/../data/pdf/file.pdf';
-        file_put_contents(__DIR__ . '/../data/pdf/file.html',$html);
+    public function returnPDFAction($html) {
+        $webPath = __DIR__ . '/../data/pdf/weeklyvolumecron' . date("Ymd") . '.pdf';
         $this->get('knp_snappy.pdf')->getInternalGenerator()->setTimeout(600);
         $this->get('knp_snappy.pdf')->generateFromHtml($html,$webPath);
         return new Response($webPath);
            
     }
     
-
+    public function mailerDataAction($id){
+        $this->em = $this->getDoctrine()->getEntityManager();
+        $result=$this->em->find("NTPBundle\Entity\MailingList", $id);
+        return $result;
+    }
 }

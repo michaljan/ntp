@@ -47,8 +47,7 @@ download_file:
 dashboard_report:
     path : /report/dashboard
     defaults:
-        _controller: NTPBundle:Report:dashboard
-        
+        _controller: NTPBundle:Report:dashboard    
         
 tractor_report:
     path : /report/tractors
