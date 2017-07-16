@@ -19,8 +19,8 @@
                 <p align="center">Calculated pallet footprint by cube cruncher by day</p> 
 
             </div>
-            <div class="col-xs-4" style="border: 1px solid black">
-                <div id="palletFill" style="width: 500px; height: 300px;"></div>
+            <div class="col-xs-4" style="border: 1px solid black" class="removemargin">
+                <div id="palletFill" style="width: 500px; height: 300px;" class="removemargin"></div>
                 <br/>
                 <p align="center">Calculated pallet fill based on pallet footprint and daily cubic meters</p>
 
@@ -34,16 +34,16 @@
                 
                 <div id="piechart" style="width: 500px; height: 300px;"></div>
                 <br/>
-                <p align="left">Precentage volume allocation by weekday</p> 
+                <p align="center">Precentage volume allocation by weekday</p> 
             </div>
             <div class="col-xs-4" style="border: 1px solid black">
                 <div id="columnchart_trailer" style="width: 500px; height: 300px;"></div>
                 <br/>
                 <p align="center">Trailer pallet fill based on 58 pallets per vehicle</p>
             </div>
-            <div class="col-xs-4" style="border: 1px solid black">
-                <div id="avgTrailerFill" style="width: 500px; height: 300px;"></div>
-                <p align="left">Average pallet footprint trailer fill based on cube cruncher caluclation</p>
+            <div class="col-xs-4" style="border: 1px solid black" class="removemargin">
+                <div id="avgTrailerFill" style="width: 500px; height: 300px;" class="removemargin"></div>
+                <p align="center">Average pallet footprint trailer fill based on cube cruncher caluclation</p>
             </div>
         </div>
 
@@ -83,7 +83,9 @@
 
             var options = {
                 title: "Daily cubic meter ",
-                bar: {groupWidth: "95%"},
+                chartArea:{left:60,top:60,width:"70%",height:"70%"},
+                backgroundColor: { fill:'transparent' },
+                bar: {groupWidth: "90%"},
                 legend: {position: "none"},
             };
             var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
@@ -96,8 +98,9 @@
             var options = {
                 title: 'Week volume allocation in %',
                 is3D: true,
+                backgroundColor: { fill:'transparent' },
                 width: 500,
-                height: 350,
+                height: 300,
                 pieSliceTextStyle: {fontSize: 10,},
             };
 
@@ -116,7 +119,9 @@
 
             var options = {
                 title: "Pallet footprint ",
-                bar: {groupWidth: "95%"},
+                chartArea:{left:60,top:60,width:"70%",height:"70%"},
+                backgroundColor: { fill:'transparent' },
+                bar: {groupWidth: "90%"},
                 legend: {position: "none"},
             };
             var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_pallet"));
@@ -133,10 +138,10 @@
                 2]);
 
             var options = {
-                title: "Traile fill based on 58 pallets footprint ",
-                width: 490,
-                height: 300,
-                bar: {groupWidth: "95%"},
+                title: "Trailer % fill based on 58 pallets footprint ",
+                chartArea:{left:60,top:60,width:"70%",height:"70%"},
+                backgroundColor: { fill:'transparent' },
+                bar: {groupWidth: "90%"},
                 legend: {position: "none"},
                 vAxis: {format: "percent"},
             };
@@ -156,9 +161,9 @@
 
             var options = {
                 title: "Pallet fill in cubic meter ",
-                width: 400,
-                height: 300,
-                bar: {groupWidth: "95%"},
+                chartArea:{left:40,top:60, right:80 ,width:"40%",height:"70%"},
+                bar: {groupWidth: "90%"},
+                backgroundColor: { fill:'transparent' },
                 legend: {position: "none"},
                 vAxis: {minValue: 0.6},
 
@@ -180,9 +185,9 @@
 
             var options = {
                 title: "Avarage pallet fill per trailer ",
-                width: 400,
-                height: 300,
-                bar: {groupWidth: "95%"},
+                chartArea:{left:40,top:60,right:80 ,width:"20%",height:"70%"},
+                backgroundColor: { fill:'transparent' },
+                bar: {groupWidth: "90%"},
                 legend: {position: "none"},
 
             };
