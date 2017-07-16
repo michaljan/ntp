@@ -29,7 +29,7 @@ services:
     app.pdf_generate:
         class: NTPBundle\Controller\PDFController
         calls:
-            - [ setContainer, [ @service_container ]]
+            - [ setContainer, [ '@service_container' ]]
         
     ntp.pdf_reports:
         class: NTPBundle\Reports\PDFReports

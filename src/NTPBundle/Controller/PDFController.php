@@ -40,11 +40,6 @@ class PDFController extends Controller {
         
     }
     
-    /*
-     *  @Route("/pdftest")
-     */
-
-   
     public function pdfVoluemAction() {
         $result=array();
         $result= $this->get('ntp.pdf_reports')->dailyVolumes();

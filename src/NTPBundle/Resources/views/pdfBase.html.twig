@@ -10,28 +10,39 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-       {% block headblock %}
-       {% endblock headblock %}
+        {% block headblock %}
+        {% endblock headblock %}
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-        
-     
+        <style>
+            .no-margins > [class*='col-'] {
+                padding-right:5;
+                padding-left:5;
+            }
+            .removemargin div{
+                margin: 0;
+                padding-right:0;
+                padding-left:0;
+                float: left;
+            }
+        </style>
+
     </head>
     <body onload="init()">
-      
+
         {% block body %}
         {% endblock %}
-      
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
- 
+
 
 
         <script>
-            $(document).ready(function () {
+        $(document).ready(function () {
         {% block documentReady %}{% endblock documentReady %}
             });
     </script>
