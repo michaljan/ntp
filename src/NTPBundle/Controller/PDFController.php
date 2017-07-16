@@ -27,7 +27,13 @@ class PDFController extends Controller {
         array_map('unlink', glob(__DIR__ . '/../data/pdf/*.*'));
         
     }
-
+    
+    /**
+     * Generate manually
+     *
+     * @Route("/pdf", name="pdf_generate")
+     */
+    
     public function pdfVolumePrepare(){
         $html=$this->pdfVoluemAction();
         $attachmentPath=$this->returnPDF($html);
