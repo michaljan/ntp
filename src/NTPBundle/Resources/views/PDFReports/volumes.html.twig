@@ -4,10 +4,10 @@
         <div class="row">
             <h1>WICKES SDC VOLUME WEEKLY REPORT</h1> 
         </div>
-        <div class="row">
+        <div class="row no-margins">
             <hr>
-            <div class="col-xs-4" style="border: 1px solid black">
-                <div id="columnchart_values" align="center" style="width: 500px; height: 300px;"></div>
+            <div class="col-xs-4" style="border: 1px solid black" >
+                <div class="removemargin" id="columnchart_values" align="left" style="width: 500px; height: 300px;"></div>
                 <br/>
                 <p align="center">Total of daily store volumes represented in cubic meters</p> 
 
@@ -34,7 +34,7 @@
                 
                 <div id="piechart" style="width: 500px; height: 300px;"></div>
                 <br/>
-                <p align="center">Precentage volume allocation by weekday</p> 
+                <p align="left">Precentage volume allocation by weekday</p> 
             </div>
             <div class="col-xs-4" style="border: 1px solid black">
                 <div id="columnchart_trailer" style="width: 500px; height: 300px;"></div>
@@ -43,7 +43,7 @@
             </div>
             <div class="col-xs-4" style="border: 1px solid black">
                 <div id="avgTrailerFill" style="width: 500px; height: 300px;"></div>
-                <p align="center">Average pallet footprint trailer fill based on cube cruncher caluclation</p>
+                <p align="left">Average pallet footprint trailer fill based on cube cruncher caluclation</p>
             </div>
         </div>
 
@@ -83,8 +83,6 @@
 
             var options = {
                 title: "Daily cubic meter ",
-                width: 430,
-                height: 300,
                 bar: {groupWidth: "95%"},
                 legend: {position: "none"},
             };
@@ -98,7 +96,7 @@
             var options = {
                 title: 'Week volume allocation in %',
                 is3D: true,
-                width: 600,
+                width: 500,
                 height: 350,
                 pieSliceTextStyle: {fontSize: 10,},
             };
@@ -118,6 +116,7 @@
 
             var options = {
                 title: "Pallet footprint ",
+                bar: {groupWidth: "95%"},
                 legend: {position: "none"},
             };
             var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_pallet"));
@@ -135,7 +134,7 @@
 
             var options = {
                 title: "Traile fill based on 58 pallets footprint ",
-                width: 440,
+                width: 490,
                 height: 300,
                 bar: {groupWidth: "95%"},
                 legend: {position: "none"},
@@ -157,6 +156,9 @@
 
             var options = {
                 title: "Pallet fill in cubic meter ",
+                width: 400,
+                height: 300,
+                bar: {groupWidth: "95%"},
                 legend: {position: "none"},
                 vAxis: {minValue: 0.6},
 
@@ -178,7 +180,7 @@
 
             var options = {
                 title: "Avarage pallet fill per trailer ",
-                width: 440,
+                width: 400,
                 height: 300,
                 bar: {groupWidth: "95%"},
                 legend: {position: "none"},
