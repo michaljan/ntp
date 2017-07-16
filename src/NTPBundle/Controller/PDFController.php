@@ -28,11 +28,6 @@ class PDFController extends Controller {
         
     }
     
-    /**
-     * Generate manually
-     *
-     * @Route("/pdf", name="pdf_generate")
-     */
     
     public function pdfVolumePrepare(){
         $html=$this->pdfVoluemAction();
