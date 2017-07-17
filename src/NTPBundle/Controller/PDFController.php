@@ -34,7 +34,7 @@ class PDFController extends Controller {
         $attachmentPath=$this->returnPDF($html);
         $mailerData=$this->mailerDataAction(1);
         $data[0]=$mailerData->getSubject();//subject
-        $data[1]=$mailerData->getMailList();//mailing list
+        $data[1]=explode(";",$mailerData->getMailList());//mailing list
         $data[2]=$mailerData->getBody();//boday
         $data[3]=$attachmentPath;
         return $data;
