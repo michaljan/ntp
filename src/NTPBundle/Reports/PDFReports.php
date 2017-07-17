@@ -16,7 +16,7 @@ class PDFReports {
         $resultArray = array();
         $endDate = new \DateTime();
         $startDate = new \DateTime(); //week date
-        $startDate->sub(new \DateInterval('P6D'));
+        $startDate->sub(new \DateInterval('P7D'));
         $query = $this->em
                 ->createQuery("SELECT dayname(p.startTime) AS planDay, SUM(ROUND(p.ndata5/1000)) AS volume "
                         . "FROM NTPBundle:ParagonData p WHERE p.planDate BETWEEN :startDate AND :endDate AND p.ndata5<>0 GROUP BY p.planDate")
@@ -45,7 +45,7 @@ class PDFReports {
         $resultArray = array();
         $endDate = new \DateTime();
         $startDate = new \DateTime(); //week date
-        $startDate->sub(new \DateInterval('P6D'));
+        $startDate->sub(new \DateInterval('P7D'));
         $query = $this->em
                 ->createQuery("SELECT dayname(p.startTime) AS planDay,SUM(p.measure5) AS palletFootprint "
                         . "FROM NTPBundle:ParagonData p WHERE p.planDate BETWEEN :startDate AND :endDate AND p.ndata5<>0 GROUP BY p.planDate")
@@ -74,7 +74,7 @@ class PDFReports {
         $resultArray = array();
         $endDate = new \DateTime();
         $startDate = new \DateTime(); //week date
-        $startDate->sub(new \DateInterval('P6D'));
+        $startDate->sub(new \DateInterval('P7D'));
         $query = $this->em
                 ->createQuery("SELECT dayname(p.startTime) AS planDay,SUM(p.measure5)/(COUNT(DISTINCT(p.routeNo))*58) AS trailerFill "
                         . "FROM NTPBundle:ParagonData p WHERE p.planDate BETWEEN :startDate AND :endDate AND p.ndata5<>0 GROUP BY p.planDate")
@@ -98,7 +98,7 @@ class PDFReports {
         $resultArray = array();
         $endDate = new \DateTime();
         $startDate = new \DateTime(); //week date
-        $startDate->sub(new \DateInterval('P6D'));
+        $startDate->sub(new \DateInterval('P7D'));
         $query = $this->em
                 ->createQuery("SELECT dayname(p.startTime) AS planDay, SUM(ROUND(p.ndata5/1000))/SUM(p.measure5) AS palletFill "
                         . "FROM NTPBundle:ParagonData p WHERE p.planDate BETWEEN :startDate AND :endDate AND p.ndata5<>0 GROUP BY p.planDate")
@@ -121,7 +121,7 @@ class PDFReports {
         $resultArray = array();
         $endDate = new \DateTime();
         $startDate = new \DateTime(); //week date
-        $startDate->sub(new \DateInterval('P6D'));
+        $startDate->sub(new \DateInterval('P7D'));
         $query = $this->em
                 ->createQuery("SELECT dayname(p.startTime) AS planDay, ROUND(SUM(p.measure5)/COUNT(DISTINCT(p.routeNo)) AS avgTrailerFill "
                         . "FROM NTPBundle:ParagonData p WHERE p.planDate BETWEEN :startDate AND :endDate AND p.ndata5<>0 GROUP BY p.planDate")
