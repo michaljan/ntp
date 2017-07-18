@@ -20,6 +20,10 @@ class CronService {
     }
     
     public function readVolume() {
+        $mailerData=$this->mailerData(2);
+        if($mailerData->getActive()==0){
+            return null;
+        }
         $endDate = new \DateTime();
         $startDate = new \DateTime();
         $startDate->sub(new \DateInterval("P1W"));
@@ -42,7 +46,7 @@ class CronService {
             implode($delimiter.$separator.$delimiter, $row).$delimiter."\n"); 
         }
         fclose($file);
-        $mailerData=$this->mailerData(2);
+
         $data[0]=$mailerData->getSubject();//subject
         $data[1]=$mailerData->getMailList();//mailing list
         $data[2]=$mailerData->getBody();//boday

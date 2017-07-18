@@ -30,9 +30,12 @@ class PDFController extends Controller {
     
     
     public function pdfVolumePrepare(){
+        $mailerData=$this->mailerDataAction(1);
+        if($mailerData->getActive()==0){
+            return null;
+        }
         $html=$this->pdfVoluemAction();
         $attachmentPath=$this->returnPDF($html);
-        $mailerData=$this->mailerDataAction(1);
         $data[0]=$mailerData->getSubject();//subject
         $data[1]=explode(";",$mailerData->getMailList());//mailing list
         $data[2]=$mailerData->getBody();//boday
@@ -67,4 +70,6 @@ class PDFController extends Controller {
         $result=$this->em->find("NTPBundle\Entity\MailingList", $id);
         return $result;
     }
+    
+
 }
