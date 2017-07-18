@@ -30,18 +30,31 @@ class PDFController extends Controller {
     
     
     public function pdfVolumePrepare(){
-        $mailerData=$this->mailerDataAction(1);
+        $mailerData=$this->mailerData(1);
         if($mailerData->getActive()==0){
             return null;
         }
         $html=$this->pdfVoluemAction();
         $attachmentPath=$this->returnPDF($html);
-        $data[0]=$mailerData->getSubject();//subject
-        $data[1]=explode(";",$mailerData->getMailList());//mailing list
-        $data[2]=$mailerData->getBody();//boday
-        $data[3]=$attachmentPath;
+        $data=$this->allocateData($mailerData,$attachmentPath);
         return $data;
         
+    }
+    
+    public function pdfTractorUsagePrepare(){
+        $mailerData=$this->mailerData(3);
+        if($mailerData->getActive()==0){
+            return null;
+        }
+        $html=$this->pdfTractorUsageAction();
+        $attachmentPath=$this->returnPDF($html);
+        $data=$this->allocateData($mailerData,$attachmentPath);
+        return $data;
+    }
+    
+    private function pdfTractorUsageAction(){
+        $tractorUsage= $this->get('ntp.pdf_reports')->tarctorUsage();
+        return new Response($html);
     }
     
     public function pdfVoluemAction() {
@@ -52,7 +65,6 @@ class PDFController extends Controller {
         $palletFill= $this->get('ntp.pdf_reports')->palletFill();
         $avgTrailerFill= $this->get('ntp.pdf_reports')->avgTrailerFill();
         $html=$this->renderView('NTPBundle:PDFReports:volumes.html.twig', array('result'=>$result,'resultPallet'=>$resultPallet,'trailerFill'=>$trailerFill,"palletFill"=>$palletFill,"avgTrailerFill"=>$avgTrailerFill));
-       
         return new Response($html);
     }
     
@@ -65,10 +77,18 @@ class PDFController extends Controller {
            
     }
     
-    public function mailerDataAction($id){
+    public function mailerData($id){
         $this->em = $this->getDoctrine()->getEntityManager();
         $result=$this->em->find("NTPBundle\Entity\MailingList", $id);
         return $result;
+    }
+    
+    private function allocateData($mailerData,$attachmentPath){
+        $data[0]=$mailerData->getSubject();//subject
+        $data[1]=explode(";",$mailerData->getMailList());//mailing list
+        $data[2]=$mailerData->getBody();//boday
+        $data[3]=$attachmentPath;
+        return $data;
     }
     
 
