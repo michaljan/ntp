@@ -20,7 +20,7 @@ class MailingList
     /**
      * @var string
      *
-     * @ORM\Column(name="mail_list", type="string", length=245, nullable=true)
+     * @ORM\Column(name="mail_list", type="string", length=2000, nullable=true)
      */
     private $mailList;	
 	
@@ -43,7 +43,7 @@ class MailingList
     /**
      * @var string
      *
-     * @ORM\Column(name="body", type="string", length=245, nullable=true)
+     * @ORM\Column(name="body", type="string", length=2000, nullable=true)
      */
     private $body;
 	
