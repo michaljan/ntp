@@ -53,7 +53,8 @@ class PDFController extends Controller {
     }
     
     private function pdfTractorUsageAction(){
-        $tractorUsage= $this->get('ntp.pdf_reports')->tarctorUsage();
+        $tractorUsageWeekly= $this->get('ntp.pdf_reports')->tractorUsageWeekly();
+        die();
         return new Response($html);
     }
     

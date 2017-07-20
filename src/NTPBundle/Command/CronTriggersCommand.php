@@ -34,6 +34,12 @@ class CronTriggersCommand extends ContainerAwareCommand {
         if (!is_null($data)) {
             $this->getContainer()->get('app.custom_mailer')->weekExtractMail($data);
         }
+        
+        //send tractor usage report report
+        $data = $this->getContainer()->get('app.pdf_generate')->pdfTractorUsagePrepare();
+        if (!is_null($data)) {
+            $this->getContainer()->get('app.custom_mailer')->weekExtractMail($data);
+        }
     }
 
 }

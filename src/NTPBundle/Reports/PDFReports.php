@@ -144,8 +144,10 @@ class PDFReports {
         return $resultArray;
     }
     
-    public function tractorUsage(){
-        $resultArray = array(); 
+    public function tractorUsageWeekly(){
+        $resultArray = array();
+        $startIntDate = strtotime($this->startDate->format('Y-m-d H:i:s'));
+        $endIntDate = strtotime($this->endDate->format('Y-m-d H:i:s')) + 86400; //move to the end of the day
         $query = $this->em
                 ->createQuery('SELECT DISTINCT p.routeNo, p.tripsStartDepot, p.startTime, p.endTime '
                         . 'FROM NTPBundle:ParagonData p WHERE p.tripNo=1 AND p.callTripPosition=1 AND p.startTime BETWEEN :startDate AND :endDate')
@@ -165,7 +167,7 @@ class PDFReports {
             }
         }
         
-        \Doctrine\Common\Util\Debug::dump($resultArray);
+        \Doctrine\Common\Util\Debug::dump($tractorsPerSite);
         die;
         
         return $resultArray;
