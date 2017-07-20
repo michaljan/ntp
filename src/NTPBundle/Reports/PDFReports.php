@@ -139,17 +139,17 @@ class PDFReports {
         }
 
         $resultArray['avgTrailerFill'] = '[["Element", "Density", { role: "style" } ],' . substr($conversionBar, 0, -1) . ']';
-        //\Doctrine\Common\Util\Debug::dump($resultArray);
-        //  die;
         return $resultArray;
     }
     
     public function tractorUsageWeekly(){
         $resultArray = array();
-        $startIntDate = strtotime($this->startDate->format('Y-m-d H:i:s'));
-        $endIntDate = strtotime($this->endDate->format('Y-m-d H:i:s')) + 86400; //move to the end of the day
+        $tractorsPerSite=array();
+   
+        $startIntDate = strtotime($this->startDate->format('Y-m-d'));
+        $endIntDate = strtotime($this->endDate->format('Y-m-d')) + 86400; //move to the end of the day
         $query = $this->em
-                ->createQuery('SELECT DISTINCT p.routeNo, p.tripsStartDepot, p.startTime, p.endTime '
+                ->createQuery('SELECT DISTINCT p.routeNo, p.depotId, p.startTime, p.endTime '
                         . 'FROM NTPBundle:ParagonData p WHERE p.tripNo=1 AND p.callTripPosition=1 AND p.startTime BETWEEN :startDate AND :endDate')
                 ->setParameter('startDate', $this->startDate->format('Y-m-d H:i:s'))
                 ->setParameter('endDate', $this->endDate->format('Y-m-d H:i:s'));
@@ -157,18 +157,31 @@ class PDFReports {
         for ($i = $startIntDate; $i < $endIntDate; $i = $i + 900) {
             $tractors[$i] = 0;
             foreach ($result as $key => $value) {
-                if (!isset($tractorsPerSite[$value["tripsStartDepot"]][$i])) {
-                    $tractorsPerSite[$value["tripsStartDepot"]][$i] = 0;
+               
+                if (!isset($tractorsPerSite[$value["depotId"]][$i])) {
+                    $tractorsPerSite[$value["depotId"]][$i] = 0;
                 }
                 if (strtotime($value ["startTime"]->format('Y-m-d H:i:s')) <= $i && strtotime($value ["endTime"]->format('Y-m-d H:i:s')) >= $i) {
                     $tractors[$i] ++;
-                    $tractorsPerSite[$value["tripsStartDepot"]][$i] ++;
+                    $tractorsPerSite[$value["depotId"]][$i] ++;
                 }
             }
         }
+       
+        foreach($tractorsPerSite as $currentSite=>$site){
+            $textData="['Date','Tractors'],";
+            foreach($site as $key=>$value){
+                   $dateTime=gmdate('Y-m-d H:i',$key);
+                   $textData=$textData."[new Date( ".$dateTime."),".$value."],";
+                   
+            }
+            $textData=rtrim($textData,',');
+            $resultArray[$currentSite]=$textData;
+           // \Doctrine\Common\Util\Debug::dump($resultArray);
         
-        \Doctrine\Common\Util\Debug::dump($tractorsPerSite);
-        die;
+        }
+            
+             //die;
         
         return $resultArray;
     }

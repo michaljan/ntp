@@ -1,0 +1,53 @@
+{% extends 'NTPBundle::pdfBase.html.twig' %}
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <h1>TRACTOR WEEKLY USAGE REPORT</h1>
+        </div>
+        <div class="row no-margins">
+            <hr>
+            <div class="col-xs-8" style="border: 1px solid black" >
+                <div id="tractorMidlandsChart" align="left" style="width: 1200px; height: 250px;"></div>
+            </div>
+            <div class="col-xs-4" style="border: 1px solid black" >
+                {{ tractorUsageWeekly.DEVOB | raw }}
+            </div>
+        </div>
+        
+    </div>
+
+
+
+{% endblock body %}
+{% block headblock %}
+    <script>
+        // Load the Visualization API and the corechart package.
+        function init() {
+            google.load("visualization", "1.1", {packages: ["corechart"], callback: 'drawCharts'});
+        }
+
+        function drawCharts() {
+            // Set a callback to run when the Google Visualization API is loaded.
+            drawChart();
+
+        }
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([{{ tractorUsageWeekly.DEVOB | raw }}]);
+
+            var options = {
+                title: 'Company Performance',
+                chartArea: {left: 40, top: 30, width: 1000, height: 100},
+                backgroundColor: {fill: 'transparent'},
+                legend: {position: 'bottom'}
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('tractorMidlandsChart'));
+
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+{% endblock headblock %}
+
+

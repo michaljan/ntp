@@ -52,12 +52,17 @@ class PDFController extends Controller {
         return $data;
     }
     
-    private function pdfTractorUsageAction(){
+        
+    /**
+     * @Route("/pdftest")
+     */
+    public function pdfTractorUsageAction() {
+
         $tractorUsageWeekly= $this->get('ntp.pdf_reports')->tractorUsageWeekly();
-        die();
+        $html=$this->renderView('NTPBundle:PDFReports:tractorUsage.html.twig', array('tractorUsageWeekly'=>$tractorUsageWeekly));
         return new Response($html);
     }
-    
+
     public function pdfVoluemAction() {
         $result=array();
         $result= $this->get('ntp.pdf_reports')->dailyVolumes();
