@@ -10,7 +10,13 @@
                 <div id="tractorMidlandsChart" align="left" style="width: 1200px; height: 250px;"></div>
             </div>
             <div class="col-xs-4" style="border: 1px solid black" >
-                {{ tractorUsageWeekly.DEVOB | raw }}
+              
+            </div>
+            <div class="col-xs-8" style="border: 1px solid black" >
+                <div id="tractorWakeChart" align="left" style="width: 1200px; height: 250px;"></div>
+            </div>
+            <div class="col-xs-4" style="border: 1px solid black" >
+              
             </div>
         </div>
         
@@ -28,21 +34,45 @@
 
         function drawCharts() {
             // Set a callback to run when the Google Visualization API is loaded.
-            drawChart();
+            drawMidlandsChart();
+            drawWakeChart();
 
         }
 
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([{{ tractorUsageWeekly.DEVOB | raw }}]);
+        function drawMidlandsChart() {
+            var data = google.visualization.arrayToDataTable([{{ tractorUsageWeekly.MIDIW | raw }}]);
 
             var options = {
-                title: 'Company Performance',
-                chartArea: {left: 40, top: 30, width: 1000, height: 100},
+                title: 'MIDLANDS TRACTOR USAGE',
+                chartArea: {left: 80, top: 30, width: 1200, height: 100},
                 backgroundColor: {fill: 'transparent'},
-                legend: {position: 'bottom'}
+                legend: {position: 'bottom'},
+                hAxis:{showTextEvery: 24,
+                 direction:1, 
+                 slantedText:true, 
+                 slantedTextAngle:45}
             };
 
             var chart = new google.visualization.LineChart(document.getElementById('tractorMidlandsChart'));
+
+            chart.draw(data, options);
+        }
+        
+        function drawWakeChart() {
+            var data = google.visualization.arrayToDataTable([{{ tractorUsageWeekly.WAKEIW | raw }}]);
+
+            var options = {
+                title: 'WAKEFIELD TRACTOR USAGE',
+                chartArea: {left: 80, top: 30, width: 1200, height: 100},
+                backgroundColor: {fill: 'transparent'},
+                legend: {position: 'bottom'},
+                hAxis:{showTextEvery: 24,
+                 direction:1, 
+                 slantedText:true, 
+                 slantedTextAngle:45}
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('tractorWakeChart'));
 
             chart.draw(data, options);
         }

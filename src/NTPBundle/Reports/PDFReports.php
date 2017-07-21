@@ -145,12 +145,12 @@ class PDFReports {
     public function tractorUsageWeekly(){
         $resultArray = array();
         $tractorsPerSite=array();
-   
+        $textData='';
         $startIntDate = strtotime($this->startDate->format('Y-m-d'));
         $endIntDate = strtotime($this->endDate->format('Y-m-d')) + 86400; //move to the end of the day
         $query = $this->em
-                ->createQuery('SELECT DISTINCT p.routeNo, p.depotId, p.startTime, p.endTime '
-                        . 'FROM NTPBundle:ParagonData p WHERE p.tripNo=1 AND p.callTripPosition=1 AND p.startTime BETWEEN :startDate AND :endDate')
+                ->createQuery("SELECT DISTINCT p.routeNo, p.depotId, p.startTime, p.endTime "
+                        . "FROM NTPBundle:ParagonData p WHERE p.tripNo=1 AND p.callTripPosition=1 AND p.startTime BETWEEN :startDate AND :endDate AND p.customerName<>'SHUNTSAL'")
                 ->setParameter('startDate', $this->startDate->format('Y-m-d H:i:s'))
                 ->setParameter('endDate', $this->endDate->format('Y-m-d H:i:s'));
         $result = $query->getResult();
@@ -171,8 +171,8 @@ class PDFReports {
         foreach($tractorsPerSite as $currentSite=>$site){
             $textData="['Date','Tractors'],";
             foreach($site as $key=>$value){
-                   $dateTime=gmdate('Y-m-d H:i',$key);
-                   $textData=$textData."[new Date( ".$dateTime."),".$value."],";
+                   $dateTime=gmdate('D H:i',$key);
+                   $textData=$textData."['".$dateTime."',".$value."],";
                    
             }
             $textData=rtrim($textData,',');
