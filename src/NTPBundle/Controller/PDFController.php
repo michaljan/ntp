@@ -28,36 +28,35 @@ class PDFController extends Controller {
         
     }
     
-    
+   
     public function pdfVolumePrepare(){
+        $name='weeklyvolume';
         $mailerData=$this->mailerData(1);
         if($mailerData->getActive()==0){
             return null;
         }
         $html=$this->pdfVoluemAction();
-        $attachmentPath=$this->returnPDF($html);
+        $attachmentPath=$this->returnPDF($html,$name);
         $data=$this->allocateData($mailerData,$attachmentPath);
         return $data;
         
     }
     
     public function pdfTractorUsagePrepare(){
+        $name='tractorusage';
         $mailerData=$this->mailerData(3);
         if($mailerData->getActive()==0){
             return null;
         }
         $html=$this->pdfTractorUsageAction();
-        $attachmentPath=$this->returnPDF($html);
+        $attachmentPath=$this->returnPDF($html,$name);
         $data=$this->allocateData($mailerData,$attachmentPath);
         return $data;
     }
     
         
-    /**
-     * @Route("/pdftest")
-     */
-    public function pdfTractorUsageAction() {
 
+    public function pdfTractorUsageAction() {
         $tractorUsageWeekly= $this->get('ntp.pdf_reports')->tractorUsageWeekly();
         $html=$this->renderView('NTPBundle:PDFReports:tractorUsage.html.twig', array('tractorUsageWeekly'=>$tractorUsageWeekly));
         return new Response($html);
@@ -75,8 +74,8 @@ class PDFController extends Controller {
     }
     
         
-    public function returnPDF($html) {
-        $webPath = __DIR__ . '/../data/pdf/weeklyvolumecron' . date("Ymd") . '.pdf';
+    public function returnPDF($html,$name) {
+        $webPath = __DIR__ . '/../data/pdf/'.$name. date("Ymd") . '.pdf';
         $this->get('knp_snappy.pdf')->getInternalGenerator()->setTimeout(600);
         $this->get('knp_snappy.pdf')->generateFromHtml($html,$webPath);
         return $webPath;
