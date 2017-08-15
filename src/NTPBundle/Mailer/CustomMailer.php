@@ -29,6 +29,10 @@ class CustomMailer {
         $this->mailer->send($message);
         return $this;
     }
+    
+    public function emailData($id){
+        
+    }
 
 }
 

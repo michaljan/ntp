@@ -28,10 +28,22 @@ class TestCommand extends ContainerAwareCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-
+        $start=new \DateTime();
+        $output->writeln([$start->format('Y-m-d H:i:s')]);
+        $data = $this->getContainer()->get('app.pdf_generate')->pdfVolumePrepare();
+        if (!is_null($data)) {
+            $output->writeln(['Volme report completed']);
+        }
+        
         //send tractor usage report report
         $data = $this->getContainer()->get('app.pdf_generate')->pdfTractorUsagePrepare();
-            $output->writeln([
+        if (!is_null($data)) {
+            $output->writeln(['Transport report completed']);
+        }
+        $end=new \DateTime();  
+        
+        $output->writeln([$end->format('Y-m-d H:i:s')]);
+        $output->writeln([
         'Command completed',
         '============',
         '',]);

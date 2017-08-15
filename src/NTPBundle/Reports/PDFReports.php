@@ -145,6 +145,7 @@ class PDFReports {
     public function tractorUsageWeekly(){
         $resultArray = array();
         $tractorsPerSite=array();
+        $maxTractors=array();
         $textData='';
         $startIntDate = strtotime($this->startDate->format('Y-m-d'));
         $endIntDate = strtotime($this->endDate->format('Y-m-d')) + 86400; //move to the end of the day
@@ -154,20 +155,34 @@ class PDFReports {
                 ->setParameter('startDate', $this->startDate->format('Y-m-d H:i:s'))
                 ->setParameter('endDate', $this->endDate->format('Y-m-d H:i:s'));
         $result = $query->getResult();
-        for ($i = $startIntDate; $i < $endIntDate; $i = $i + 900) {
+        //change + number to increase probing time 
+        for ($i = $startIntDate; $i < $endIntDate; $i = $i + 900) { 
             $tractors[$i] = 0;
+            $currentDay=gmdate('D',$i); //set weekday as key
             foreach ($result as $key => $value) {
-               
+                
                 if (!isset($tractorsPerSite[$value["depotId"]][$i])) {
                     $tractorsPerSite[$value["depotId"]][$i] = 0;
+                    
+                            
                 }
+                if (!isset($maxTractors[$value["depotId"]][$currentDay])) {
+                    $maxTractors[$value["depotId"]][$currentDay] = 0;
+                    
+                            
+                }
+                
+                
                 if (strtotime($value ["startTime"]->format('Y-m-d H:i:s')) <= $i && strtotime($value ["endTime"]->format('Y-m-d H:i:s')) >= $i) {
                     $tractors[$i] ++;
                     $tractorsPerSite[$value["depotId"]][$i] ++;
+                    if($maxTractors[$value["depotId"]][$currentDay]<$tractorsPerSite[$value["depotId"]][$i]){
+                        $maxTractors[$value["depotId"]][$currentDay]=$tractorsPerSite[$value["depotId"]][$i];
+                    }
                 }
             }
         }
-       
+        //format for google charts
         foreach($tractorsPerSite as $currentSite=>$site){
             $textData="['Date','Tractors'],";
             foreach($site as $key=>$value){
@@ -176,12 +191,13 @@ class PDFReports {
                    
             }
             $textData=rtrim($textData,',');
-            $resultArray[$currentSite]=$textData;
-           // \Doctrine\Common\Util\Debug::dump($resultArray);
+            $resultArray["tractorUsage"][$currentSite]=$textData;
         
         }
+        //\Doctrine\Common\Util\Debug::dump($resultArray);
+        //die;
             
-             //die;
+        
         
         return $resultArray;
     }
