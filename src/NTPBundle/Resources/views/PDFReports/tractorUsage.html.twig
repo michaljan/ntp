@@ -18,7 +18,15 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12" style="border: 1px solid black" >
+            <div class="col-xs-4" style="border: 1px solid black" >
+                <div id="columnMidTractors" style="width: 450px; height: 250px;"></div>
+
+            </div>
+            <div class="col-xs-4" style="border: 1px solid black" >
+   
+                <div id="columnWakeTractors" style="width: 450px; height: 250px;"></div>
+            </div>
+            <div class="col-xs-4" style="border: 1px solid black" >    
             </div>
         </div>
 
@@ -39,6 +47,8 @@
             // Set a callback to run when the Google Visualization API is loaded.
             drawMidlandsChart();
             drawWakeChart();
+            drawColumnMaxMid();
+            drawColumnMaxWake();
         }
 
         function drawMidlandsChart() {
@@ -54,10 +64,10 @@
                     slantedTextAngle: 45},
                 vAxis: {
 
-                    textStyle:{
+                    textStyle: {
                         fontSize: 10,
                     },
-   
+
                     gridlines: {
                         count: 10,
                     }
@@ -80,7 +90,7 @@
                     slantedTextAngle: 45},
                 vAxis: {
                     format: '0',
-                    textStyle:{
+                    textStyle: {
                         fontSize: 10,
                     },
                     gridlines: {
@@ -90,6 +100,47 @@
             };
             var chart = new google.visualization.LineChart(document.getElementById('tractorWakeChart'));
             chart.draw(data, options);
+        }
+        function  drawColumnMaxMid() {
+            var data = google.visualization.arrayToDataTable([{{ maxTractors.MIDIW | raw }}]);
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"},
+                2]);
+
+            var options = {
+                title: "Maximum tractor usage Midlands ",
+                chartArea: {left: 40, top: 30, width: 300, height: 180},
+                backgroundColor: {fill: 'transparent'},
+                bar: {groupWidth: "90%"},
+                legend: {position: "none"},
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById('columnMidTractors'));
+            chart.draw(view, options);
+        }
+        
+        function  drawColumnMaxWake() {
+            var data = google.visualization.arrayToDataTable([{{ maxTractors.WAKEIW | raw }}]);
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"},
+                2]);
+
+            var options = {
+                title: "Maximum tractor usage Wakefield ",
+                chartArea: {left: 40, top: 30, width: 300, height: 180},
+                backgroundColor: {fill: 'transparent'},
+                bar: {groupWidth: "90%"},
+                legend: {position: "none"},
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById('columnWakeTractors'));
+            chart.draw(view, options);
         }
     </script>
 </head>
