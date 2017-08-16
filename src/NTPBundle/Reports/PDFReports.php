@@ -202,6 +202,40 @@ class PDFReports {
 
         return $resultArray;
     }
+    public function tractorAllocation(){
+        $site=array_fill_keys(array('Devizes','Cardiff','Belshill','Midlands','Wakefield'),0);
+        $query = $this->em
+                ->createQuery("SELECT COUNT(DISTINCT p.routeNo) as tractors, p.depotId "
+                        . "FROM NTPBundle:ParagonData p WHERE p.tripNo=1 AND p.callTripPosition=1 AND p.startTime BETWEEN :startDate AND :endDate AND p.customerName<>'SHUNTSAL' AND p.customerName<>'NORHDCSHUNT' "
+                        . "GROUP BY p.depotId")
+                ->setParameter('startDate', $this->startDate->format('Y-m-d H:i:s'))
+                ->setParameter('endDate', $this->endDate->format('Y-m-d H:i:s'));
+        $result = $query->getResult();
+        //group by site
+        foreach($result as $key=>$value){
+            if($value["depotId"]=="DEVOB" OR $value["depotId"]=="DEVHDC"){
+               
+                $site["Devizes"]=$site["Devizes"]+(int)$value["tractors"];
+            }
+            if($value["depotId"]=="CAROB" OR $value["depotId"]=="CARHDC"){
+                $site["Cardiff"]=$site["Cardiff"]+(int)$value["tractors"];
+            }
+            if($value["depotId"]=="BELOB"){
+                $site["Belshill"]=(int)$value["tractors"];
+            }
+            if($value["depotId"]=="MIDIW"){
+                $site["Midlands"]=(int)$value["tractors"];
+      
+            }
+            if($value["depotId"]=="WAKEIW"){
+                $site["Wakefield"]=(int)$value["tractors"];
+            }
+
+        }
+        //\Doctrine\Common\Util\Debug::dump($textData);
+        //die;
+        return $site; 
+    }
 
 }
 

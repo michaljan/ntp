@@ -18,22 +18,49 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-4" style="border: 1px solid black" >
-                <div id="columnMidTractors" style="width: 450px; height: 250px;"></div>
+            <div class="col-xs-3" style="border: 1px solid black" >
+                <div id="columnMidTractors" style="width: 300px; height: 250px;"></div>
 
             </div>
-            <div class="col-xs-4" style="border: 1px solid black" >
-   
-                <div id="columnWakeTractors" style="width: 450px; height: 250px;"></div>
+            <div class="col-xs-3" style="border: 1px solid black" >
+
+                <div id="columnWakeTractors" style="width:  300px; height: 250px;"></div>
             </div>
-            <div class="col-xs-4" style="border: 1px solid black" >    
+            <div class="col-xs-3" style="border: 1px solid black" >
+                <div style="width: 300px; height: 250px;">
+                   <div style="width: 290px; height: 200px;">
+                       
+                       <p style="padding-top: 8px; font-size:10px"><strong>Sum of all tractor used across sites excluding shunting</strong></p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Site name</th>
+                                <th>Tractor used</th>
+                            </tr>  
+                        </thead>
+                        <tbody>
+                            {% for key,value in tractorAllocation %}
+                                <tr>
+                                    <td style="padding-left: 5px;">{{ loop.index }}</td>
+                                    <td> {{ key}} </td>
+                                    <td> {{ value }} </td>
+                                </tr>
+                            {% endfor %}    
+                        </tbody>
+
+                    </table>
+                   </div>
+                </div>
             </div>
+                        <div class="col-xs-3" style="border: 1px solid black" >
+                            <div style="width: 300px; height: 250px;">
+                        </div>
+
+
         </div>
 
-
     </div>
-
-
 
 {% endblock body %}
 {% block headblock %}
@@ -49,13 +76,14 @@
             drawWakeChart();
             drawColumnMaxMid();
             drawColumnMaxWake();
+
         }
 
         function drawMidlandsChart() {
             var data = google.visualization.arrayToDataTable([{{ tractorUsageWeekly.MIDIW | raw }}]);
             var options = {
                 title: 'MIDLANDS TRACTOR USAGE',
-                chartArea: {left: 80, top: 30, width: 1200, height: 150},
+                chartArea: {left: 60, top: 30,width: 1200, height: 150},
                 backgroundColor: {fill: 'transparent'},
                 legend: {position: 'none'},
                 hAxis: {showTextEvery: 24,
@@ -81,7 +109,7 @@
             var data = google.visualization.arrayToDataTable([{{ tractorUsageWeekly.WAKEIW | raw }}]);
             var options = {
                 title: 'WAKEFIELD TRACTOR USAGE',
-                chartArea: {left: 80, top: 30, width: 1200, height: 150},
+                chartArea: {left: 60, top: 30,width: 1200, height: 150},
                 backgroundColor: {fill: 'transparent'},
                 legend: {position: 'none'},
                 hAxis: {showTextEvery: 24,
@@ -113,7 +141,7 @@
 
             var options = {
                 title: "Maximum tractor usage Midlands ",
-                chartArea: {left: 40, top: 30, width: 300, height: 180},
+                chartArea: {left: 30, top: 30, width: 280, height: 180},
                 backgroundColor: {fill: 'transparent'},
                 bar: {groupWidth: "90%"},
                 legend: {position: "none"},
@@ -121,7 +149,7 @@
             var chart = new google.visualization.ColumnChart(document.getElementById('columnMidTractors'));
             chart.draw(view, options);
         }
-        
+
         function  drawColumnMaxWake() {
             var data = google.visualization.arrayToDataTable([{{ maxTractors.WAKEIW | raw }}]);
             var view = new google.visualization.DataView(data);
@@ -134,7 +162,7 @@
 
             var options = {
                 title: "Maximum tractor usage Wakefield ",
-                chartArea: {left: 40, top: 30, width: 300, height: 180},
+                chartArea: {left: 30, top: 30, width: 280, height: 180},
                 backgroundColor: {fill: 'transparent'},
                 bar: {groupWidth: "90%"},
                 legend: {position: "none"},
@@ -142,6 +170,8 @@
             var chart = new google.visualization.ColumnChart(document.getElementById('columnWakeTractors'));
             chart.draw(view, options);
         }
+
+
     </script>
 </head>
 {% endblock headblock %}
