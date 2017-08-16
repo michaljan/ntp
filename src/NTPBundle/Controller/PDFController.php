@@ -59,7 +59,8 @@ class PDFController extends Controller {
     public function pdfTractorUsageAction() {
         $tractorUsageWeekly= $this->get('ntp.pdf_reports')->tractorUsageWeekly();
         $tractorAllocation= $this->get('ntp.pdf_reports')->tractorAllocation();
-        $html=$this->renderView('NTPBundle:PDFReports:tractorUsage.html.twig', array('tractorUsageWeekly'=>$tractorUsageWeekly["tractorUsage"],'maxTractors'=>$tractorUsageWeekly["maxTractors"],'tractorAllocation'=>$tractorAllocation));
+        $tractorRuns= $this->get('ntp.pdf_reports')->tractorsRuns();
+        $html=$this->renderView('NTPBundle:PDFReports:tractorUsage.html.twig', array('tractorUsageWeekly'=>$tractorUsageWeekly["tractorUsage"],'maxTractors'=>$tractorUsageWeekly["maxTractors"],'tractorAllocation'=>$tractorAllocation,'tractorRuns'=>$tractorRuns));
         return new Response($html);
     }
 
