@@ -11,6 +11,7 @@ use NTPBundle\FileProcessor\CsvFileWriter;
 use NTPBundle\FileProcessor\CsvFileReader;
 use NTPBundle\Entity\ParagonData;
 use NTPBundle\Form\DateRangeType;
+use NTPBundle\Form\DateType;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
@@ -106,11 +107,11 @@ class FileController extends Controller {
         return $this->redirectToRoute('file_display');
     }
 
-    public function uploadedPlansAction() {
+    public function uploadedPlansAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $endDate = date('Y-m-d');
         $startDate = new \DateTime('Today');
-        $startDate->sub(new \DateInterval('P30D'));
+        $startDate->sub(new \DateInterval('P60D'));
         $dateCounter = $startDate;
         $startDate = $startDate->format('Y-m-d');
         $query = $em->createQuery('SELECT DISTINCT p.planDate FROM NTPBundle:ParagonData p WHERE p.planDate BETWEEN :startDate AND :endDate')
@@ -120,21 +121,26 @@ class FileController extends Controller {
         $formattedArray = array_map(function($num) {
             return $num['planDate']->format('Y-m-d');
         }, $result);
-        $count = 1;
-        for ($i = 1; $i <= 36; $i++) {
+        $count = 0;
+        for ($i = 1; $i <= 90; $i++) {
             $dateArray[$i]['date'] = $dateCounter->format('Y-m-d');
             if (in_array($dateCounter->format('Y-m-d'), $formattedArray)) {
                 $dateArray[$i]['inarray'] = True;
             } else {
                 $dateArray[$i]['inarray'] = False;
             }
-            if ($count == 6) {
-                $dateArray[$i]['counter'] = True;
-                $count = 0;
-            } else {
-                $dateArray[$i]['counter'] = False;
+            if($count==0){
+                 $dateArray[$i]['state']='start';
             }
-            $count++;
+             if($count==6){
+                $dateArray[$i]['state']='end';
+                $count=-1;
+             }
+             if($count>0){
+                $dateArray[$i]['state']='';
+             }
+             $count++;
+            
             $dateCounter->add(new \DateInterval('P1D'));
         }
         //\Doctrine\Common\Util\Debug::dump($dateArray);
@@ -164,6 +170,14 @@ class FileController extends Controller {
             }
         }
         return $this->render('NTPBundle:File:download_file.html.twig', array('form' => $form->createView()));
+    }
+    
+    public function deletePlanAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(DateType::class);
+        $form->handleRequest($request);
+
+        return $this->render('NTPBundle:File:delete_plan.html.twig', array('form'=>$form->createView()));
     }
 
 }

@@ -1,18 +1,27 @@
 {% extends 'NTPBundle::base.html.twig' %}
 {% block body %}
-    <p class="text-center">
-    <ul class="list-inline">
-    {% for item in dateArray %}
-        {% if item.inarray == "True" %}
-           <li><span class="label label-success">{{ item.date|date('d-m-Y D') }} </span></li>
-        {% else %}
-           <li><span class="label label-danger">{{ item.date|date('d-m-Y D') }}</span></li>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <table class="table" align="center">
+                {% for item in dateArray %}
+                    {% if item.state == 'start' %}
+                        <tr>
+                        {% endif %}
+                        {% if item.inarray == "True" %}
+                            <td><span class="label label-success">{{ item.date|date('d-m-Y D') }} </span></td>
+                        {% else %}
+                            <td><span class="label label-danger">{{ item.date|date('d-m-Y D') }}</span></td>
 
-        {% endif %}
-        {% if item.counter == "True" %}
-            <br>
-        {% endif %}    
-    {% endfor %}
-    </ul>
-</p>
+                        {% endif %}
+                        {% if item.state == 'end' %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+
+            </table>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
 {% endblock %}
