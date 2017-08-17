@@ -2,7 +2,7 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row">
-            <h1>TRACTOR WEEKLY USAGE REPORT</h1>
+            <h1>PLANNED TRACTOR WEEKLY USAGE REPORT</h1>
         </div>
 
         <hr>
@@ -27,31 +27,7 @@
                 <div id="columnWakeTractors" style="width:  300px; height: 250px;"></div>
             </div>
             <div class="col-xs-3" style="border: 1px solid black" >
-                <div style="width: 300px; height: 250px;">
-                    <div style="width: 290px; height: 200px;">
-
-                        <p style="padding-top: 8px; font-size:10px"><strong>Sum of all tractor used across sites excluding shunting</strong></p>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Site name</th>
-                                    <th>Tractor used</th>
-                                </tr>  
-                            </thead>
-                            <tbody>
-                                {% for key,value in tractorAllocation %}
-                                    <tr>
-                                        <td style="padding-left: 5px;">{{ loop.index }}</td>
-                                        <td> {{ key}} </td>
-                                        <td> {{ value }} </td>
-                                    </tr>
-                                {% endfor %}    
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>
+                <div id="stackedTractorsAllocation" style="width:  300px; height: 250px;"></div>
             </div>
             <div class="col-xs-3" style="border: 1px solid black" >
                 <div style="width: 300px; height: 250px;">
@@ -78,6 +54,7 @@
                 drawColumnMaxMid();
                 drawColumnMaxWake();
                 drawPieChart();
+                drawStackedAllocation();
 
             }
 
@@ -173,19 +150,48 @@
                 chart.draw(view, options);
             }
             function drawPieChart() {
-            var data = google.visualization.arrayToDataTable([{{ tractorRuns | raw }}]);
+                var data = google.visualization.arrayToDataTable([{{ tractorRuns | raw }}]);
 
-            var options = {
-                title: 'Weekly tractor allocation by activity',
-                is3D: false,
-                backgroundColor: {fill: 'transparent'},
-                chartArea: {left: 30, top: 30, width: 280, height: 180},
-                pieSliceTextStyle: {fontSize: 10, },
-            };
+                var options = {
+                    title: 'Weekly tractor allocation by activity',
+                    is3D: false,
+                    backgroundColor: {fill: 'transparent'},
+                    chartArea: {left: 30, top: 30, width: 280, height: 180},
+                    pieSliceTextStyle: {fontSize: 10, },
+                };
 
-            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-            chart.draw(data, options);
-        }
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+            }
+
+            function  drawStackedAllocation() {
+                var data = google.visualization.arrayToDataTable([{{ tractorAllocation | raw }}]);
+                var view = new google.visualization.DataView(data);
+                                view.setColumns([0,1,{calc: "stringify",
+                        sourceColumn: 1,
+                        type: "string",
+                        role: "annotation"},2,
+                    {calc: "stringify",
+                        sourceColumn: 2,
+                        type: "string",
+                        role: "annotation"},
+                    3,{calc: "stringify",
+                        sourceColumn: 3,
+                        type: "string",
+                        role: "annotation"}]);
+
+                var options = {
+                    title: "Tractors allocation by day",
+                    chartArea: {left: 30, top: 30, width: 280, height: 180},
+                    backgroundColor: {fill: 'transparent'},
+                    bar: {groupWidth: "90%"},
+                    legend: {position: 'top', maxLines: 3},
+                    isStacked: true,
+                };
+                var chart = new google.visualization.ColumnChart(document.getElementById('stackedTractorsAllocation'));
+                chart.draw(view, options);
+            }
+
 
 
         </script>

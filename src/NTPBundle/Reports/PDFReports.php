@@ -151,10 +151,12 @@ class PDFReports {
         $endIntDate = strtotime($this->endDate->format('Y-m-d')) + 86400; //move to the end of the day
         $query = $this->em
                 ->createQuery("SELECT DISTINCT p.routeNo, p.depotId, p.startTime, p.endTime "
-                        . "FROM NTPBundle:ParagonData p WHERE p.tripNo=1 AND p.callTripPosition=1 AND p.startTime BETWEEN :startDate AND :endDate AND p.customerName<>'SHUNTSAL' AND p.customerName<>'NORHDCSHUNT' ")
+                        . "FROM NTPBundle:ParagonData p WHERE p.tripNo=1 AND p.callTripPosition=1 AND p.startTime BETWEEN :startDate AND :endDate AND p.customerId<>'SHUNTSAL' AND p.customerId<>'NORHDCSHUNT' ")
                 ->setParameter('startDate', $this->startDate->format('Y-m-d H:i:s'))
                 ->setParameter('endDate', $this->endDate->format('Y-m-d H:i:s'));
         $result = $query->getResult();
+        //\Doctrine\Common\Util\Debug::dump($result);
+        //die;
         //change + number to increase probing time 
         for ($i = $startIntDate; $i < $endIntDate; $i = $i + 900) {
             $tractors[$i] = 0;
@@ -166,6 +168,7 @@ class PDFReports {
                 }
                 if (!isset($maxTractors[$value["depotId"]][$currentDay])) {
                     $maxTractors[$value["depotId"]][$currentDay] = 0;
+                    
                 }
 
 
@@ -174,6 +177,7 @@ class PDFReports {
                     $tractorsPerSite[$value["depotId"]][$i] ++;
                     if ($maxTractors[$value["depotId"]][$currentDay] < $tractorsPerSite[$value["depotId"]][$i]) {
                         $maxTractors[$value["depotId"]][$currentDay] = $tractorsPerSite[$value["depotId"]][$i];
+                        
                     }
                 }
             }
@@ -204,35 +208,41 @@ class PDFReports {
     }
 
     public function tractorAllocation() {
-        $site = array_fill_keys(array('Devizes', 'Cardiff', 'Belshill', 'Midlands', 'Wakefield'), 0);
+        $resultArray=array();
         $query = $this->em
-                ->createQuery("SELECT COUNT(DISTINCT p.routeNo) as tractors, p.depotId "
+                ->createQuery("SELECT DISTINCT(p.routeNo) as routeNo, p.depotId, dayname(p.startTime) as startDay "
                         . "FROM NTPBundle:ParagonData p WHERE p.tripNo=1 AND p.callTripPosition=1 AND p.startTime BETWEEN :startDate AND :endDate AND p.customerName<>'SHUNTSAL' AND p.customerName<>'NORHDCSHUNT' "
-                        . "GROUP BY p.depotId")
+                        . "GROUP BY p.depotId, p.routeNo")
                 ->setParameter('startDate', $this->startDate->format('Y-m-d H:i:s'))
                 ->setParameter('endDate', $this->endDate->format('Y-m-d H:i:s'));
         $result = $query->getResult();
+        
         //group by site
-        foreach ($result as $key => $value) {
-            if ($value["depotId"] == "DEVOB" OR $value["depotId"] == "DEVHDC") {
-
-                $site["Devizes"] = $site["Devizes"] + (int) $value["tractors"];
+        foreach($result as $key=>$value){
+            $routeCode= (int)substr($value['routeNo'], -6,4);
+                isset($resultArray[$value['startDay']]['Stores'])?:$resultArray[$value['startDay']]['Stores']=0;
+                isset($resultArray[$value['startDay']]['HDC'])?:$resultArray[$value['startDay']]['HDC']=0;
+                isset($resultArray[$value['startDay']]['IWTrunking'])?:$resultArray[$value['startDay']]['IWTrunking']=0;
+           
+            if($routeCode<1000){
+                $resultArray[$value['startDay']]['Stores']++;
             }
-            if ($value["depotId"] == "CAROB" OR $value["depotId"] == "CARHDC") {
-                $site["Cardiff"] = $site["Cardiff"] + (int) $value["tractors"];
+            if($routeCode>=1000 && $routeCode<1999){
+                $resultArray[$value['startDay']]['HDC']++;
             }
-            if ($value["depotId"] == "BELOB") {
-                $site["Belshill"] = (int) $value["tractors"];
-            }
-            if ($value["depotId"] == "MIDIW") {
-                $site["Midlands"] = (int) $value["tractors"];
-            }
-            if ($value["depotId"] == "WAKEIW") {
-                $site["Wakefield"] = (int) $value["tractors"];
+            if($routeCode>=3000 && $routeCode<4999){
+                $resultArray[$value['startDay']]['IWTrunking']++;
             }
         }
-
-        return $site;
+        //google decode
+        $textData = '["Day","Stores","HDC trunks","Wickes trunks",{ role: "annotation" }],';
+         foreach ($resultArray as $key=>$value) {
+            $textData =  $textData. ('["'. $key .'",'. $value['Stores'].','. $value['HDC']. ','. $value['IWTrunking'].',""]') . ',' ;
+        }
+        $textData = rtrim($textData, ',');
+//       \Doctrine\Common\Util\Debug::dump($textData);
+//        die;
+        return $textData;
     }
 
     public function tractorsRuns() {
@@ -248,6 +258,7 @@ class PDFReports {
                 ->setParameter('startDate', $this->startDate->format('Y-m-d H:i:s'))
                 ->setParameter('endDate', $this->endDate->format('Y-m-d H:i:s'));
         $result = $query->getResult();
+        //site specific counts
         foreach($result as $key=>$value){
             $routeCode= (int)substr($value['routeNo'], -6,4);
             if($routeCode<1000){
@@ -263,8 +274,7 @@ class PDFReports {
         
         $textData = '["Site","Runs"],'.'["Store delivery",'.$storeRun.'],["HDC trunking",'.$hdcRun.'],["Wickes trunking",'.$trunkRun.']';
         
-        //\Doctrine\Common\Util\Debug::dump($textData);
-        //die;
+
         return $textData;
     }
 

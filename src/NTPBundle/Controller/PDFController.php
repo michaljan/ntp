@@ -30,7 +30,7 @@ class PDFController extends Controller {
     
    
     public function pdfVolumePrepare(){
-        $name='weeklyvolume';
+        $name='planned_weekly_volume_';
         $mailerData=$this->mailerData(1);
         if($mailerData->getActive()==0){
             return null;
@@ -43,7 +43,7 @@ class PDFController extends Controller {
     }
     
     public function pdfTractorUsagePrepare(){
-        $name='tractorusage';
+        $name='planned_tractor_usage_';
         $mailerData=$this->mailerData(3);
         if($mailerData->getActive()==0){
             return null;
@@ -76,7 +76,7 @@ class PDFController extends Controller {
     }
     
         
-    public function returnPDF($html,$name) {
+    private function returnPDF($html,$name) {
         $webPath = __DIR__ . '/../data/pdf/'.$name. date("Ymd") . '.pdf';
         $this->get('knp_snappy.pdf')->getInternalGenerator()->setTimeout(600);
         $this->get('knp_snappy.pdf')->generateFromHtml($html,$webPath);
@@ -84,7 +84,7 @@ class PDFController extends Controller {
            
     }
     
-    public function mailerData($id){
+    private function mailerData($id){
         $this->em = $this->getDoctrine()->getEntityManager();
         $result=$this->em->find("NTPBundle\Entity\MailingList", $id);
         return $result;
