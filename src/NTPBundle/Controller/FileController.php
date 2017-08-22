@@ -14,6 +14,7 @@ use NTPBundle\Form\DateRangeType;
 use NTPBundle\Form\DateType;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use  Symfony\Component\HttpFoundation\JsonResponse;
 
 class FileController extends Controller {
 
@@ -173,11 +174,29 @@ class FileController extends Controller {
     }
     
     public function deletePlanAction(Request $request){
+        $data='';
+        $plan=null;
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(DateType::class);
         $form->handleRequest($request);
+        $isAjax = $request->isXmlHttpRequest();
+        if($isAjax==True){
+            $date=new \DateTime($request->get('data1'));
+            $query = $em->createQuery("SELECT p.id,p.name, p.planDate, p.uploadedAt FROM NTPBundle:FileUpload p WHERE p.planDate=:planDate ")
+                    ->setParameter('planDate', $date->format('Y-m-d'));
+            $result = $query->getResult();
+            if(!empty($result)){
+                $data=$result;
+            }
+            else{
+                $data='No plan found';
+            }
+            $response = array('code' => 100, 'success' => true, 'data'=>$data);
+            return new JsonResponse($response);
+        }
 
         return $this->render('NTPBundle:File:delete_plan.html.twig', array('form'=>$form->createView()));
     }
+    
 
 }

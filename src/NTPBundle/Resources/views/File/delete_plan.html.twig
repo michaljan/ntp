@@ -1,23 +1,42 @@
 {% extends 'NTPBundle::base.html.twig' %}
 {% block body %}
-        <br/>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="row">
-                    <div class="col-md-5">
-                        {{ form_start(form,{'attr': {'id': 'delete_paln'}}) }}
-                        {{ form_errors(form) }}
-                        {{ form_row(form.selectDate) }}
-                        {{ form_row(form.submit,{'label': 'Delete plan'}) }}
-                        {{ form_end(form) }}</div>
-                    <div class="col-md-7">
-                    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-5">
+                    {{ form_start(form,{'attr': {'id': 'delete_paln'}}) }}
+                    {{ form_errors(form) }}
+                    {{ form_row(form.selectDate, {'value': '' }) }}
+                    {{ form_row(form.submit,{'label': 'Delete plan'}) }}
+                    {{ form_end(form) }}</div>
+                <div class="col-md-7">
+                    <di
                 </div>
             </div>
         </div>
+    </div>
 {% endblock %}
 {% block documentReady %}
-        $("#date_selectDate").datepicker({
-            dateFormat: "dd-mm-yy"
-        });
+    $("#date_selectDate").datepicker({
+    dateFormat: "dd-mm-yy"
+    });
+
+    $("#date_selectDate").on("change",function() {
+        dateChoosen();
+    });
+
+function dateChoosen(){
+        var selectedDate = $("#date_selectDate").val();
+         $.post('{{path('delete_plan')}}',               
+                {data1: selectedDate}, 
+            function(response){
+                    if(response.code == 100 && response.success){
+                       console.log(response.data[0]);  
+                    }
+
+    }, "json");
+         
+}
+ 
 {% endblock documentReady %}
