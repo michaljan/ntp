@@ -182,7 +182,7 @@ class FileController extends Controller {
         $isAjax = $request->isXmlHttpRequest();
         if($isAjax==True){
             $date=new \DateTime($request->get('data1'));
-            $query = $em->createQuery("SELECT p.id,p.name, p.planDate, p.uploadedAt FROM NTPBundle:FileUpload p WHERE p.planDate=:planDate ")
+            $query = $em->createQuery("SELECT p.id,p.name, DATE_FORMAT(p.planDate,'%Y-%m-%d') AS planDate, DATE_FORMAT(p.uploadedAt,'%Y-%m-%d ') AS uploadedAt FROM NTPBundle:FileUpload p WHERE p.planDate=:planDate ")
                     ->setParameter('planDate', $date->format('Y-m-d'));
             $result = $query->getResult();
             if(!empty($result)){
@@ -194,7 +194,14 @@ class FileController extends Controller {
             $response = array('code' => 100, 'success' => true, 'data'=>$data);
             return new JsonResponse($response);
         }
-
+        if ($form->isValid()) {
+            $query = $em->createQuery('DELETE  NTPBundle:FileUpload p WHERE p.planDate=:planDate ')
+                    ->setParameter('planDate', $form->get('selectDate')->getData()->format('Y-m-d'));
+            $query->execute();
+            $query = $em->createQuery('DELETE  NTPBundle:ParagonData p WHERE p.planDate=:planDate ')
+                    ->setParameter('planDate', $form->get('selectDate')->getData()->format('Y-m-d'));
+            $query->execute();
+        }
         return $this->render('NTPBundle:File:delete_plan.html.twig', array('form'=>$form->createView()));
     }
     

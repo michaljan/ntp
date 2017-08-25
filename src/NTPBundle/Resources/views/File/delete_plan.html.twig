@@ -2,16 +2,20 @@
 {% block body %}
     <br/>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12">
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-2">
                     {{ form_start(form,{'attr': {'id': 'delete_paln'}}) }}
                     {{ form_errors(form) }}
                     {{ form_row(form.selectDate, {'value': '' }) }}
                     {{ form_row(form.submit,{'label': 'Delete plan'}) }}
                     {{ form_end(form) }}</div>
-                <div class="col-md-7">
-                    <di
+                <div class="col-md-10">
+                    <div id="table_add">
+                    </div>
+                    <div id="loadingDiv">
+                        <p>Loading....</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -23,20 +27,44 @@
     });
 
     $("#date_selectDate").on("change",function() {
-        dateChoosen();
+    dateChoosen();
     });
 
-function dateChoosen(){
-        var selectedDate = $("#date_selectDate").val();
-         $.post('{{path('delete_plan')}}',               
-                {data1: selectedDate}, 
-            function(response){
-                    if(response.code == 100 && response.success){
-                       console.log(response.data[0]);  
-                    }
+    function dateChoosen(){
+    var selectedDate = $("#date_selectDate").val();
+    var html = "<table class='table table-striped' id='table_details'> <tr><th>Plan Id</th> <th>Plan name</th><th>Plan date</th><th>Upload date</th></tr>";
+        $.post('{{path('delete_plan')}}',               
+        {data1: selectedDate}, 
+        function(response){
+        if(response.code == 100 && response.success){
+        $.each(response.data, function(key, value){
+        html+="<tr>";
+            html+="<td>"+value.id+"</td>";
+            html+="<td>"+value.name+"</td>";
+            html+="<td>"+value.planDate+"</td>";
+            html+="<td>"+value.uploadedAt+"</td>";
+            html+="</tr>";
+
+        });
+        html += "</table>";
+    
+    $('#table_add').append(html);
+    }
 
     }, "json");
-         
-}
- 
+
+    }
+
+    var $loading = $('#loadingDiv').hide();
+    $(document)
+    .ajaxStart(function () {
+    $('#table_details').remove();
+    $loading.show();
+    
+    })
+    .ajaxStop(function () {
+    $loading.hide();
+    });
+
+
 {% endblock documentReady %}
