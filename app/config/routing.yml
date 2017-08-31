@@ -92,4 +92,7 @@ delete_plan:
     defaults:
         _controller: NTPBundle:File:deletePlan
 
-    
+manual_email_trigger:
+    path : /manualemialtrigger
+    defaults:
+        _controller: NTPBundle:ReportAdmin:manualEmailTrigger    

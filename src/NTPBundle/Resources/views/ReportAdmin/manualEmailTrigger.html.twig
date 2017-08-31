@@ -1,0 +1,35 @@
+{% extends 'NTPBundle::base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Send manual emails for last week (use only on Monday for following week) </h3>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table">
+                    <tr><th>No.</th><th>Description</th><th>Action</th><tr>
+                            {% for key,record in weeklyArray %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ record }}</td>
+                            <td><input type="button" class="btn btn-success" value={{ key }} onClick="callAjax(this.value)">Send email</input></td>
+
+                        </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+
+            <div class="col-md-6">
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+{% block documentReady %}
+function callAjax(val){
+    console.log(val);
+}
+{% endblock documentReady %}
+
