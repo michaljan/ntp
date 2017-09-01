@@ -13,7 +13,7 @@
                         <tr>
                             <td>{{ loop.index }}</td>
                             <td>{{ record }}</td>
-                            <td><input type="button" class="btn btn-success" value={{ key }} onClick="callAjax(this.value)">Send email</input></td>
+                            <td><button type="submitt" class="btn btn-success" value={{ key }} onClick="callAjax(this.value)">Send email</button></td>
 
                         </tr>
                     {% endfor %}
@@ -26,10 +26,12 @@
         </div>
 
     </div>
+    <script>
+
+        function callAjax(val) {
+            
+        }
+    </script>
 {% endblock %}
-{% block documentReady %}
-function callAjax(val){
-    console.log(val);
-}
-{% endblock documentReady %}
+
 
