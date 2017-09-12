@@ -29,8 +29,17 @@
     <script>
 
         function callAjax(val) {
-            
+            $.post('{{path('manual_email_trigger')}}',
+                    {data1: val},
+                    function (response) {
+                        if (response.code == 100 && response.success) {
+                            alert('Email send');
+                        }
+
+                    }, "json");
+
         }
+
     </script>
 {% endblock %}
 
