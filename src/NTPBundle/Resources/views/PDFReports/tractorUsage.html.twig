@@ -8,29 +8,29 @@
         <hr>
         <div class="row">
             <div class="col-xs-12" style="border: 1px solid black" >
-                <div id="tractorMidlandsChart" align="left" style="width: 1000px; height: 200px;"></div>
+                <div id="tractorMidlandsChart" align="left" style="width: 1000px; height: 180px;"></div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-xs-12" style="border: 1px solid black" >
-                <div id="tractorWakeChart" align="left" style="width: 1000px; height: 200px;"></div>
+                <div id="tractorWakeChart" align="left" style="width: 1000px; height: 180px;"></div>
             </div>
         </div>
         <div class="row">
             <div class="col-xs-3" style="border: 1px solid black" >
-                <div id="columnMidTractors" style="width: 250px; height: 250px;"></div>
+                <div id="columnMidTractors" style="width: 250px; height: 210px;"></div>
 
             </div>
             <div class="col-xs-3" style="border: 1px solid black" >
 
-                <div id="columnWakeTractors" style="width:  250px; height: 250px;"></div>
+                <div id="columnWakeTractors" style="width:  250px; height: 210px;"></div>
             </div>
             <div class="col-xs-3" style="border: 1px solid black" >
-                <div id="stackedTractorsAllocation" style="width:  250px; height: 250px;"></div>
+                <div id="stackedTractorsAllocation" style="width:  250px; height: 210px;"></div>
             </div>
             <div class="col-xs-3" style="border: 1px solid black" >
-                <div style="width: 250px; height: 250px;">
+                <div style="width: 250px; height: 210px;">
                     <div id="piechart" style="width:  250px; height: 200px;"></div>
                 </div>
 
@@ -62,13 +62,17 @@
                 var data = google.visualization.arrayToDataTable([{{ tractorUsageWeekly.MIDIW | raw }}]);
                 var options = {
                     title: 'MIDLANDS TRACTOR USAGE',
-                    chartArea: {left: 60, top: 30, width: 1000, height: 120},
+                    chartArea: {left: 60, top: 30, width: 1000, height: 100},
                     backgroundColor: {fill: 'transparent'},
                     legend: {position: 'none'},
                     hAxis: {showTextEvery: 24,
                         direction: 1,
                         slantedText: true,
-                        slantedTextAngle: 45},
+                        slantedTextAngle: 45,
+                        textStyle: {
+                            fontSize: 10,
+                        }
+                    },
                     vAxis: {
 
                         textStyle: {
@@ -88,13 +92,18 @@
                 var data = google.visualization.arrayToDataTable([{{ tractorUsageWeekly.WAKEIW | raw }}]);
                 var options = {
                     title: 'WAKEFIELD TRACTOR USAGE',
-                    chartArea: {left: 60, top: 30, width: 1000, height: 120},
+                    chartArea: {left: 60, top: 30, width: 1000, height: 100},
                     backgroundColor: {fill: 'transparent'},
                     legend: {position: 'none'},
                     hAxis: {showTextEvery: 24,
                         direction: 1,
                         slantedText: true,
-                        slantedTextAngle: 45},
+                        slantedTextAngle: 45,
+                        textStyle: {
+                            fontSize: 10,
+                        }
+                    },
+
                     vAxis: {
                         format: '0',
                         textStyle: {
@@ -120,7 +129,7 @@
 
                 var options = {
                     title: "Maximum tractor usage Midlands ",
-                    chartArea: {left: 30, top: 30, width: 220, height: 180},
+                    chartArea: {left: 30, top: 30, width: 200, height: 140},
                     backgroundColor: {fill: 'transparent'},
                     bar: {groupWidth: "90%"},
                     legend: {position: "none"},
@@ -141,7 +150,7 @@
 
                 var options = {
                     title: "Maximum tractor usage Wakefield ",
-                    chartArea: {left: 30, top: 30, width: 220, height: 180},
+                    chartArea: {left: 30, top: 30, width: 200, height: 140},
                     backgroundColor: {fill: 'transparent'},
                     bar: {groupWidth: "90%"},
                     legend: {position: "none"},
@@ -156,8 +165,8 @@
                     title: 'Weekly tractor allocation by activity',
                     is3D: false,
                     backgroundColor: {fill: 'transparent'},
-                    chartArea: {left: 30, top: 30, width: 220, height: 180},
-                    pieSliceTextStyle: {fontSize: 10, },
+                    chartArea: {left: 20, top: 30, width: 200, height: 140},
+                    pieSliceTextStyle: {fontSize: 8, },
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -167,22 +176,10 @@
             function  drawStackedAllocation() {
                 var data = google.visualization.arrayToDataTable([{{ tractorAllocation | raw }}]);
                 var view = new google.visualization.DataView(data);
-                                view.setColumns([0,1,{calc: "stringify",
-                        sourceColumn: 1,
-                        type: "string",
-                        role: "annotation"},2,
-                    {calc: "stringify",
-                        sourceColumn: 2,
-                        type: "string",
-                        role: "annotation"},
-                    3,{calc: "stringify",
-                        sourceColumn: 3,
-                        type: "string",
-                        role: "annotation"}]);
 
                 var options = {
                     title: "Daily run tractor allocation ",
-                    chartArea: {left: 30, top: 30, width: 220, height: 180},
+                    chartArea: {left: 30, top: 50, width: 200, height: 120},
                     backgroundColor: {fill: 'transparent'},
                     bar: {groupWidth: "90%"},
                     legend: {position: 'top', maxLines: 3},

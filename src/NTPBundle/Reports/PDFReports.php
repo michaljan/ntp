@@ -151,7 +151,7 @@ class PDFReports {
         $endIntDate = strtotime($this->endDate->format('Y-m-d')) + 86400; //move to the end of the day
         $query = $this->em
                 ->createQuery("SELECT DISTINCT p.routeNo, p.depotId, p.startTime, p.endTime "
-                        . "FROM NTPBundle:ParagonData p WHERE p.tripNo=1 AND p.callTripPosition=1 AND p.startTime BETWEEN :startDate AND :endDate AND p.customerId<>'SHUNTSAL' AND p.customerId<>'NORHDCSHUNT' ")
+                        . "FROM NTPBundle:ParagonData p WHERE p.tripNo=1 AND p.callTripPosition=1 AND p.startTime BETWEEN :startDate AND :endDate AND p.customerId<>'SHUNTSAL' AND p.customerId<>'NORHDCSHUNT' ORDER BY p.startTime")
                 ->setParameter('startDate', $this->startDate->format('Y-m-d H:i:s'))
                 ->setParameter('endDate', $this->endDate->format('Y-m-d H:i:s'));
         $result = $query->getResult();
@@ -196,6 +196,7 @@ class PDFReports {
         foreach ($maxTractors as $currentSite => $site) {
             $textData = '["Day","Tractors",{ role: "style" }],';
             foreach ($site as $key => $value) {
+                
                 $textData = $textData . '["' . $key . '",' . $value . ',"blue"],';
             }
             $textData = rtrim($textData, ',');
@@ -212,7 +213,7 @@ class PDFReports {
         $query = $this->em
                 ->createQuery("SELECT DISTINCT(p.routeNo) as routeNo, p.depotId, dayname(p.startTime) as startDay "
                         . "FROM NTPBundle:ParagonData p WHERE p.tripNo=1 AND p.callTripPosition=1 AND p.startTime BETWEEN :startDate AND :endDate AND p.customerName<>'SHUNTSAL' AND p.customerName<>'NORHDCSHUNT' "
-                        . "GROUP BY p.depotId, p.routeNo")
+                        . "GROUP BY p.depotId, p.routeNo ORDER BY p.startTime")
                 ->setParameter('startDate', $this->startDate->format('Y-m-d H:i:s'))
                 ->setParameter('endDate', $this->endDate->format('Y-m-d H:i:s'));
         $result = $query->getResult();
@@ -235,9 +236,9 @@ class PDFReports {
             }
         }
         //google decode
-        $textData = '["Day","Stores","HDC trunks","Wickes trunks",{ role: "annotation" }],';
+        $textData = '["Day","Store","HDC","Trunks",{ role: "annotation" }],';
          foreach ($resultArray as $key=>$value) {
-            $textData =  $textData. ('["'. $key .'",'. $value['Stores'].','. $value['HDC']. ','. $value['IWTrunking'].',""]') . ',' ;
+            $textData =  $textData. ('["'. substr($key,0,3) .'",'. $value['Stores'].','. $value['HDC']. ','. $value['IWTrunking'].',""]') . ',' ;
         }
         $textData = rtrim($textData, ',');
 //       \Doctrine\Common\Util\Debug::dump($textData);
