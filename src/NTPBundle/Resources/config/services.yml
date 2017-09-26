@@ -1,8 +1,12 @@
+
 services:
 #    ntp.csvwriter:
 #        class: NTPBundle\FileProcessor\csvWriter
 #        arguments: [ @doctrine.orm.entity_manager  ]
-
     paragonreports:
         class: NTPBundle\Reports\ParagonReports
         arguments: [ '@doctrine.orm.entity_manager'  ]
+    
+    wickesparagonreports:
+        class: NTPBundle\Reports\WickesParagonReports
+        arguments: [ '@doctrine.orm.entity_manager' ]

@@ -12,8 +12,9 @@ use NTPBundle\Reports\WickesParagonReports;
 use \Symfony\Component\HttpFoundation\Response;
 
 
+
 class WickesReportController extends Controller
-{
+{       
         public function wickesDashboardAction(Request $request) {
         $message=null;
         $em =   $this->getDoctrine()->getManager();
@@ -26,8 +27,8 @@ class WickesReportController extends Controller
             $planExists = $em->getRepository('NTPBundle:ParagonData')
                 ->findOneByPlanDate($date);
             if (!empty($planExists)) {
-                $report = $this->get('paragonreports');
-                $result = $report->dashboard($date);
+                $report = $this->get('wickesparagonreports');
+                $result = $report->createDashboard($date);
             }
             else{
                 $message='Plan for the date is not imported';
@@ -35,7 +36,9 @@ class WickesReportController extends Controller
         } else {
             $result = FALSE;
         }
-        return new response($this->renderView('NTPBundle:WickesReports:dashboard.html.twig', array('form' => $form->createView(), 'report' => $result, 'message'=>$message)));
+        return new response($this->renderView('NTPBundle:WickesReports:dashboard.html.twig', array('form' => $form->createView(), 'result' => $result, 'message'=>$message)));
     }
+    
+
     
 }

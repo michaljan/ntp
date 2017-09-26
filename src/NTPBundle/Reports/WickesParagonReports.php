@@ -27,17 +27,18 @@ class WickesParagonReports extends ContainerAware{
         $this->date=$date;
         $networkRuns=$this->networkRuns();
         
-        
-
-        \Doctrine\Common\Util\Debug::dump($networkRuns);
-        die;
+       $result['networkRuns']=$networkRuns; 
+        //dump($result);
+        //die;
         return $result;
     }
     
     private function networkRuns(){
-        $this->em->createQuery(
-                );
-        return $networkRuns;
+        $networkRuns="";
+        $query=$this->em->createQuery("SELECT p.depotId as depot, SUM(p.measure5) as pallets FROM NTPBundle:ParagonData p WHERE p.planDate = :date GROUP BY p.depotId")
+                ->setParameter('date',$this->date->format('Y-m-d'));
+        $result=$query->getResult();
+        return $result;
     }
     
     
