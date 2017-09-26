@@ -41,8 +41,7 @@ class PDFReports {
 
         $resultArray['volumeBar'] = '[["Element", "Density", { role: "style" } ],' . substr($conversionBar, 0, -1) . ']';
         $resultArray['volumePie'] = '[["Day", "Volume"],' . substr($conversionPie, 0, -1) . ']';
-//\Doctrine\Common\Util\Debug::dump($conversion);
-        //die;
+
         return $resultArray;
     }
 
@@ -148,7 +147,7 @@ class PDFReports {
         $maxTractors = array();
         $textData = '';
         $startIntDate = strtotime($this->startDate->format('Y-m-d'));
-        $endIntDate = strtotime($this->endDate->format('Y-m-d')) + 86400; //move to the end of the day
+        $endIntDate = strtotime($this->endDate->format('Y-m-d'));
         $query = $this->em
                 ->createQuery("SELECT DISTINCT p.routeNo, p.depotId, p.startTime, p.endTime "
                         . "FROM NTPBundle:ParagonData p WHERE p.tripNo=1 AND p.callTripPosition=1 AND p.startTime BETWEEN :startDate AND :endDate AND p.customerId<>'SHUNTSAL' AND p.customerId<>'NORHDCSHUNT' ORDER BY p.startTime")
@@ -158,7 +157,7 @@ class PDFReports {
         //\Doctrine\Common\Util\Debug::dump($result);
         //die;
         //change + number to increase probing time 
-        for ($i = $startIntDate; $i < $endIntDate; $i = $i + 900) {
+        for ($i = $startIntDate; $i < $endIntDate + 86400; $i = $i + 900) {
             $tractors[$i] = 0;
             $currentDay = gmdate('D', $i); //set weekday as key
             foreach ($result as $key => $value) {
@@ -167,6 +166,8 @@ class PDFReports {
                     $tractorsPerSite[$value["depotId"]][$i] = 0;
                 }
                 if (!isset($maxTractors[$value["depotId"]][$currentDay])) {
+                   
+                   
                     $maxTractors[$value["depotId"]][$currentDay] = 0;
                     
                 }
@@ -182,6 +183,7 @@ class PDFReports {
                 }
             }
         }
+        
         //format for google charts
         foreach ($tractorsPerSite as $currentSite => $site) {
             $textData = "['Date','Tractors'],";
@@ -202,8 +204,11 @@ class PDFReports {
             $textData = rtrim($textData, ',');
             $resultArray["maxTractors"][$currentSite] = $textData;
         }
+        
+        //\Doctrine\Common\Util\Debug::dump($resultArray["tractorUsage"]);
         //\Doctrine\Common\Util\Debug::dump($resultArray["maxTractors"]);
-        //die;
+        
+       // die;
 
         return $resultArray;
     }
