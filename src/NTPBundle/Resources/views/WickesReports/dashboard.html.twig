@@ -1,11 +1,72 @@
 {% extends 'NTPBundle::base.html.twig' %}
 {% block body %}
-        <div class="row">
-            <h3 align="center">WICKES STORE DELIVERY NETWORK DASHBOARD</h3>
-        </div>
+    <div class="row">
+        <h3 align="center">WICKES STORE DELIVERY NETWORK DASHBOARD</h3>
+    </div>
     {% if result %}
 
         <br/>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Report</div>
+                            {{ form_start(form) }}
+                            {{ form_errors(form) }}
+
+                            <div class="panel-body">
+                                {{ form_row(form.planDate) }}
+                                <br/>
+                                {{ form_row(form.submit) }}
+                            </div>
+                            {{ form_end(form) }}
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Planned pallet delivery</div>
+                            <div class="panel-body">
+                                <div id="palletChart"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Chart 4</div>
+                            <div class="panel-body">Empty</div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Chart 5</div>
+                            <div class="panel-body">Empty</div>
+                        </div>
+
+                    </div>
+                </div>    
+            </div>
+
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Delivery map</div>
+                    <div class="panel-body">
+                        <div id="map" style="width: 500px; height: 400px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    {% else %}
         <div class="row">
             <div class="col-md-3">
                 <div class="panel panel-default">
@@ -22,95 +83,70 @@
 
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Planned pallet delivery</div>
-                    <div class="panel-body">
-                        <div id="palletChart"></div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Chart 2</div>
-                    <div class="panel-body">Empty</div>
-                </div>
-
-            </div>
-            <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Chart 3</div>
-                    <div class="panel-body">Empty</div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Chart 4</div>
-                    <div class="panel-body">Empty</div>
-                </div>
-
-            </div>
-            <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Chart 5</div>
-                    <div class="panel-body">Empty</div>
-                </div>
-
-            </div>
-            <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Chart 6</div>
-                    <div class="panel-body">Empty</div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Chart 7</div>
-                    <div class="panel-body">Empty</div>
+            <br/>
+            <div class="col-md-9">
+                <div class="row">
+                    {% if message %}
+                        <h5><b>{{ message }}</b></h5>
+                    {% endif %}
                 </div>
             </div>
         </div>
-
-    </div>
-
-
-{% else %}
-    <div class="row">
-        <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">Report</div>
-                {{ form_start(form) }}
-                {{ form_errors(form) }}
-
-                <div class="panel-body">
-                    {{ form_row(form.planDate) }}
-                    <br/>
-                    {{ form_row(form.submit) }}
-                </div>
-                {{ form_end(form) }}
-
-            </div>
-        </div>
-        <br/>
-        <div class="col-md-9">
-            <div class="row">
-
-                {% if message %}
-                    <h5><b>{{ message }}</b></h5>
-                {% endif %}
-            </div>
-
-
-        </div>
-    </div>
-{% endif %}
+    {% endif %}
 
 {% endblock %}
 {% block documentReady %}
+    google.charts.load('current', {packages: ['corechart', 'bar']});
+    google.charts.setOnLoadCallback(drawPallets);
 
+    function drawPallets() {
+    var data = google.visualization.arrayToDataTable({% if result.plts is defined %}{{ result.plts | raw }}{% endif %});
+    var options = {
+    title: 'Planned pallet allocation chart includes outbases',
+    chartArea: {width: '100%'},
+    legend: {position: 'none'},
+    hAxis: {
+    title: 'Pallets footprint quantity',
+    minValue: 0
+    },
+    vAxis: {
+    title: 'Site'
+    }
+    };
+    var chart = new google.visualization.BarChart(document.getElementById('palletChart'));
+    chart.draw(data, options);
+    }
+    
+        var locations = [
+      ['Bondi Beach', -33.890542, 151.274856, 4],
+      ['Coogee Beach', -33.923036, 151.259052, 5],
+      ['Cronulla Beach', -34.028249, 151.157507, 3],
+      ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+      ['Maroubra Beach', -33.950198, 151.259302, 1]
+    ];
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 6,
+      center: new google.maps.LatLng(52.4796, -1.903),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+    
 {% endblock documentReady %}

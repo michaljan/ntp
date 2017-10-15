@@ -31,6 +31,7 @@ class WickesReportController extends Controller
                 $result = $report->createDashboard($date);
             }
             else{
+                
                 $message='Plan for the date is not imported';
             }
         } else {

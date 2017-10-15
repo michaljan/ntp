@@ -3,7 +3,7 @@
 namespace NTPBundle\Reports;
 
 use Doctrine\ORM\EntityManager;
-use NTPBundle\GoogleCharts;
+use NTPBundle\GoogleAPI;
 use NTPBundle\ValueConventer\MinutesToHoursConventer;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
@@ -20,7 +20,7 @@ class WickesParagonReports extends ContainerAware{
 
     public function __construct(EntityManager $em) {
         $this->em = $em;
-        $this->chartFormatter=new GoogleCharts\GoogleChartFormatter();
+        $this->chartFormatter=new GoogleAPI\GoogleChartFormatter();
     }
     
     /*
@@ -34,9 +34,7 @@ class WickesParagonReports extends ContainerAware{
     public function createDashboard($date){
         $this->date=$date;
         $networkRuns=$this->networkRuns();
-        $result['networkRuns']=$networkRuns; 
-        dump($result);
-        die;
+        $result['plts']=$networkRuns;
         return $result;
     }
     
@@ -54,14 +52,18 @@ class WickesParagonReports extends ContainerAware{
                 ->setParameter('date',$this->date->format('Y-m-d'));
         $data=$query->getResult();
         $data=$this->siteAllocator($data);
-        
         $result=$this->chartFormatter->columnChart($data);
-        dump($result);
-        die;
         return $result;
     }
     
-     /*
+    private function createMap(){
+        $query=$this->em->createQuery("SELECT p.depotId as depot, SUM(p.measure5) as data1 FROM NTPBundle:ParagonData p WHERE p.planDate = :date GROUP BY p.depotId")
+                ->setParameter('date',$this->date->format('Y-m-d'));
+        return $result;
+    }
+
+
+    /*
      *  Allocates sites to one of two groups Wakefield and Midlands
      * 
      * @param $data array of sql query result
@@ -77,11 +79,9 @@ class WickesParagonReports extends ContainerAware{
         foreach ($data as $row) {
             if($row["depot"]=="MIDIW" or  $row["depot"]=="DEVOB" or $row["depot"]=="CAROB" ){
                 $result[0]['data1'] =$result[0]['data1']+$row["data1"]; 
-                
             }
             if($row["depot"]=="WAKEIW" or  $row["depot"]=="BELOB"){
-                $result[1]['data1'] =$result[1]['data1']+$row["data1"]; 
-                
+                $result[1]['data1'] =$result[1]['data1']+$row["data1"];    
             }
         }
         return $result;   

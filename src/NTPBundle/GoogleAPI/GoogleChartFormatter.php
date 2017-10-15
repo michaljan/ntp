@@ -1,6 +1,6 @@
 <?php
 
-namespace NTPBundle\GoogleCharts;
+namespace NTPBundle\GoogleAPI;
 
 /*
  * Google chart formatter
@@ -19,16 +19,23 @@ class GoogleChartFormatter {
     public function columnChart($data) {
        $conversion='';
        $i=0;
+       $color='blue';
        foreach ($data as $row) {
             switch($i){
-                case 0: $color='blue';
-                case 1: $color='red';
-                case 2: $color='yellow';
+                case 0: 
+                    $color='blue';
+                    break;
+                case 1: 
+                    $color='red';
+                    break;
+                case 2: 
+                    $color='yellow';
+                    break;
             }
-            $conversion = ('["' . implode('",', $row) . ',"blue"]') . ',' . $conversion;
+            $conversion = ('["' . implode('",', $row) . ',"'.$color.'"]') . ',' . $conversion;
             $i++;
         }
-        $result= '[["Element", "Density", { role: "style" } ],' . substr($conversion, 0, -1) . ']';
+        $result= '[[{ role: "domain" }, "Quantity",  { role: "style" } ],' . substr($conversion, 0, -1) . ']';
         return $result;
     }
 
