@@ -59,6 +59,8 @@ class WickesParagonReports extends ContainerAware{
     private function createMap(){
         $query=$this->em->createQuery("SELECT p.depotId as depot, SUM(p.measure5) as data1 FROM NTPBundle:ParagonData p WHERE p.planDate = :date GROUP BY p.depotId")
                 ->setParameter('date',$this->date->format('Y-m-d'));
+        $data=$query->getResult();
+        
         return $result;
     }
 

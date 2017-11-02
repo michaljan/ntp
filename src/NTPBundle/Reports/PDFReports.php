@@ -16,6 +16,11 @@ class PDFReports {
         $this->startDate = new \DateTime(); //week date
         $this->startDate->sub(new \DateInterval('P7D'));
     }
+    
+    public function getDate(){
+        $result= $this->startDate->format('Y-m-d').' <-> '.$this->endDate->format('Y-m-d');
+        return $result;
+    }
 
     public function dailyVolumes() {
         $resultArray = array();
@@ -166,10 +171,9 @@ class PDFReports {
                     $tractorsPerSite[$value["depotId"]][$i] = 0;
                 }
                 if (!isset($maxTractors[$value["depotId"]][$currentDay])) {
-                   
-                   
+
+
                     $maxTractors[$value["depotId"]][$currentDay] = 0;
-                    
                 }
 
 
@@ -178,12 +182,11 @@ class PDFReports {
                     $tractorsPerSite[$value["depotId"]][$i] ++;
                     if ($maxTractors[$value["depotId"]][$currentDay] < $tractorsPerSite[$value["depotId"]][$i]) {
                         $maxTractors[$value["depotId"]][$currentDay] = $tractorsPerSite[$value["depotId"]][$i];
-                        
                     }
                 }
             }
         }
-        
+
         //format for google charts
         foreach ($tractorsPerSite as $currentSite => $site) {
             $textData = "['Date','Tractors'],";
@@ -198,23 +201,22 @@ class PDFReports {
         foreach ($maxTractors as $currentSite => $site) {
             $textData = '["Day","Tractors",{ role: "style" }],';
             foreach ($site as $key => $value) {
-                
+
                 $textData = $textData . '["' . $key . '",' . $value . ',"blue"],';
             }
             $textData = rtrim($textData, ',');
             $resultArray["maxTractors"][$currentSite] = $textData;
         }
-        
+
         //\Doctrine\Common\Util\Debug::dump($resultArray["tractorUsage"]);
         //\Doctrine\Common\Util\Debug::dump($resultArray["maxTractors"]);
-        
-       // die;
+        // die;
 
         return $resultArray;
     }
 
     public function tractorAllocation() {
-        $resultArray=array();
+        $resultArray = array();
         $query = $this->em
                 ->createQuery("SELECT DISTINCT(p.routeNo) as routeNo, p.depotId, dayname(p.startTime) as startDay "
                         . "FROM NTPBundle:ParagonData p WHERE p.tripNo=1 AND p.callTripPosition=1 AND p.startTime BETWEEN :startDate AND :endDate AND p.customerName<>'SHUNTSAL' AND p.customerName<>'NORHDCSHUNT' "
@@ -222,28 +224,28 @@ class PDFReports {
                 ->setParameter('startDate', $this->startDate->format('Y-m-d H:i:s'))
                 ->setParameter('endDate', $this->endDate->format('Y-m-d H:i:s'));
         $result = $query->getResult();
-        
+
         //group by site
-        foreach($result as $key=>$value){
-            $routeCode= (int)substr($value['routeNo'], -6,4);
-                isset($resultArray[$value['startDay']]['Stores'])?:$resultArray[$value['startDay']]['Stores']=0;
-                isset($resultArray[$value['startDay']]['HDC'])?:$resultArray[$value['startDay']]['HDC']=0;
-                isset($resultArray[$value['startDay']]['IWTrunking'])?:$resultArray[$value['startDay']]['IWTrunking']=0;
-           
-            if($routeCode<1000){
-                $resultArray[$value['startDay']]['Stores']++;
+        foreach ($result as $key => $value) {
+            $routeCode = (int) substr($value['routeNo'], -6, 4);
+            isset($resultArray[$value['startDay']]['Stores']) ?: $resultArray[$value['startDay']]['Stores'] = 0;
+            isset($resultArray[$value['startDay']]['HDC']) ?: $resultArray[$value['startDay']]['HDC'] = 0;
+            isset($resultArray[$value['startDay']]['IWTrunking']) ?: $resultArray[$value['startDay']]['IWTrunking'] = 0;
+
+            if ($routeCode < 1000) {
+                $resultArray[$value['startDay']]['Stores'] ++;
             }
-            if($routeCode>=1000 && $routeCode<1999){
-                $resultArray[$value['startDay']]['HDC']++;
+            if ($routeCode >= 1000 && $routeCode < 1999) {
+                $resultArray[$value['startDay']]['HDC'] ++;
             }
-            if($routeCode>=3000 && $routeCode<4999){
-                $resultArray[$value['startDay']]['IWTrunking']++;
+            if ($routeCode >= 3000 && $routeCode < 4999) {
+                $resultArray[$value['startDay']]['IWTrunking'] ++;
             }
         }
         //google decode
         $textData = '["Day","Store","HDC","Trunks",{ role: "annotation" }],';
-         foreach ($resultArray as $key=>$value) {
-            $textData =  $textData. ('["'. substr($key,0,3) .'",'. $value['Stores'].','. $value['HDC']. ','. $value['IWTrunking'].',""]') . ',' ;
+        foreach ($resultArray as $key => $value) {
+            $textData = $textData . ('["' . substr($key, 0, 3) . '",' . $value['Stores'] . ',' . $value['HDC'] . ',' . $value['IWTrunking'] . ',""]') . ',';
         }
         $textData = rtrim($textData, ',');
 //       \Doctrine\Common\Util\Debug::dump($textData);
@@ -253,10 +255,10 @@ class PDFReports {
 
     public function tractorsRuns() {
         $site = array_fill_keys(array('Devizes', 'Cardiff', 'Belshill', 'Midlands', 'Wakefield'), 0);
-        $resultArray=array();
-        $storeRun="";
-        $hdcRun="";
-        $trunkRun="";    
+        $resultArray = array();
+        $storeRun = "";
+        $hdcRun = "";
+        $trunkRun = "";
         $query = $this->em
                 ->createQuery("SELECT DISTINCT p.routeNo, p.depotId, dayname(p.startTime) as startDay "
                         . "FROM NTPBundle:ParagonData p WHERE p.tripNo=1 AND p.callTripPosition=1 AND p.startTime BETWEEN :startDate AND :endDate AND p.customerName<>'SHUNTSAL' AND p.customerName<>'NORHDCSHUNT' "
@@ -265,21 +267,54 @@ class PDFReports {
                 ->setParameter('endDate', $this->endDate->format('Y-m-d H:i:s'));
         $result = $query->getResult();
         //site specific counts
-        foreach($result as $key=>$value){
-            $routeCode= (int)substr($value['routeNo'], -6,4);
-            if($routeCode<1000){
+        foreach ($result as $key => $value) {
+            $routeCode = (int) substr($value['routeNo'], -6, 4);
+            if ($routeCode < 1000) {
                 $storeRun++;
             }
-            if($routeCode>=1000 && $routeCode<1999){
+            if ($routeCode >= 1000 && $routeCode < 1999) {
                 $hdcRun++;
             }
-            if($routeCode>=3000 && $routeCode<4999){
+            if ($routeCode >= 3000 && $routeCode < 4999) {
                 $trunkRun++;
             }
         }
-        
-        $textData = '["Site","Runs"],'.'["Store delivery",'.$storeRun.'],["HDC trunking",'.$hdcRun.'],["Wickes trunking",'.$trunkRun.']';
-        
+
+        $textData = '["Site","Runs"],' . '["Store delivery",' . $storeRun . '],["HDC trunking",' . $hdcRun . '],["Wickes trunking",' . $trunkRun . ']';
+
+
+        return $textData;
+    }
+
+    public function weight() {
+        $query = $this->em
+                ->createQuery("SELECT dayname(p.startTime) AS planDay,ROUND(SUM(p.measure1)/1000) AS weight "
+                        . "FROM NTPBundle:ParagonData p WHERE p.planDate BETWEEN :startDate AND :endDate AND p.ndata5<>0 GROUP BY p.planDate")
+                ->setParameter('startDate', $this->startDate->format('Y-m-d'))
+                ->setParameter('endDate', $this->endDate->format('Y-m-d'));
+        $result = array_reverse($query->getResult());
+        $conversionBar = '';
+        foreach ($result as $row) {
+            $conversionBar = ('["' . implode('",', $row) . ',"blue"]') . ',' . $conversionBar;
+        }
+
+        $textData['weight'] = '[["Element", "Density", { role: "style" } ],' . substr($conversionBar, 0, -1) . ']';
+        return $textData;
+    }
+    
+    public function cases() {
+        $query = $this->em
+                ->createQuery("SELECT dayname(p.startTime) AS planDay,Round(SUM(p.ndata1)/1000) AS cases "
+                        . "FROM NTPBundle:ParagonData p WHERE p.planDate BETWEEN :startDate AND :endDate AND p.ndata5<>0 GROUP BY p.planDate")
+                ->setParameter('startDate', $this->startDate->format('Y-m-d'))
+                ->setParameter('endDate', $this->endDate->format('Y-m-d'));
+        $result = array_reverse($query->getResult());
+        $conversionBar = '';
+        foreach ($result as $row) {
+            $conversionBar = ('["' . implode('",', $row) . ',"blue"]') . ',' . $conversionBar;
+        }
+
+        $textData['cases'] = '[["Element", "Density", { role: "style" } ],' . substr($conversionBar, 0, -1) . ']';
 
         return $textData;
     }

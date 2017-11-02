@@ -65,13 +65,16 @@ class PDFController extends Controller {
     }
 
     public function pdfVoluemAction() {
-        $result=array();
-        $result= $this->get('ntp.pdf_reports')->dailyVolumes();
+        
+        $dailyVolumes= $this->get('ntp.pdf_reports')->dailyVolumes();
         $resultPallet= $this->get('ntp.pdf_reports')->palletVolumes();
         $trailerFill= $this->get('ntp.pdf_reports')->trailerFill();
         $palletFill= $this->get('ntp.pdf_reports')->palletFill();
         $avgTrailerFill= $this->get('ntp.pdf_reports')->avgTrailerFill();
-        $html=$this->renderView('NTPBundle:PDFReports:volumes.html.twig', array('result'=>$result,'resultPallet'=>$resultPallet,'trailerFill'=>$trailerFill,"palletFill"=>$palletFill,"avgTrailerFill"=>$avgTrailerFill));
+        $weight= $this->get('ntp.pdf_reports')->weight();
+        $cases= $this->get('ntp.pdf_reports')->cases();
+        $dateRange= $this->get('ntp.pdf_reports')->getDate();
+        $html=$this->renderView('NTPBundle:PDFReports:volumes.html.twig', array('result'=>$dailyVolumes,'resultPallet'=>$resultPallet,'trailerFill'=>$trailerFill,"palletFill"=>$palletFill,"avgTrailerFill"=>$avgTrailerFill,"weight"=>$weight,"cases"=>$cases,"dateRange"=>$dateRange));
         return new Response($html);
     }
     

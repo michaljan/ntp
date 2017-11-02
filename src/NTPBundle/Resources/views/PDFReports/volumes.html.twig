@@ -2,48 +2,60 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row">
-            <h1>WICKES SDC VOLUME WEEKLY REPORT</h1> 
+            <h2>WICKES SDC VOLUME REPORT {{ dateRange }}</h2> 
         </div>
         <div class="row no-margins">
             <hr>
-            <div class="col-xs-4" style="border: 1px solid black" >
-                <div class="removemargin" id="columnchart_values" align="left" style="width: 450px; height: 250px;"></div>
+            <div class="col-xs-3" style="border: 1px solid black" >
+                <div class="removemargin" id="columnchart_values" align="left" style="width: 330px; height: 250px;"></div>
                 <br/>
                 <p align="center">Total of daily store volumes represented in cubic meters</p> 
 
-                <br/>
+               
             </div>
-            <div class="col-xs-4" style="border: 1px solid black">
-                <div id="columnchart_pallet" style="width: 450px; height: 250px;"></div>
+            <div class="col-xs-3" style="border: 1px solid black">
+                <div id="columnchart_pallet" style="width: 330px; height: 250px;"></div>
                 <br/>
                 <p align="center">Calculated pallet footprint by cube cruncher by day</p> 
-                <br/>
+               
             </div>
-            <div class="col-xs-4" style="border: 1px solid black" class="removemargin">
-                <div id="palletFill" style="width: 450px; height: 250px;" class="removemargin"></div>
+            <div class="col-xs-3" style="border: 1px solid black" class="removemargin">
+                <div id="palletFill" style="width: 330px; height: 250px;" class="removemargin"></div>
                 <br/>
                 <p align="center">Calculated pallet fill based on pallet footprint and daily cubic meters</p>
+               
+            </div>
+            <div class="col-xs-3" style="border: 1px solid black" class="removemargin">
+                <div id="weight" style="width: 330px; height: 250px;" class="removemargin"></div>
                 <br/>
+                <p align="center">Cumulated weight based on DCS file in tones</p>
+                
+               
             </div>
 
         </div>
         <div class="row">
 
 
-            <div class="col-xs-4" style="border: 1px solid black">
+            <div class="col-xs-3" style="border: 1px solid black">
 
-                <div id="piechart" style="width: 450px; height: 250px;"></div>
-                <br/>
+                <div id="piechart" style="width: 330px; height: 250px;"></div>
+            
                 <p align="center">Precentage volume allocation by weekday</p> 
             </div>
-            <div class="col-xs-4" style="border: 1px solid black">
-                <div id="columnchart_trailer" style="width: 450px; height: 250px;"></div>
-                <br/>
+            <div class="col-xs-3" style="border: 1px solid black">
+                <div id="columnchart_trailer" style="width: 330px; height: 250px;"></div>
+              
                 <p align="center">Trailer pallet fill based on 58 pallets per vehicle</p>
             </div>
-            <div class="col-xs-4" style="border: 1px solid black" class="removemargin">
-                <div id="avgTrailerFill" style="width: 450px; height: 250px;" class="removemargin"></div>
+            <div class="col-xs-3" style="border: 1px solid black" class="removemargin">
+                <div id="avgTrailerFill" style="width: 330px; height: 250px;" class="removemargin"></div>
                 <p align="center">Average pallet footprint trailer fill based on cube cruncher caluclation</p>
+            </div>
+            <div class="col-xs-3" style="border: 1px solid black" class="removemargin">
+                <div id="cases" style="width: 330px; height: 250px;" class="removemargin"></div>
+                <p align="center">Total case quantity based on DCS file in thousands</p>
+          
             </div>
         </div>
 
@@ -66,6 +78,8 @@
             drawColumnTrailer();
             drawPalletFill();
             drawavgTrailerFill();
+            drawWeight();
+            drawCases();
         }
         // Callback that creates and populates a data table,
         // instantiates the pie chart, passes in the data and
@@ -83,7 +97,7 @@
 
             var options = {
                 title: "Daily cubic meter ",
-                chartArea: {left: 40, top: 30, width: 300, height: 180},
+                chartArea: {left: 35, top: 30, width: 220, height: 180},
                 backgroundColor: {fill: 'transparent'},
                 bar: {groupWidth: "90%"},
                 legend: {position: "none"},
@@ -99,8 +113,9 @@
                 title: 'Week volume allocation in %',
                 is3D: true,
                 backgroundColor: {fill: 'transparent'},
-                chartArea: {left: 60, top: 60, width: 300, height: 180},
-                pieSliceTextStyle: {fontSize: 10, },
+                chartArea: {left: 10, top: 50, width: 230, height: 190},
+                pieSliceTextStyle: {fontSize: 9, },
+                legend:{textStyle:{fontSize:'9'}},
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -118,7 +133,7 @@
 
             var options = {
                 title: "Pallet footprint ",
-                chartArea: {left: 40, top: 30, width: 300, height: 180},
+                chartArea: {left: 35, top: 30, width: 210, height: 180},
                 backgroundColor: {fill: 'transparent'},
                 bar: {groupWidth: "90%"},
                 legend: {position: "none"},
@@ -138,11 +153,14 @@
 
             var options = {
                 title: "Trailer % fill based on 58 pallets footprint ",
-                chartArea: {left: 40, top: 30, width: 300, height: 180},
+                chartArea: {left: 35, top: 30, width: 210, height: 180},
                 backgroundColor: {fill: 'transparent'},
                 bar: {groupWidth: "90%"},
                 legend: {position: "none"},
-                vAxis: {format: "percent"},
+                vAxis: {format: "percent",
+                    minValue: 0.6
+                },
+                
             };
             var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_trailer"));
             chart.draw(view, options);
@@ -160,7 +178,7 @@
 
             var options = {
                 title: "Pallet fill in cubic meter ",
-                chartArea: {left: 40, top: 30, width: 300, height: 180},
+                chartArea: {left: 35, top: 30, width: 210, height: 180},
                 bar: {groupWidth: "90%"},
                 backgroundColor: {fill: 'transparent'},
                 legend: {position: "none"},
@@ -184,7 +202,7 @@
 
             var options = {
                 title: "Avarage pallet fill per trailer ",
-                chartArea: {left: 40, top: 30, width: 300, height: 180},
+                chartArea: {left: 35, top: 30, width: 210, height: 180},
                 backgroundColor: {fill: 'transparent'},
                 bar: {groupWidth: "90%"},
                 legend: {position: "none"},
@@ -193,6 +211,51 @@
             var chart = new google.visualization.ColumnChart(document.getElementById("avgTrailerFill"));
             chart.draw(view, options);
         }
+        
+        function drawWeight() {
+            var data = google.visualization.arrayToDataTable({{ weight.weight | raw }});
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"},
+                2]);
+
+            var options = {
+                title: "Weight sum in tones",
+                chartArea: {left: 35, top: 30, width: 210, height: 180},
+                backgroundColor: {fill: 'transparent'},
+                bar: {groupWidth: "90%"},
+                legend: {position: "none"},
+                
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("weight"));
+            chart.draw(view, options);
+        }
+        
+        function drawCases() {
+            var data = google.visualization.arrayToDataTable({{ cases.cases | raw }});
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"},
+                2]);
+
+            var options = {
+                title: "Case count x1000",
+                chartArea: {left: 35, top: 30, width: 210, height: 180},
+                backgroundColor: {fill: 'transparent'},
+                bar: {groupWidth: "90%"},
+                legend: {position: "none"},
+                
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("cases"));
+            chart.draw(view, options);
+        }
+
 
 
 
