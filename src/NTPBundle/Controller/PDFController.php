@@ -54,7 +54,41 @@ class PDFController extends Controller {
         return $data;
     }
     
+     /*
+     * Monthly volume report
+     * 
+     * @return $data array for mailer
+     */
+    
+    
+    
+    
+    public function pdfMonthlyVolumePrepare(){
+        $name='planned_weekly_volume_';
+        $mailerData=$this->mailerData(1);
+        if($mailerData->getActive()==0){
+            return null;
+        }
+        $html=$this->pdfMonthlyVolumeAction();
+        $attachmentPath=$this->returnPDF($html,$name);
+        $data=$this->allocateData($mailerData,$attachmentPath);
+        return $data;
         
+    }
+    
+    /**
+     * Matches /html exactly
+     *
+     * @Route("/html", name="html_test")
+     */
+
+     public function pdfMonthlyVolumeAction() {
+         $monthlyVolume=$this->get('monthlypdfreports')->monthlyVolume();
+         $html=$this->renderView('NTPBundle:PDFReports:monthlyVolume.html.twig', array('monthlyVolume'=>$monthlyVolume));
+         return new Response($html);
+     }
+
+    
 
     public function pdfTractorUsageAction() {
         $tractorUsageWeekly= $this->get('ntp.pdf_reports')->tractorUsageWeekly();

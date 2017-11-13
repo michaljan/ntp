@@ -10,3 +10,8 @@ services:
     wickesparagonreports:
         class: NTPBundle\Reports\WickesParagonReports
         arguments: [ '@doctrine.orm.entity_manager' ]
+           
+    monthlypdfreports:
+        class: NTPBundle\Reports\MonthlyPDFReports
+        arguments: [ '@doctrine.orm.entity_manager' ]
+        
