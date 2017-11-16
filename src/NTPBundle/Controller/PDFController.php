@@ -83,8 +83,9 @@ class PDFController extends Controller {
      */
 
      public function pdfMonthlyVolumeAction() {
-         $monthlyVolume=$this->get('monthlypdfreports')->monthlyVolume();
-         $html=$this->renderView('NTPBundle:PDFReports:monthlyVolume.html.twig', array('monthlyVolume'=>$monthlyVolume));
+         $monthlyCombined=$this->get('monthlypdfreports')->monthlyCombined();
+  
+         $html=$this->renderView('NTPBundle:PDFReports:monthlyVolume.html.twig', array('monthlyCombined'=>$monthlyCombined));
          return new Response($html);
      }
 

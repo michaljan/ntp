@@ -3,12 +3,12 @@
 namespace NTPBundle\Reports;
 
 use Doctrine\ORM\EntityManager;
+use NTPBundle\GoogleAPI\GoogleChartFormatter;
 
 class MonthlyPDFReports {
 
     private $em;
-    private $endPeriod;
-    private $currentDate;
+
 
     public function __construct(EntityManager $em) {
         $this->em = $em;
@@ -16,14 +16,20 @@ class MonthlyPDFReports {
         $this->startDate->sub(new \DateInterval('P12M'));
     }
 
-    public function monthlyVolume() {
+    public function monthlyCombined() {
+        $formatter = new GoogleChartFormatter;
         $query = $this->em
-                ->createQuery("SELECT dayname(p.startTime) AS planDay, SUM(ROUND(p.ndata5/1000)) AS volume "
-                        . "FROM NTPBundle:ParagonData p WHERE p.planDate >= :startDate AND p.ndata5<>0 GROUP BY p.weekNumber")
+                ->createQuery("SELECT Month(p.planDate) as month, SUM(ROUND(p.ndata5/1000)) AS volume, SUM(ROUND(p.measure1/1000)) AS weight, sum(ROUND(p.ndata1/1000)) as cases "
+                        . "FROM NTPBundle:ParagonData p WHERE p.planDate >= :startDate AND p.ndata5<>0 "
+                        . "GROUP BY month "
+                        . "ORDER BY p.planDate")
                 ->setParameter('startDate', $this->startDate->format('Y-m-d'));
-        $result = array_reverse($query->getResult());
-        
+        $data = array_reverse($query->getResult());
+        $header ='[{label:"Month"},' . '{label:"Volume in tousands m3"},'. '{label:"Weight in tones"},' . '{label:"Cases qunatity"}],';
+        $result = $formatter->multipleLineChart($data,$header);
         return $result;
     }
+
+
 
 }

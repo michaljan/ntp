@@ -1,4 +1,72 @@
 {% extends 'NTPBundle::pdfBase.html.twig' %}
 {% block body %}
-    {{ monthlyVolume }}
+
+    <div class="container-fluid">
+        <div class="row">
+            <h3>LAST 12 MONTHS VOLUME REPORT</h3>
+        </div>
+
+        <hr>
+        <div class="row">
+            <div class="col-xs-12" style="border: 1px solid black" >
+                <div id="monthlyCombinedChart" align="left" style="width: 1000px; height: 300px;"></div>
+            </div>
+            {{ monthlyCombined | raw }}
+        </div>
+
+    </div>
+
 {% endblock body %}
+{% block headblock %}
+    <script>
+        // Load the Visualization API and the corechart package.
+        function init() {
+            google.load("visualization", "1.1", {packages: ["corechart"], callback: 'drawCharts'});
+        }
+
+        function drawCharts() {
+            // Set a callback to run when the Google Visualization API is loaded.
+            drawCombined();
+          
+
+
+        }
+
+        function drawCombined() {
+        var data = google.visualization.arrayToDataTable([ {{ monthlyCombined | raw }}]);
+        var view = new google.visualization.DataView(data);
+              view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation"},
+                       2,
+                        { calc: "stringify",
+                         sourceColumn: 2,
+                         type: "string",
+                         role: "annotation" },
+                        3,
+                        { calc: "stringify",
+                         sourceColumn: 3,
+                         type: "string",
+                         role: "annotation" },
+                        
+                        ]);
+                var options = {
+                title: "Volumes chart ",
+                chartArea: {left: 35, top: 30, width: 1000, height: 200},
+                backgroundColor: {fill: 'transparent'},
+                legend: {position: "bottom"},
+                vAxis: {format: "short"},
+                
+            };
+
+        var chart = new google.visualization.LineChart(document.getElementById('monthlyCombinedChart'));
+        chart.draw(view, options);
+   
+ 
+
+     }
+
+    </script>
+{% endblock headblock %}

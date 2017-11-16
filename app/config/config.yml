@@ -73,6 +73,9 @@ doctrine:
                 dayname: DoctrineExtensions\Query\Mysql\DayName
                 DATE_FORMAT: DoctrineExtensions\Query\Mysql\DateFormat
                 round: DoctrineExtensions\Query\Mysql\Round
+                month: DoctrineExtensions\Query\Mysql\Month
+     
+                
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
